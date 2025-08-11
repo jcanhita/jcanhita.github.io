@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hikari Draw – Support</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+      color: #111;
+    }
+    h2 {
+      font-size: 1.6rem;
+      margin-top: 2rem;
+      color: #222;
+    }
+    p {
+      max-width: 700px;
+    }
+    ul {
+      padding-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="content"></div>
+  <script>
+    const translations = {"en": {"title": "Hikari Draw", "heading": "Support Center", "p1": "If you have questions, need help with the app, or want to report an issue — we’re here for you.", "p2": "Don’t hesitate to reach out — your feedback helps improve Hikari Draw for everyone.", "email": "Email", "copyright": "All rights reserved."}, "fr": {"title": "Hikari Draw", "heading": "Centre d'assistance", "p1": "Si vous avez des questions, besoin d’aide avec l’application ou souhaitez signaler un problème — nous sommes là pour vous.", "p2": "N’hésitez pas à nous contacter — vos retours nous aident à améliorer Hikari Draw pour tous les utilisateurs.", "email": "Email", "copyright": "Tous droits réservés."}, "pt": {"title": "Hikari Draw", "heading": "Central de Suporte", "p1": "Se você tiver dúvidas, precisar de ajuda com o aplicativo ou quiser relatar um problema — estamos aqui para ajudar.", "p2": "Não hesite em nos contatar — seu feedback ajuda a melhorar o Hikari Draw para todos.", "email": "Email", "copyright": "Todos os direitos reservados."}, "es": {"title": "Hikari Draw", "heading": "Centro de Soporte", "p1": "Si tienes preguntas, necesitas ayuda con la aplicación o quieres reportar un problema — estamos aquí para ayudarte.", "p2": "No dudes en comunicarte — tus comentarios ayudan a mejorar Hikari Draw para todos.", "email": "Correo electrónico", "copyright": "Todos los derechos reservados."}, "zh": {"title": "Hikari Draw", "heading": "支援中心", "p1": "如果您有任何疑問、需要應用程式協助或想反映問題，我們樂意為您提供協助。", "p2": "請隨時聯絡我們——您的意見將有助於我們改進 Hikari Draw，為所有使用者提供更好的體驗。", "email": "電子郵件", "copyright": "保留所有權利。"}};
+    const fallbacks = {"ar": "en", "ca": "en", "cs": "en", "da": "en", "de": "en", "el": "en", "en": "en", "es": "es", "es-mx": "es", "fi": "en", "fr": "fr", "fr-ca": "fr", "he": "en", "hi": "en", "hr": "en", "hu": "en", "id": "en", "it": "en", "ja": "en", "ko": "en", "ms": "en", "nl": "en", "no": "en", "pl": "en", "pt": "pt", "pt-br": "pt", "pt-pt": "pt", "ro": "en", "ru": "en", "sk": "en", "sv": "en", "th": "en", "tr": "en", "uk": "en", "vi": "en", "zh-hans": "zh", "zh-hant": "zh"};
+
+    function getTranslation(lang) {
+      lang = lang.toLowerCase();
+      const base = fallbacks[lang] || 'en';
+      return translations[base] || translations['en'];
+    }
+
+    const userLang = navigator.language || 'en';
+    const t = getTranslation(userLang);
+
+    document.title = t.title;
+    document.getElementById('content').innerHTML = `
+      <h1>${t.title}</h1>
+      <h2>${t.heading}</h2>
+      <p>${t.p1}</p>
+      <p>${t.p2}</p>
+      <ul>
+        <li><strong>${t.email}:</strong> <a href="mailto:jcanhita.apps@gmail.com">jcanhita.apps@gmail.com</a></li>
+      </ul>
+      <div class="footer">&copy; 2025 Hikari Draw. ${t.copyright}</div>
+    `;
+  </script>
+</body>
+</html>
