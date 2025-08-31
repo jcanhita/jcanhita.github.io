@@ -86,19 +86,20 @@
       <hr/>
 
       <section>
-        <h2 id="sectionNoData">We Collect No Data</h2>
-        <p id="pNoData1"></p>
-        <ul id="listNoData"></ul>
-        <p id="pNoData2"></p>
+        <h2 id="sectionDataCollection">Data Collection</h2>
+        <p id="pData1"></p>
+        <p id="pData2"></p>
+        <ul id="listData"></ul>
+        <p id="pData3"></p>
       </section>
 
       <section>
-        <h2 id="sectionPermissions">Device Permissions</h2>
-        <p id="pPermissions"></p>
+        <h2 id="sectionSecurity">Data Security</h2>
+        <p id="pSecurity"></p>
       </section>
 
       <section>
-        <h2 id="sectionChanges">Changes to This Policy</h2>
+        <h2 id="sectionChanges">Changes to This Privacy Policy</h2>
         <p id="pChanges1"></p>
         <p id="pChanges2"></p>
       </section>
@@ -114,84 +115,217 @@
   </div>
 
 <script>
-/* ===== CONFIG (edit for reuse) ===== */
+/* ===== CONFIG ===== */
 const CONFIG = {
-  appName: "Hikari Draw",                       // e.g. "Hikari Draw"
-  effectiveDateISO: "2025-09-01",              // YYYY-MM-DD
+  appName: "Hikari Draw",
+  effectiveDateISO: "2025-09-01",   // YYYY-MM-DD
   contactEmail: "jcanhita.apps@gmail.com",
-  copyrightOwner: "Joao Canhita"                 // footer owner
+  copyrightOwner: "Joao Canhita"
 };
 
-/* ===== Translations for a strict “no data collected” policy ===== */
+/* ===== Translations (No data collected) ===== */
 const T = {
+  /* English */
   "en": {
     title: "Privacy Policy",
     effectiveDatePrefix: "Effective date",
-    sectionNoData: "We Collect No Data",
-    sectionPermissions: "Device Permissions",
-    sectionChanges: "Changes to This Policy",
+    sectionDataCollection: "Data Collection",
+    sectionSecurity: "Data Security",
+    sectionChanges: "Changes to This Privacy Policy",
     sectionContact: "Contact Us",
-    noData1: `${CONFIG.appName} does not collect, use, store, share, or sell any personal data or usage data.`,
-    noDataList: [
-      "No account required",
-      "No analytics or tracking",
-      "No crash reporting sent off-device",
-      "No ads or third-party SDKs collecting data",
-      "No cookies or web beacons"
-    ],
-    noData2: "All functionality operates on-device only. Nothing leaves your device to our servers.",
-    permissions: "If the app requests system permissions (e.g., Camera for mirror preview), they are used solely to provide that feature locally. Images and camera frames are not transmitted to us.",
-    changes1: "We may update this policy from time to time. When we do, we will update the Effective Date shown above.",
-    changes2: "You are encouraged to review this page periodically for any changes.",
+    data1: `${CONFIG.appName} does not collect, use, or store any data — including personal data and usage analytics.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Because we do not collect or store any data, there is no personally identifiable or usage information to secure.",
+    changes1: "We may update this Privacy Policy if our practices change. If that happens, we will update the Effective Date above.",
+    changes2: "Please review this page periodically to stay informed.",
     contact: "If you have questions about this Privacy Policy, please contact us:",
     contactBullets: { emailLabel: "Email" },
     footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. All rights reserved.`,
     langLabel: "Language:"
   },
 
+  /* Arabic */
   "ar": {
     title: "سياسة الخصوصية",
     effectiveDatePrefix: "تاريخ السريان",
-    sectionNoData: "لا نجمع أي بيانات",
-    sectionPermissions: "أذونات الجهاز",
-    sectionChanges: "التغييرات على هذه السياسة",
+    sectionDataCollection: "جمع البيانات",
+    sectionSecurity: "أمان البيانات",
+    sectionChanges: "التغييرات على سياسة الخصوصية",
     sectionContact: "اتصل بنا",
-    noData1: `${CONFIG.appName} لا يجمع أو يستخدم أو يخزّن أو يشارك أو يبيع أي بيانات شخصية أو بيانات استخدام.`,
-    noDataList: [
-      "لا حاجة إلى حساب",
-      "لا تحليلات ولا تتبّع",
-      "لا تقارير أعطال تُرسل خارج الجهاز",
-      "لا إعلانات أو حِزم طرف ثالث تجمع بيانات",
-      "لا ملفات تعريف ارتباط أو إشارات ويب"
-    ],
-    noData2: "تعمل جميع الميزات محليًا على جهازك ولا تُرسل أي بيانات إلى خوادمنا.",
-    permissions: "إذا طلب التطبيق أذونات للنظام (مثل الكاميرا لعرض المرآة)، فهي تُستخدم فقط لتوفير هذه الميزة محليًا. لا تُرسل الصور أو إطارات الكاميرا إلينا.",
-    changes1: "قد نقوم بتحديث هذه السياسة من حين لآخر مع تحديث تاريخ السريان أعلاه.",
-    changes2: "ننصحك بمراجعة هذه الصفحة دوريًا.",
-    contact: "لأي استفسارات بخصوص سياسة الخصوصية هذه، يُرجى التواصل معنا:",
+    data1: `${CONFIG.appName} لا يجمع أو يستخدم أو يخزّن أي بيانات على الإطلاق — بما في ذلك البيانات الشخصية أو تحليلات الاستخدام.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "لأننا لا نجمع أو نخزن أي بيانات، فلا توجد معلومات شخصية أو بيانات استخدام لحمايتها.",
+    changes1: "قد نحدّث هذه السياسة إذا تغيّرت ممارساتنا. سنقوم عندها بتحديث تاريخ السريان أعلاه.",
+    changes2: "نوصي بمراجعة هذه الصفحة دورياً.",
+    contact: "إذا كانت لديك أسئلة بخصوص سياسة الخصوصية هذه، يُرجى التواصل معنا:",
     contactBullets: { emailLabel: "البريد الإلكتروني" },
     footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. جميع الحقوق محفوظة.`,
     langLabel: "اللغة:"
   },
 
+  /* Catalan */
+  "ca": {
+    title: "Política de privacitat",
+    effectiveDatePrefix: "Data d'entrada en vigor",
+    sectionDataCollection: "Recollida de dades",
+    sectionSecurity: "Seguretat de les dades",
+    sectionChanges: "Canvis en aquesta política de privacitat",
+    sectionContact: "Contacte",
+    data1: `${CONFIG.appName} no recopila, utilitza ni emmagatzema cap dada — incloses dades personals o analítiques d'ús.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Com que no recopilem ni emmagatzemem dades, no hi ha informació personal ni d'ús per protegir.",
+    changes1: "Podem actualitzar aquesta política si canvien les nostres pràctiques; actualitzarem la data indicada.",
+    changes2: "Et recomanem revisar aquesta pàgina periòdicament.",
+    contact: "Per a preguntes sobre aquesta política, contacta'ns:",
+    contactBullets: { emailLabel: "Correu electrònic" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tots els drets reservats.`,
+    langLabel: "Idioma:"
+  },
+
+  /* Chinese (Simplified/Traditional) */
+  "zh-Hans": {
+    title: "隐私政策",
+    effectiveDatePrefix: "生效日期",
+    sectionDataCollection: "数据收集",
+    sectionSecurity: "数据安全",
+    sectionChanges: "本隐私政策的变更",
+    sectionContact: "联系我们",
+    data1: `${CONFIG.appName} 不收集、使用或存储任何数据——包括个人数据和使用分析。`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "由于我们不收集或存储任何数据，因此无个人或使用信息需要保护。",
+    changes1: "若我们的做法发生变化，我们可能更新本政策，并相应更新上方“生效日期”。",
+    changes2: "建议您定期查看此页面以了解最新情况。",
+    contact: "如有任何疑问，请联系我们：",
+    contactBullets: { emailLabel: "电子邮箱" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}。保留所有权利。`,
+    langLabel: "语言："
+  },
+  "zh-Hant": {
+    title: "隱私權政策",
+    effectiveDatePrefix: "生效日期",
+    sectionDataCollection: "資料蒐集",
+    sectionSecurity: "資料安全",
+    sectionChanges: "本隱私權政策之變更",
+    sectionContact: "聯絡我們",
+    data1: `${CONFIG.appName} 不會收集、使用或儲存任何資料——包括個人資料與使用分析。`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "由於我們不收集或儲存任何資料，因此無需保護個人或使用資訊。",
+    changes1: "若實務有所調整，我們將更新本政策並同步更新上方生效日期。",
+    changes2: "建議您定期查看此頁面以了解最新變更。",
+    contact: "如有疑問，請聯絡我們：",
+    contactBullets: { emailLabel: "電子郵件" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}。保留所有權利。`,
+    langLabel: "語言："
+  },
+
+  /* Czech */
+  "cs": {
+    title: "Zásady ochrany osobních údajů",
+    effectiveDatePrefix: "Datum účinnosti",
+    sectionDataCollection: "Shromažďování údajů",
+    sectionSecurity: "Zabezpečení údajů",
+    sectionChanges: "Změny těchto zásad",
+    sectionContact: "Kontaktujte nás",
+    data1: `${CONFIG.appName} neshromažďuje, nepoužívá ani neukládá žádná data — včetně osobních údajů či analytiky používání.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Protože neshromažďujeme ani neukládáme data, není co zabezpečovat z hlediska osobních údajů či údajů o používání.",
+    changes1: "Pokud se naše praxe změní, můžeme tyto zásady aktualizovat a upravit datum účinnosti.",
+    changes2: "Doporučujeme tuto stránku pravidelně kontrolovat.",
+    contact: "V případě dotazů nás kontaktujte:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Všechna práva vyhrazena.`,
+    langLabel: "Jazyk:"
+  },
+
+  /* Danish */
+  "da": {
+    title: "Privatlivspolitik",
+    effectiveDatePrefix: "Ikrafttrædelsesdato",
+    sectionDataCollection: "Indsamling af data",
+    sectionSecurity: "Datasikkerhed",
+    sectionChanges: "Ændringer i denne privatlivspolitik",
+    sectionContact: "Kontakt os",
+    data1: `${CONFIG.appName} indsamler, bruger eller gemmer ingen data — herunder persondata og brugsanalyse.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Da vi ikke indsamler eller lagrer data, findes der ingen person- eller brugsoplysninger at sikre.",
+    changes1: "Hvis vores praksis ændres, kan vi opdatere denne politik og datoen ovenfor.",
+    changes2: "Gennemgå venligst siden regelmæssigt.",
+    contact: "Har du spørgsmål? Kontakt os:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alle rettigheder forbeholdes.`,
+    langLabel: "Sprog:"
+  },
+
+  /* Dutch */
+  "nl": {
+    title: "Privacybeleid",
+    effectiveDatePrefix: "Ingangsdatum",
+    sectionDataCollection: "Gegevensverzameling",
+    sectionSecurity: "Gegevensbeveiliging",
+    sectionChanges: "Wijzigingen in dit beleid",
+    sectionContact: "Contact",
+    data1: `${CONFIG.appName} verzamelt, gebruikt of bewaart geen gegevens — inclusief persoonsgegevens en gebruiksanalyses.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Omdat we geen gegevens verzamelen of opslaan, is er geen persoonlijke of gebruiksinformatie om te beveiligen.",
+    changes1: "Als onze werkwijze verandert, werken we dit beleid en de ingangsdatum bij.",
+    changes2: "Controleer deze pagina regelmatig.",
+    contact: "Vragen? Neem contact met ons op:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alle rechten voorbehouden.`,
+    langLabel: "Taal:"
+  },
+
+  /* Finnish */
+  "fi": {
+    title: "Tietosuojakäytäntö",
+    effectiveDatePrefix: "Voimaantulopäivä",
+    sectionDataCollection: "Tietojen kerääminen",
+    sectionSecurity: "Tietoturva",
+    sectionChanges: "Tämän käytännön muutokset",
+    sectionContact: "Ota yhteyttä",
+    data1: `${CONFIG.appName} ei kerää, käytä tai tallenna mitään tietoja — ei henkilötietoja eikä käyttötietojen analytiikkaa.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Koska emme kerää tai tallenna tietoja, ei ole suojattavia henkilö- tai käyttötietoja.",
+    changes1: "Jos käytäntömme muuttuu, päivitämme tämän sivun ja voimaantulopäivän.",
+    changes2: "Tarkista tämä sivu säännöllisesti.",
+    contact: "Kysyttävää? Ota yhteyttä:",
+    contactBullets: { emailLabel: "Sähköposti" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Kaikki oikeudet pidätetään.`,
+    langLabel: "Kieli:"
+  },
+
+  /* French (+ CA fallback) */
   "fr": {
     title: "Politique de confidentialité",
     effectiveDatePrefix: "Date d’entrée en vigueur",
-    sectionNoData: "Nous ne collectons aucune donnée",
-    sectionPermissions: "Autorisations de l’appareil",
+    sectionDataCollection: "Collecte des données",
+    sectionSecurity: "Sécurité des données",
     sectionChanges: "Modifications de cette politique",
     sectionContact: "Contactez-nous",
-    noData1: `${CONFIG.appName} ne collecte, n’utilise, ne stocke, ne partage ni ne vend aucune donnée personnelle ni donnée d’usage.`,
-    noDataList: [
-      "Aucun compte requis",
-      "Aucune analytique ni suivi",
-      "Aucun rapport de crash envoyé hors de l’appareil",
-      "Pas de publicités ni de SDK tiers collectant des données",
-      "Pas de cookies ni balises web"
-    ],
-    noData2: "Toutes les fonctions opèrent uniquement sur l’appareil. Rien n’est envoyé à nos serveurs.",
-    permissions: "Si l’app demande des autorisations système (ex. Appareil photo pour l’effet miroir), elles servent uniquement à fournir la fonctionnalité localement. Les images/flux caméra ne sont pas transmis.",
-    changes1: "Cette politique peut être mise à jour ; la date d’entrée en vigueur sera ajustée.",
+    data1: `${CONFIG.appName} ne collecte, n’utilise ni ne conserve aucune donnée — y compris les données personnelles et les analyses d’usage.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Puisque nous ne collectons ni ne stockons de données, il n’y a aucune information personnelle ou d’usage à sécuriser.",
+    changes1: "Si nos pratiques évoluent, nous mettrons à jour cette politique et la date ci-dessus.",
     changes2: "Nous vous recommandons de consulter régulièrement cette page.",
     contact: "Pour toute question, contactez-nous :",
     contactBullets: { emailLabel: "E-mail" },
@@ -199,201 +333,62 @@ const T = {
     langLabel: "Langue :"
   },
 
-  "pt-PT": {
-    title: "Política de Privacidade",
-    effectiveDatePrefix: "Data de entrada em vigor",
-    sectionNoData: "Não recolhemos quaisquer dados",
-    sectionPermissions: "Permissões do dispositivo",
-    sectionChanges: "Alterações a esta política",
-    sectionContact: "Contacte-nos",
-    noData1: `A ${CONFIG.appName} não recolhe, utiliza, armazena, partilha nem vende quaisquer dados pessoais ou de utilização.`,
-    noDataList: [
-      "Sem conta necessária",
-      "Sem análises ou rastreamento",
-      "Sem relatórios de falhas enviados para fora do dispositivo",
-      "Sem anúncios ou SDKs de terceiros que recolham dados",
-      "Sem cookies ou web beacons"
-    ],
-    noData2: "Todas as funcionalidades operam apenas no dispositivo. Nada é enviado para os nossos servidores.",
-    permissions: "Se a app pedir permissões do sistema (ex.: Câmara para a vista espelho), são usadas apenas para essa função localmente. Imagens e frames não são transmitidos.",
-    changes1: "Esta política pode ser atualizada; a data de vigor será ajustada.",
-    changes2: "Recomendamos rever esta página regularmente.",
-    contact: "Questões? Contacte-nos:",
-    contactBullets: { emailLabel: "Email" },
-    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Todos os direitos reservados.`,
-    langLabel: "Idioma:"
-  },
-
-  "pt-BR": {},
-
-  "es": {
-    title: "Política de privacidad",
-    effectiveDatePrefix: "Fecha de entrada en vigor",
-    sectionNoData: "No recopilamos datos",
-    sectionPermissions: "Permisos del dispositivo",
-    sectionChanges: "Cambios en esta política",
-    sectionContact: "Contáctenos",
-    noData1: `${CONFIG.appName} no recopila, utiliza, almacena, comparte ni vende datos personales ni de uso.`,
-    noDataList: [
-      "No se requiere cuenta",
-      "Sin analíticas ni seguimiento",
-      "Sin informes de fallos enviados fuera del dispositivo",
-      "Sin anuncios ni SDKs de terceros que recolecten datos",
-      "Sin cookies ni balizas web"
-    ],
-    noData2: "Todo funciona en el dispositivo. Nada se envía a nuestros servidores.",
-    permissions: "Si la app solicita permisos del sistema (p. ej., Cámara para modo espejo), se usan solo para esa función localmente. No transmitimos imágenes ni vídeo.",
-    changes1: "Esta política puede actualizarse periódicamente; actualizaremos la fecha.",
-    changes2: "Le recomendamos revisar esta página con regularidad.",
-    contact: "Si tiene preguntas, contáctenos:",
-    contactBullets: { emailLabel: "Correo electrónico" },
-    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Todos los derechos reservados.`,
-    langLabel: "Idioma:"
-  },
-
+  /* German */
   "de": {
     title: "Datenschutzerklärung",
     effectiveDatePrefix: "Geltungsdatum",
-    sectionNoData: "Wir erheben keine Daten",
-    sectionPermissions: "Geräteberechtigungen",
-    sectionChanges: "Änderungen an dieser Richtlinie",
+    sectionDataCollection: "Datenerhebung",
+    sectionSecurity: "Datensicherheit",
+    sectionChanges: "Änderungen dieser Erklärung",
     sectionContact: "Kontakt",
-    noData1: `${CONFIG.appName} erhebt, nutzt, speichert, teilt oder verkauft keinerlei personenbezogene Daten oder Nutzungsdaten.`,
-    noDataList: [
-      "Kein Konto erforderlich",
-      "Keine Analytik oder Tracking",
-      "Keine Absturzberichte, die das Gerät verlassen",
-      "Keine Werbung oder Drittanbieter-SDKs mit Datenerhebung",
-      "Keine Cookies oder Web Beacons"
-    ],
-    noData2: "Alle Funktionen laufen ausschließlich auf dem Gerät. Es werden keine Daten an unsere Server gesendet.",
-    permissions: "Falls die App Systemberechtigungen anfordert (z. B. Kamera für die Spiegelansicht), werden sie nur lokal für diese Funktion verwendet. Bilder/Kameradaten werden nicht übertragen.",
-    changes1: "Diese Richtlinie kann gelegentlich aktualisiert werden; das Geltungsdatum wird angepasst.",
+    data1: `${CONFIG.appName} erhebt, nutzt oder speichert keinerlei Daten — einschließlich personenbezogener Daten und Nutzungsanalysen.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Da wir keine Daten erheben oder speichern, gibt es keine persönlichen oder Nutzungsinformationen zu schützen.",
+    changes1: "Sollten sich unsere Praktiken ändern, aktualisieren wir diese Erklärung und das Geltungsdatum.",
     changes2: "Bitte prüfen Sie diese Seite regelmäßig.",
-    contact: "Fragen? Kontaktieren Sie uns:",
+    contact: "Bei Fragen kontaktieren Sie uns:",
     contactBullets: { emailLabel: "E-Mail" },
     footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alle Rechte vorbehalten.`,
     langLabel: "Sprache:"
   },
 
-  "it": {
-    title: "Informativa sulla privacy",
-    effectiveDatePrefix: "Data di efficacia",
-    sectionNoData: "Non raccogliamo alcun dato",
-    sectionPermissions: "Autorizzazioni del dispositivo",
-    sectionChanges: "Modifiche alla presente informativa",
-    sectionContact: "Contattaci",
-    noData1: `${CONFIG.appName} non raccoglie, utilizza, archivia, condivide o vende dati personali o di utilizzo.`,
-    noDataList: [
-      "Nessun account richiesto",
-      "Nessuna analitica o tracciamento",
-      "Nessun report di crash inviato fuori dal dispositivo",
-      "Nessuna pubblicità o SDK di terze parti che raccolgono dati",
-      "Nessun cookie o web beacon"
-    ],
-    noData2: "Tutte le funzionalità operano solo sul dispositivo. Nessun dato viene inviato ai nostri server.",
-    permissions: "Se l’app richiede permessi di sistema (es. Fotocamera per la modalità specchio), sono usati esclusivamente in locale. Le immagini non vengono trasmesse.",
-    changes1: "Questa informativa può essere aggiornata; aggiorneremo la data di efficacia.",
-    changes2: "Ti invitiamo a consultare periodicamente questa pagina.",
-    contact: "Per domande, contattaci:",
-    contactBullets: { emailLabel: "E-mail" },
-    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tutti i diritti riservati.`,
-    langLabel: "Lingua:"
+  /* Greek */
+  "el": {
+    title: "Πολιτική Απορρήτου",
+    effectiveDatePrefix: "Ημερομηνία ισχύος",
+    sectionDataCollection: "Συλλογή δεδομένων",
+    sectionSecurity: "Ασφάλεια δεδομένων",
+    sectionChanges: "Αλλαγές στην παρούσα πολιτική",
+    sectionContact: "Επικοινωνία",
+    data1: `${CONFIG.appName} δεν συλλέγει, δεν χρησιμοποιεί και δεν αποθηκεύει κανένα δεδομένο — ούτε προσωπικά δεδομένα ούτε αναλύσεις χρήσης.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Εφόσον δεν συλλέγουμε ούτε αποθηκεύουμε δεδομένα, δεν υπάρχει προσωπική ή χρήση-σχετική πληροφορία προς προστασία.",
+    changes1: "Αν αλλάξουν οι πρακτικές μας, θα ενημερώσουμε την πολιτική και την ημερομηνία ισχύος.",
+    changes2: "Συνιστούμε τακτικό έλεγχο αυτής της σελίδας.",
+    contact: "Για απορίες, επικοινωνήστε μαζί μας:",
+    contactBullets: { emailLabel: "Email" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Με επιφύλαξη παντός δικαιώματος.`,
+    langLabel: "Γλώσσα:"
   },
 
-  "ja": {
-    title: "プライバシーポリシー",
-    effectiveDatePrefix: "施行日",
-    sectionNoData: "データは収集しません",
-    sectionPermissions: "デバイスの権限",
-    sectionChanges: "本ポリシーの変更",
-    sectionContact: "お問い合わせ",
-    noData1: `${CONFIG.appName} は、個人情報や利用データを収集・利用・保存・共有・販売しません。`,
-    noDataList: [
-      "アカウント不要",
-      "分析やトラッキングなし",
-      "クラッシュレポートの外部送信なし",
-      "データ収集を行う広告やサードパーティ SDK なし",
-      "Cookie や Web ビーコンなし"
-    ],
-    noData2: "すべての機能はデバイス上のみで動作し、当社サーバーへ送信されることはありません。",
-    permissions: "アプリがシステム権限（例：鏡表示のためのカメラ）を求める場合、その機能をローカルで提供するためだけに使用します。画像は送信されません。",
-    changes1: "本ポリシーは随時更新される場合があり、その際は施行日を変更します。",
-    changes2: "変更の有無を定期的にご確認ください。",
-    contact: "本ポリシーに関するお問い合わせは、以下までご連絡ください：",
-    contactBullets: { emailLabel: "メール" },
-    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. 無断転載を禁じます。`,
-    langLabel: "言語："
-  },
-
-  "ko": {
-    title: "개인정보 처리방침",
-    effectiveDatePrefix: "시행일",
-    sectionNoData: "데이터를 수집하지 않습니다",
-    sectionPermissions: "기기 권한",
-    sectionChanges: "본 방침의 변경",
-    sectionContact: "문의하기",
-    noData1: `${CONFIG.appName}은(는) 개인 정보 및 사용 데이터를 수집·이용·저장·공유·판매하지 않습니다.`,
-    noDataList: [
-      "계정 불필요",
-      "분석/추적 없음",
-      "기기 외부로 전송되는 크래시 리포트 없음",
-      "데이터를 수집하는 광고/서드파티 SDK 없음",
-      "쿠키 또는 웹 비콘 없음"
-    ],
-    noData2: "모든 기능은 기기 내에서만 동작하며, 당사 서버로 전송되지 않습니다.",
-    permissions: "앱이 시스템 권한(예: 거울 미리보기용 카메라)을 요청하는 경우 해당 기능을 로컬에서 제공하기 위한 용도로만 사용됩니다. 이미지/프레임은 전송되지 않습니다.",
-    changes1: "본 방침은 수시로 업데이트될 수 있으며 시행일이 갱신됩니다.",
-    changes2: "변경 사항 확인을 위해 이 페이지를 주기적으로 확인해 주세요.",
-    contact: "문의 사항은 아래로 연락해 주세요:",
-    contactBullets: { emailLabel: "이메일" },
-    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. 판권 소유.`,
-    langLabel: "언어:"
-  },
-
-  "ru": {
-    title: "Политика конфиденциальности",
-    effectiveDatePrefix: "Дата вступления в силу",
-    sectionNoData: "Мы не собираем данные",
-    sectionPermissions: "Разрешения устройства",
-    sectionChanges: "Изменения настоящей политики",
-    sectionContact: "Связаться с нами",
-    noData1: `${CONFIG.appName} не собирает, не использует, не хранит, не передает и не продает персональные или эксплуатационные данные.`,
-    noDataList: [
-      "Учетная запись не требуется",
-      "Без аналитики и трекинга",
-      "Без отправки отчетов о сбоях за пределы устройства",
-      "Нет рекламы или сторонних SDK, собирающих данные",
-      "Без cookies или веб-маяков"
-    ],
-    noData2: "Вся функциональность работает только на устройстве. Ничего не отправляется на наши серверы.",
-    permissions: "Если приложению требуются системные разрешения (например, Камера для режима «зеркало»), они используются исключительно локально. Изображения/кадры камеры не передаются нам.",
-    changes1: "Эта политика может периодически обновляться; дата вступления в силу будет изменена.",
-    changes2: "Рекомендуем периодически проверять эту страницу.",
-    contact: "По вопросам свяжитесь с нами:",
-    contactBullets: { emailLabel: "Эл. почта" },
-    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Все права защищены.`,
-    langLabel: "Язык:"
-  },
-
+  /* Hebrew */
   "he": {
     title: "מדיניות פרטיות",
     effectiveDatePrefix: "תאריך תחולה",
-    sectionNoData: "איננו אוספים נתונים",
-    sectionPermissions: "הרשאות מכשיר",
-    sectionChanges: "שינויים במדיניות",
+    sectionDataCollection: "איסוף נתונים",
+    sectionSecurity: "אבטחת נתונים",
+    sectionChanges: "שינויים במדיניות זו",
     sectionContact: "צור קשר",
-    noData1: `${CONFIG.appName} אינו אוסף, משתמש, מאחסן, משתף או מוכר מידע אישי או נתוני שימוש.`,
-    noDataList: [
-      "אין צורך בחשבון",
-      "ללא אנליטיקה או מעקב",
-      "ללא שליחת דוחות קריסה מחוץ למכשיר",
-      "אין פרסומות או ערכות צד ג' שאוספות נתונים",
-      "ללא קובצי Cookie או web beacons"
-    ],
-    noData2: "כל הפעולות נעשות מקומית על המכשיר. לא נשלח דבר לשרתי החברה.",
-    permissions: "אם האפליקציה מבקשת הרשאות (למשל מצלמה), הן משמשות רק להפעלה מקומית של הפונקציונליות. תמונות/פריימים אינם נשלחים.",
-    changes1: "ייתכנו עדכונים מעת לעת; תאריך התחולה יעודכן בהתאם.",
+    data1: `${CONFIG.appName} אינו אוסף, משתמש או שומר שום נתונים — לרבות מידע אישי או אנליטיקת שימוש.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "מכיוון שאיננו אוספים או שומרים נתונים, אין מידע אישי או נתוני שימוש להגנה.",
+    changes1: "אם ננהג אחרת בעתיד, נעדכן מדיניות זו ואת תאריך התחולה.",
     changes2: "מומלץ לעיין בדף זה מדי פעם.",
     contact: "לשאלות, ניתן ליצור קשר:",
     contactBullets: { emailLabel: "דוא\"ל" },
@@ -401,83 +396,430 @@ const T = {
     langLabel: "שפה:"
   },
 
+  /* Hindi */
+  "hi": {
+    title: "गोपनीयता नीति",
+    effectiveDatePrefix: "प्रभावी तिथि",
+    sectionDataCollection: "डेटा संग्रह",
+    sectionSecurity: "डेटा सुरक्षा",
+    sectionChanges: "इस गोपनीयता नीति में परिवर्तन",
+    sectionContact: "संपर्क करें",
+    data1: `${CONFIG.appName} कोई भी डेटा एकत्र, उपयोग या संग्रहीत नहीं करता — न तो व्यक्तिगत डेटा और न ही उपयोग विश्लेषण।`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "क्योंकि हम कोई डेटा एकत्र या संग्रहीत नहीं करते, इसलिए सुरक्षित करने के लिए कोई व्यक्तिगत या उपयोग संबंधी जानकारी नहीं है।",
+    changes1: "यदि हमारी प्रथाएँ बदलती हैं तो हम इस नीति और प्रभावी तिथि को अपडेट करेंगे।",
+    changes2: "कृपया इस पृष्ठ की नियमित रूप से समीक्षा करें।",
+    contact: "प्रश्नों के लिए हमसे संपर्क करें:",
+    contactBullets: { emailLabel: "ईमेल" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. सर्वाधिकार सुरक्षित.`,
+    langLabel: "भाषा:"
+  },
+
+  /* Croatian */
+  "hr": {
+    title: "Pravila privatnosti",
+    effectiveDatePrefix: "Datum stupanja na snagu",
+    sectionDataCollection: "Prikupljanje podataka",
+    sectionSecurity: "Sigurnost podataka",
+    sectionChanges: "Izmjene ove politike",
+    sectionContact: "Kontaktirajte nas",
+    data1: `${CONFIG.appName} ne prikuplja, ne koristi i ne pohranjuje nikakve podatke — uključujući osobne podatke i analitiku korištenja.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Budući da ne prikupljamo niti pohranjujemo podatke, nema osobnih ni podataka o korištenju koje treba štititi.",
+    changes1: "Ako se naše prakse promijene, ažurirat ćemo ovu politiku i datum stupanja na snagu.",
+    changes2: "Preporučujemo periodično provjeravanje ove stranice.",
+    contact: "Za pitanja obratite nam se:",
+    contactBullets: { emailLabel: "E-pošta" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Sva prava pridržana.`,
+    langLabel: "Jezik:"
+  },
+
+  /* Hungarian */
+  "hu": {
+    title: "Adatvédelmi irányelvek",
+    effectiveDatePrefix: "Hatálybalépés dátuma",
+    sectionDataCollection: "Adatgyűjtés",
+    sectionSecurity: "Adatbiztonság",
+    sectionChanges: "Az irányelvek változásai",
+    sectionContact: "Kapcsolat",
+    data1: `${CONFIG.appName} semmilyen adatot nem gyűjt, nem használ és nem tárol — sem személyes adatokat, sem használati analitikát.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Mivel nem gyűjtünk vagy tárolunk adatokat, nincs védeni való személyes vagy használati információ.",
+    changes1: "Ha a gyakorlatunk változik, frissítjük ezt az irányelvet és a hatálybalépés dátumát.",
+    changes2: "Javasoljuk, hogy rendszeresen tekintse meg ezt az oldalt.",
+    contact: "Kérdés esetén lépjen kapcsolatba velünk:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Minden jog fenntartva.`,
+    langLabel: "Nyelv:"
+  },
+
+  /* Indonesian */
+  "id": {
+    title: "Kebijakan Privasi",
+    effectiveDatePrefix: "Tanggal berlaku",
+    sectionDataCollection: "Pengumpulan data",
+    sectionSecurity: "Keamanan data",
+    sectionChanges: "Perubahan kebijakan ini",
+    sectionContact: "Hubungi kami",
+    data1: `${CONFIG.appName} tidak mengumpulkan, menggunakan, atau menyimpan data apa pun — termasuk data pribadi dan analitik penggunaan.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Karena kami tidak mengumpulkan atau menyimpan data, tidak ada informasi pribadi atau penggunaan yang perlu diamankan.",
+    changes1: "Jika praktik kami berubah, kami akan memperbarui kebijakan ini dan tanggal berlakunya.",
+    changes2: "Harap tinjau halaman ini secara berkala.",
+    contact: "Pertanyaan? Hubungi kami:",
+    contactBullets: { emailLabel: "Email" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Seluruh hak cipta dilindungi.`,
+    langLabel: "Bahasa:"
+  },
+
+  /* Italian */
+  "it": {
+    title: "Informativa sulla privacy",
+    effectiveDatePrefix: "Data di efficacia",
+    sectionDataCollection: "Raccolta dati",
+    sectionSecurity: "Sicurezza dei dati",
+    sectionChanges: "Modifiche alla presente informativa",
+    sectionContact: "Contattaci",
+    data1: `${CONFIG.appName} non raccoglie, utilizza o conserva alcun dato — inclusi dati personali e analisi d’uso.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Poiché non raccogliamo né conserviamo dati, non vi sono informazioni personali o di utilizzo da proteggere.",
+    changes1: "Se le nostre pratiche cambiassero, aggiorneremo questa informativa e la data di efficacia.",
+    changes2: "Ti invitiamo a consultare periodicamente questa pagina.",
+    contact: "Per domande, contattaci:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tutti i diritti riservati.`,
+    langLabel: "Lingua:"
+  },
+
+  /* Japanese */
+  "ja": {
+    title: "プライバシーポリシー",
+    effectiveDatePrefix: "施行日",
+    sectionDataCollection: "データの収集",
+    sectionSecurity: "データの安全性",
+    sectionChanges: "本プライバシーポリシーの変更",
+    sectionContact: "お問い合わせ",
+    data1: `${CONFIG.appName} は、いかなるデータも収集・利用・保存しません（個人情報や利用分析を含む）。`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "データを収集・保存しないため、保護すべき個人情報や利用情報は存在しません。",
+    changes1: "運用方針が変わる場合は、本ポリシーと施行日を更新します。",
+    changes2: "変更の有無を定期的にご確認ください。",
+    contact: "ご不明点がある場合はご連絡ください：",
+    contactBullets: { emailLabel: "メール" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. 無断転載を禁じます。`,
+    langLabel: "言語："
+  },
+
+  /* Korean */
+  "ko": {
+    title: "개인정보 처리방침",
+    effectiveDatePrefix: "시행일",
+    sectionDataCollection: "데이터 수집",
+    sectionSecurity: "데이터 보안",
+    sectionChanges: "본 방침의 변경",
+    sectionContact: "문의하기",
+    data1: `${CONFIG.appName}은(는) 어떤 데이터도 수집·이용·저장하지 않습니다(개인정보 및 사용 분석 포함).`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "데이터를 수집하거나 저장하지 않으므로 보호해야 할 개인정보나 사용 정보가 없습니다.",
+    changes1: "관행이 변경될 경우 본 방침과 시행일을 업데이트합니다.",
+    changes2: "정기적으로 이 페이지를 확인해 주세요.",
+    contact: "문의 사항이 있으면 연락해 주세요:",
+    contactBullets: { emailLabel: "이메일" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. 판권 소유.`,
+    langLabel: "언어:"
+  },
+
+  /* Malay */
+  "ms": {
+    title: "Dasar Privasi",
+    effectiveDatePrefix: "Tarikh berkuat kuasa",
+    sectionDataCollection: "Pengumpulan data",
+    sectionSecurity: "Keselamatan data",
+    sectionChanges: "Perubahan pada dasar ini",
+    sectionContact: "Hubungi kami",
+    data1: `${CONFIG.appName} tidak mengumpul, menggunakan atau menyimpan sebarang data — termasuk data peribadi dan analitik penggunaan.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Memandangkan tiada data dikumpul atau disimpan, tiada maklumat peribadi atau penggunaan yang perlu dilindungi.",
+    changes1: "Jika amalan kami berubah, kami akan mengemas kini dasar ini dan tarikh berkuat kuasanya.",
+    changes2: "Sila semak halaman ini secara berkala.",
+    contact: "Jika ada pertanyaan, hubungi kami:",
+    contactBullets: { emailLabel: "E-mel" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Hak cipta terpelihara.`,
+    langLabel: "Bahasa:"
+  },
+
+  /* Norwegian Bokmål */
+  "nb": {
+    title: "Personvernerklæring",
+    effectiveDatePrefix: "Ikrafttredelsesdato",
+    sectionDataCollection: "Innsamling av data",
+    sectionSecurity: "Datasikkerhet",
+    sectionChanges: "Endringer i denne erklæringen",
+    sectionContact: "Kontakt oss",
+    data1: `${CONFIG.appName} samler ikke inn, bruker eller lagrer noen data — verken personopplysninger eller bruksanalyse.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Siden vi ikke samler inn eller lagrer data, finnes det ingen person- eller bruksinformasjon å sikre.",
+    changes1: "Dersom praksisen vår endres, oppdaterer vi denne erklæringen og datoen.",
+    changes2: "Vi anbefaler å sjekke denne siden jevnlig.",
+    contact: "Spørsmål? Kontakt oss:",
+    contactBullets: { emailLabel: "E-post" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alle rettigheter forbeholdt.`,
+    langLabel: "Språk:"
+  },
+
+  /* Polish */
+  "pl": {
+    title: "Polityka prywatności",
+    effectiveDatePrefix: "Data wejścia w życie",
+    sectionDataCollection: "Zbieranie danych",
+    sectionSecurity: "Bezpieczeństwo danych",
+    sectionChanges: "Zmiany w niniejszej polityce",
+    sectionContact: "Skontaktuj się z nami",
+    data1: `${CONFIG.appName} nie gromadzi, nie używa ani nie przechowuje żadnych danych — w tym danych osobowych ani analityki użycia.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Ponieważ nie gromadzimy ani nie przechowujemy danych, nie ma informacji osobowych ani o użyciu do zabezpieczenia.",
+    changes1: "Jeśli nasze praktyki ulegną zmianie, zaktualizujemy tę politykę i datę jej obowiązywania.",
+    changes2: "Zalecamy regularnie sprawdzać tę stronę.",
+    contact: "W razie pytań prosimy o kontakt:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Wszelkie prawa zastrzeżone.`,
+    langLabel: "Język:"
+  },
+
+  /* Portuguese (PT + BR fallback) */
+  "pt-PT": {
+    title: "Política de Privacidade",
+    effectiveDatePrefix: "Data de entrada em vigor",
+    sectionDataCollection: "Recolha de dados",
+    sectionSecurity: "Segurança dos dados",
+    sectionChanges: "Alterações a esta política",
+    sectionContact: "Contacte-nos",
+    data1: `${CONFIG.appName} não recolhe, utiliza nem armazena quaisquer dados — incluindo dados pessoais e análises de utilização.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Como não recolhemos nem armazenamos dados, não há informação pessoal ou de utilização para proteger.",
+    changes1: "Se as nossas práticas mudarem, atualizaremos esta política e a data acima.",
+    changes2: "Recomendamos rever esta página regularmente.",
+    contact: "Questões? Contacte-nos:",
+    contactBullets: { emailLabel: "Email" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Todos os direitos reservados.`,
+    langLabel: "Idioma:"
+  },
+  "pt-BR": {},
+
+  /* Romanian */
+  "ro": {
+    title: "Politica de confidențialitate",
+    effectiveDatePrefix: "Data intrării în vigoare",
+    sectionDataCollection: "Colectarea datelor",
+    sectionSecurity: "Securitatea datelor",
+    sectionChanges: "Modificări ale acestei politici",
+    sectionContact: "Contactați-ne",
+    data1: `${CONFIG.appName} nu colectează, nu utilizează și nu stochează niciun fel de date — inclusiv date personale sau analitice de utilizare.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Deoarece nu colectăm sau stocăm date, nu există informații personale sau de utilizare care să necesite protecție.",
+    changes1: "Dacă practicile noastre se schimbă, vom actualiza această politică și data corespunzătoare.",
+    changes2: "Vă recomandăm să verificați periodic această pagină.",
+    contact: "Întrebări? Contactați-ne:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Toate drepturile rezervate.`,
+    langLabel: "Limbă:"
+  },
+
+  /* Russian */
+  "ru": {
+    title: "Политика конфиденциальности",
+    effectiveDatePrefix: "Дата вступления в силу",
+    sectionDataCollection: "Сбор данных",
+    sectionSecurity: "Безопасность данных",
+    sectionChanges: "Изменения политики",
+    sectionContact: "Связаться с нами",
+    data1: `${CONFIG.appName} не собирает, не использует и не хранит никаких данных — включая персональные данные и аналитику использования.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Поскольку мы не собираем и не храним данные, отсутствует какая-либо персональная или эксплуатационная информация, требующая защиты.",
+    changes1: "Если наши практики изменятся, мы обновим эту политику и указанную дату.",
+    changes2: "Рекомендуем периодически проверять эту страницу.",
+    contact: "Вопросы? Свяжитесь с нами:",
+    contactBullets: { emailLabel: "Эл. почта" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Все права защищены.`,
+    langLabel: "Язык:"
+  },
+
+  /* Slovak */
+  "sk": {
+    title: "Zásady ochrany osobných údajov",
+    effectiveDatePrefix: "Dátum účinnosti",
+    sectionDataCollection: "Zber údajov",
+    sectionSecurity: "Bezpečnosť údajov",
+    sectionChanges: "Zmeny týchto zásad",
+    sectionContact: "Kontaktujte nás",
+    data1: `${CONFIG.appName} nezhromažďuje, nepoužíva ani neukladá žiadne údaje — vrátane osobných údajov či analytiky používania.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Keďže nezhromažďujeme ani neukladáme údaje, neexistujú osobné či používateľské informácie na zabezpečenie.",
+    changes1: "Ak sa naša prax zmení, aktualizujeme tieto zásady a dátum účinnosti.",
+    changes2: "Odporúčame pravidelne kontrolovať túto stránku.",
+    contact: "Otázky? Kontaktujte nás:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Všetky práva vyhradené.`,
+    langLabel: "Jazyk:"
+  },
+
+  /* Spanish (+ MX fallback) */
+  "es": {
+    title: "Política de privacidad",
+    effectiveDatePrefix: "Fecha de entrada en vigor",
+    sectionDataCollection: "Recopilación de datos",
+    sectionSecurity: "Seguridad de los datos",
+    sectionChanges: "Cambios en esta política",
+    sectionContact: "Contáctenos",
+    data1: `${CONFIG.appName} no recopila, utiliza ni almacena ningún dato — incluidos datos personales y análisis de uso.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Como no recopilamos ni almacenamos datos, no existe información personal o de uso que proteger.",
+    changes1: "Si nuestras prácticas cambian, actualizaremos esta política y la fecha indicada.",
+    changes2: "Le recomendamos revisar esta página con regularidad.",
+    contact: "Si tiene preguntas, contáctenos:",
+    contactBullets: { emailLabel: "Correo electrónico" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Todos los derechos reservados.`,
+    langLabel: "Idioma:"
+  },
+  "es-MX": {},
+
+  /* Swedish */
+  "sv": {
+    title: "Integritetspolicy",
+    effectiveDatePrefix: "Ikraftträdandedatum",
+    sectionDataCollection: "Insamling av data",
+    sectionSecurity: "Datasäkerhet",
+    sectionChanges: "Ändringar av denna policy",
+    sectionContact: "Kontakta oss",
+    data1: `${CONFIG.appName} samlar inte in, använder eller lagrar några data — inklusive personuppgifter eller användningsanalys.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Eftersom vi inte samlar in eller lagrar data finns ingen personlig eller användningsinformation att skydda.",
+    changes1: "Om våra rutiner ändras uppdaterar vi denna policy och datumet ovan.",
+    changes2: "Kontrollera denna sida regelbundet.",
+    contact: "Frågor? Kontakta oss:",
+    contactBullets: { emailLabel: "E-post" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alla rättigheter förbehållna.`,
+    langLabel: "Språk:"
+  },
+
+  /* Thai */
+  "th": {
+    title: "นโยบายความเป็นส่วนตัว",
+    effectiveDatePrefix: "มีผลบังคับใช้วันที่",
+    sectionDataCollection: "การเก็บรวบรวมข้อมูล",
+    sectionSecurity: "ความปลอดภัยของข้อมูล",
+    sectionChanges: "การเปลี่ยนแปลงนโยบายนี้",
+    sectionContact: "ติดต่อเรา",
+    data1: `${CONFIG.appName} ไม่ได้เก็บ ใช้ หรือจัดเก็บข้อมูลใด ๆ — รวมถึงข้อมูลส่วนบุคคลหรือการวิเคราะห์การใช้งาน`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "เนื่องจากเราไม่เก็บหรือจัดเก็บข้อมูล จึงไม่มีข้อมูลส่วนบุคคลหรือข้อมูลการใช้งานที่ต้องปกป้อง",
+    changes1: "หากแนวทางของเรามีการเปลี่ยนแปลง เราจะอัปเดตนโยบายนี้และวันที่มีผลบังคับใช้",
+    changes2: "โปรดตรวจสอบหน้านี้เป็นระยะ",
+    contact: "หากมีคำถาม โปรดติดต่อเรา:",
+    contactBullets: { emailLabel: "อีเมล" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. สงวนลิขสิทธิ์`,
+    langLabel: "ภาษา:"
+  },
+
+  /* Turkish */
   "tr": {
     title: "Gizlilik Politikası",
     effectiveDatePrefix: "Yürürlük tarihi",
-    sectionNoData: "Veri toplamıyoruz",
-    sectionPermissions: "Cihaz İzinleri",
-    sectionChanges: "Bu Politikadaki Değişiklikler",
-    sectionContact: "Bize Ulaşın",
-    noData1: `${CONFIG.appName}, kişisel veri veya kullanım verilerini toplamaz, kullanmaz, saklamaz, paylaşmaz veya satmaz.`,
-    noDataList: [
-      "Hesap gerekmez",
-      "Analitik veya izleme yok",
-      "Cihaz dışına gönderilen çökme raporları yok",
-      "Veri toplayan reklamlar veya üçüncü taraf SDK’lar yok",
-      "Çerezler veya web işaretçileri yok"
-    ],
-    noData2: "Tüm işlevler yalnızca cihaz üzerinde çalışır. Sunucularımıza hiçbir şey gönderilmez.",
-    permissions: "Uygulama sistem izinleri isterse (ör. ayna görünümü için Kamera), yalnızca bu özelliği yerelde sağlamak için kullanılır. Görüntüler bize iletilmez.",
-    changes1: "Bu politika zaman zaman güncellenebilir; yürürlük tarihi buna göre güncellenir.",
+    sectionDataCollection: "Veri toplama",
+    sectionSecurity: "Veri güvenliği",
+    sectionChanges: "Bu politikanın değişiklikleri",
+    sectionContact: "Bize ulaşın",
+    data1: `${CONFIG.appName}, hiçbir veri toplamaz, kullanmaz veya saklamaz — kişisel veriler ve kullanım analitiği dahil.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Veri toplamadığımız ve saklamadığımız için korunması gereken kişisel veya kullanım verisi yoktur.",
+    changes1: "Uygulamalarımız değişirse bu politikayı ve yürürlük tarihini güncelleriz.",
     changes2: "Lütfen bu sayfayı düzenli olarak kontrol edin.",
-    contact: "Sorularınız için bizimle iletişime geçin:",
+    contact: "Sorular için bizimle iletişime geçin:",
     contactBullets: { emailLabel: "E-posta" },
     footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tüm hakları saklıdır.`,
     langLabel: "Dil:"
   },
 
-  "zh-Hans": {
-    title: "隐私政策",
-    effectiveDatePrefix: "生效日期",
-    sectionNoData: "我们不收集任何数据",
-    sectionPermissions: "设备权限",
-    sectionChanges: "本政策的变更",
-    sectionContact: "联系我们",
-    noData1: `${CONFIG.appName} 不会收集、使用、存储、共享或出售任何个人数据或使用数据。`,
-    noDataList: [
-      "无需账户",
-      "无分析或跟踪",
-      "无将崩溃报告发送到设备外",
-      "无收集数据的广告或第三方 SDK",
-      "无 Cookie 或网络信标"
-    ],
-    noData2: "所有功能都仅在设备本地运行。不会向我们的服务器发送任何数据。",
-    permissions: "如应用请求系统权限（例如用于镜像预览的相机），仅用于在本地提供该功能。图像/相机画面不会被传输。",
-    changes1: "我们可能会不时更新本政策，并相应更新上方“生效日期”。",
-    changes2: "建议您定期查看此页面以了解任何变更。",
-    contact: "如有问题，请联系我们：",
-    contactBullets: { emailLabel: "电子邮箱" },
-    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}。保留所有权利。`,
-    langLabel: "语言："
+  /* Ukrainian */
+  "uk": {
+    title: "Політика конфіденційності",
+    effectiveDatePrefix: "Дата набуття чинності",
+    sectionDataCollection: "Збирання даних",
+    sectionSecurity: "Безпека даних",
+    sectionChanges: "Зміни цієї політики",
+    sectionContact: "Зв’язатися з нами",
+    data1: `${CONFIG.appName} не збирає, не використовує та не зберігає жодних даних — зокрема персональних або аналітики використання.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Оскільки ми не збираємо й не зберігаємо дані, немає персональної чи експлуатаційної інформації для захисту.",
+    changes1: "У разі зміни практик ми оновимо цю політику та дату набуття чинності.",
+    changes2: "Рекомендуємо час від часу переглядати цю сторінку.",
+    contact: "Питання? Зв’яжіться з нами:",
+    contactBullets: { emailLabel: "Е-пошта" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Усі права захищені.`,
+    langLabel: "Мова:"
   },
 
-  "zh-Hant": {
-    title: "隱私權政策",
-    effectiveDatePrefix: "生效日期",
-    sectionNoData: "我們不蒐集任何資料",
-    sectionPermissions: "裝置權限",
-    sectionChanges: "本政策之變更",
-    sectionContact: "聯絡我們",
-    noData1: `${CONFIG.appName} 不會蒐集、使用、儲存、分享或販售任何個人資料或使用資料。`,
-    noDataList: [
-      "不需帳號",
-      "無分析或追蹤",
-      "不會將當機回報傳出裝置",
-      "無蒐集資料的廣告或第三方 SDK",
-      "無 Cookie 或網路信標"
-    ],
-    noData2: "所有功能僅在裝置上本地運作，不會傳送任何資料到我們的伺服器。",
-    permissions: "若應用程式請求系統權限（如鏡像預覽的相機），僅為在本地提供該功能之用。影像/相機畫面不會被傳輸。",
-    changes1: "我們可能不時更新本政策，並相應更新上方「生效日期」。",
-    changes2: "建議您定期查看此頁面以了解任何變更。",
-    contact: "如有疑問，請與我們聯絡：",
-    contactBullets: { emailLabel: "電子郵件" },
-    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}。保留所有權利。`,
-    langLabel: "語言："
+  /* Vietnamese */
+  "vi": {
+    title: "Chính sách quyền riêng tư",
+    effectiveDatePrefix: "Ngày có hiệu lực",
+    sectionDataCollection: "Thu thập dữ liệu",
+    sectionSecurity: "Bảo mật dữ liệu",
+    sectionChanges: "Thay đổi của chính sách này",
+    sectionContact: "Liên hệ",
+    data1: `${CONFIG.appName} không thu thập, sử dụng hoặc lưu trữ bất kỳ dữ liệu nào — bao gồm dữ liệu cá nhân và phân tích sử dụng.`,
+    data2: "",
+    dataBullets: [],
+    data3: "",
+    security: "Vì chúng tôi không thu thập hay lưu trữ dữ liệu, nên không có thông tin cá nhân hay sử dụng cần bảo vệ.",
+    changes1: "Nếu thực tiễn thay đổi, chúng tôi sẽ cập nhật chính sách này và ngày hiệu lực.",
+    changes2: "Vui lòng kiểm tra lại trang này định kỳ.",
+    contact: "Nếu có câu hỏi, vui lòng liên hệ:",
+    contactBullets: { emailLabel: "Email" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Bảo lưu mọi quyền.`,
+    langLabel: "Ngôn ngữ:"
   },
 
-  /* Region variants inherit base strings automatically */
-  "en-GB": {}, "en-AU": {}, "en-CA": {}, "pt-BR": {}, "es-MX": {}, "ar-SA": {}
+  /* Region variants (inherit) */
+  "en-GB": {}, "en-AU": {}, "en-CA": {}, "fr-CA": {}, "es-MX": {}, "pt-BR": {}, "ar-SA": {}
 };
 
 /* ===== Locale plumbing & rendering ===== */
@@ -518,40 +860,39 @@ function render(locale){
   document.documentElement.lang = locale;
   document.documentElement.dir = RTL.has(locale) ? "rtl" : "ltr";
 
-  // Titles / headers
   document.getElementById("title").textContent = t.title;
-  document.getElementById("langLabel").textContent = t.langLabel || "Language:";
   document.getElementById("effectiveDate").textContent = `${t.effectiveDatePrefix}: ${formatDate(CONFIG.effectiveDateISO, locale)}`;
-  document.getElementById("sectionNoData").textContent = t.sectionNoData;
-  document.getElementById("sectionPermissions").textContent = t.sectionPermissions;
-  document.getElementById("sectionChanges").textContent = t.sectionChanges;
-  document.getElementById("sectionContact").textContent = t.sectionContact;
 
-  // Body
-  document.getElementById("pNoData1").textContent = t.noData1;
+  document.getElementById("sectionDataCollection").textContent = t.sectionDataCollection || "Data Collection";
+  document.getElementById("sectionSecurity").textContent = t.sectionSecurity || "Data Security";
+  document.getElementById("sectionChanges").textContent = t.sectionChanges || "Changes to This Privacy Policy";
+  document.getElementById("sectionContact").textContent = t.sectionContact || "Contact Us";
 
-  const ul = document.getElementById("listNoData");
+  document.getElementById("pData1").textContent = t.data1 || "";
+  document.getElementById("pData2").textContent = t.data2 || "";
+
+  const ul = document.getElementById("listData");
   ul.innerHTML = "";
-  (t.noDataList || []).forEach(x => {
+  (t.dataBullets || []).forEach(x => {
     const li = document.createElement("li");
     li.textContent = x;
     ul.appendChild(li);
   });
 
-  document.getElementById("pNoData2").textContent = t.noData2;
-  document.getElementById("pPermissions").textContent = t.permissions;
+  document.getElementById("pData3").textContent = t.data3 || "";
+  document.getElementById("pSecurity").textContent = t.security || "";
+  document.getElementById("pChanges1").textContent = t.changes1 || "";
+  document.getElementById("pChanges2").textContent = t.changes2 || "";
 
-  document.getElementById("pChanges1").textContent = t.changes1;
-  document.getElementById("pChanges2").textContent = t.changes2;
-
-  document.getElementById("pContact").textContent = t.contact;
+  document.getElementById("pContact").textContent = t.contact || "";
   const ulc = document.getElementById("listContact");
   ulc.innerHTML = "";
   const li = document.createElement("li");
   li.innerHTML = `${t.contactBullets?.emailLabel || "Email"}: <a href="mailto:${CONFIG.contactEmail}">${CONFIG.contactEmail}</a>`;
   ulc.appendChild(li);
 
-  document.getElementById("footerNote").textContent = t.footer;
+  document.getElementById("langLabel").textContent = t.langLabel || "Language:";
+  document.getElementById("footerNote").textContent = t.footer || "";
 }
 
 /* Init */
