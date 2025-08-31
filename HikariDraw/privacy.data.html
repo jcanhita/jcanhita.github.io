@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy</title>
+  <meta name="color-scheme" content="light dark"/>
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --fg: #1f2937;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --accent: #2563eb;
+      --border: #e5e7eb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f14;
+        --fg: #e5e7eb;
+        --muted: #9ca3af;
+        --card: #121821;
+        --accent: #7aa2f7;
+        --border: #1f2937;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 800px at 75% -10%, #dbeafe33, transparent 60%),
+        radial-gradient(1000px 600px at 0% 110%, #f5d0fe22, transparent 60%),
+        var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 900px; margin: clamp(16px, 4vw, 64px) auto; padding: clamp(12px, 2vw, 24px); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(20px, 3vw, 40px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+    header { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    h1 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.4rem); letter-spacing: .2px; }
+    .muted { color: var(--muted); }
+    .meta { font-size: 0.95rem; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 16px 0 20px; }
+    h2 { margin: 1.2rem 0 .6rem; font-size: clamp(1.15rem, 2.2vw, 1.45rem); }
+    p, li { font-size: clamp(.98rem, 1.6vw, 1.05rem); }
+    ul { margin: .4rem 0 .8rem 1.2rem; }
+    .footer { margin-top: 1.2rem; font-size: .95rem; color: var(--muted); }
+    .controls { display: flex; align-items: center; gap: 10px; }
+    select {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.95rem; cursor: pointer;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    /* RTL support */
+    [dir="rtl"] .card { direction: rtl; }
+    [dir="rtl"] ul { margin-left: 0; margin-right: 1.2rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="policyCard">
+      <header>
+        <div>
+          <h1 id="title">Privacy Policy</h1>
+          <div class="meta muted" id="effectiveDate">Effective date: —</div>
+        </div>
+        <div class="controls">
+          <label for="lang" class="muted" id="langLabel">Language:</label>
+          <select id="lang"></select>
+        </div>
+      </header>
+
+      <hr/>
+
+      <section>
+        <h2 id="sectionDataCollection">Data Collection</h2>
+        <p id="pData1"></p>
+        <p id="pData2"></p>
+        <ul id="listData"></ul>
+        <p id="pData3"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionSecurity">Data Security</h2>
+        <p id="pSecurity"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionChanges">Changes to This Privacy Policy</h2>
+        <p id="pChanges1"></p>
+        <p id="pChanges2"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionContact">Contact Us</h2>
+        <p id="pContact"></p>
+        <ul id="listContact"></ul>
+      </section>
+
+      <div class="footer" id="footerNote"></div>
+    </div>
+  </div>
+
+<script>
+/* ===== CONFIG (edit for reuse) ===== */
+const CONFIG = {
+  appName: "Hikari Draw",                       // e.g. "Hikari Draw"
+  effectiveDateISO: "2025-08-01",              // YYYY-MM-DD
+  contactEmail: "jcanhita.apps@gmail.com",
+  copyrightOwner: "Hikari Draw"                 // footer owner
+};
+
+/* ===== Translations =====
+   Keep region variants as {} and we’ll fall back to their base language automatically. */
+const T = {
+  "en": {
+    title: "Privacy Policy",
+    effectiveDatePrefix: "Effective date",
+    sectionDataCollection: "Data Collection",
+    sectionSecurity: "Data Security",
+    sectionChanges: "Changes to This Privacy Policy",
+    sectionContact: "Contact Us",
+    data1: `${CONFIG.appName} does not collect, use, or store any personally identifiable information.`,
+    data2: "To improve performance and reliability, we may collect anonymous, non-identifiable usage data. This may include:",
+    dataBullets: ["Feature usage patterns (e.g., which features are used)", "Session duration and frequency"],
+    data3: "This data is aggregated, cannot identify you, is used only to improve the app, and is not shared with third parties.",
+    security: "We take appropriate technical and organizational measures to protect the integrity of any anonymous data we handle.",
+    changes1: "We may update this Privacy Policy from time to time. When we do, we will update the Effective Date shown above.",
+    changes2: "You are encouraged to review this page periodically for any changes.",
+    contact: "If you have questions about this Privacy Policy, please contact us:",
+    contactBullets: { emailLabel: "Email" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. All rights reserved.`,
+    langLabel: "Language:"
+  },
+
+  /* Arabic */
+  "ar": {
+    title: "سياسة الخصوصية",
+    effectiveDatePrefix: "تاريخ السريان",
+    sectionDataCollection: "جمع البيانات",
+    sectionSecurity: "أمان البيانات",
+    sectionChanges: "التغييرات على سياسة الخصوصية",
+    sectionContact: "اتصل بنا",
+    data1: `${CONFIG.appName} لا يجمع أو يستخدم أو يخزّن أي معلومات شخصية قابلة للتعرّف.`,
+    data2: "لتحسين الأداء والموثوقية، قد نجمع بيانات استخدام مجهولة وغير قابلة للتعرّف، وقد تشمل:",
+    dataBullets: ["أنماط استخدام الميزات", "مدة الجلسة وتكرارها"],
+    data3: "هذه البيانات مُجمّعة ولا تحدد هويتك، وتُستخدم فقط لتحسين التطبيق، ولا نشاركها مع أطراف ثالثة.",
+    security: "نتخذ تدابير تقنية وتنظيمية مناسبة لحماية سلامة البيانات المجهولة.",
+    changes1: "قد نقوم بتحديث سياسة الخصوصية من حين لآخر مع تحديث تاريخ السريان أعلاه.",
+    changes2: "ننصحك بمراجعة هذه الصفحة بشكل دوري.",
+    contact: "إذا كانت لديك أسئلة بخصوص سياسة الخصوصية هذه، يرجى التواصل معنا:",
+    contactBullets: { emailLabel: "البريد الإلكتروني" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. جميع الحقوق محفوظة.`,
+    langLabel: "اللغة:"
+  },
+
+  /* Catalan */
+  "ca": {
+    title: "Política de privacitat",
+    effectiveDatePrefix: "Data d'entrada en vigor",
+    sectionDataCollection: "Recollida de dades",
+    sectionSecurity: "Seguretat de les dades",
+    sectionChanges: "Canvis en aquesta política de privacitat",
+    sectionContact: "Contacte",
+    data1: `${CONFIG.appName} no recopila, utilitza ni emmagatzema cap informació personal identificable.`,
+    data2: "Per millorar el rendiment i la fiabilitat, podem recopilar dades d'ús anònimes i no identificables. Això pot incloure:",
+    dataBullets: ["Patrons d'ús de funcions", "Durada i freqüència de les sessions"],
+    data3: "Aquestes dades estan agregades, no permeten identificar-te, s'utilitzen només per millorar l'app i no es comparteixen amb tercers.",
+    security: "Apliquem mesures tècniques i organitzatives adequades per protegir la integritat de les dades anònimes.",
+    changes1: "Podem actualitzar aquesta política periòdicament; actualitzarem la data indicada.",
+    changes2: "Et recomanem revisar aquesta pàgina regularment.",
+    contact: "Per a preguntes sobre aquesta política, contacta'ns:",
+    contactBullets: { emailLabel: "Correu electrònic" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tots els drets reservats.`,
+    langLabel: "Idioma:"
+  },
+
+  /* Chinese (Simplified/Traditional) */
+  "zh-Hans": {
+    title: "隐私政策",
+    effectiveDatePrefix: "生效日期",
+    sectionDataCollection: "数据收集",
+    sectionSecurity: "数据安全",
+    sectionChanges: "本隐私政策的变更",
+    sectionContact: "联系我们",
+    data1: `${CONFIG.appName} 不会收集、使用或存储任何可识别个人身份的信息。`,
+    data2: "为提升性能和稳定性，我们可能收集匿名、不可识别的使用数据，包括：",
+    dataBullets: ["功能使用情况", "会话时长与频率"],
+    data3: "这些数据为汇总数据，无法识别您的身份，仅用于改进应用，且不会与第三方共享。",
+    security: "我们采取适当的技术与组织措施来保护匿名数据的完整性。",
+    changes1: "我们可能不时更新本政策，并相应更新上方“生效日期”。",
+    changes2: "建议您定期查看此页面以了解最新变更。",
+    contact: "如有任何问题，请联系我们：",
+    contactBullets: { emailLabel: "电子邮箱" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}。保留所有权利。`,
+    langLabel: "语言："
+  },
+  "zh-Hant": {
+    title: "隱私權政策",
+    effectiveDatePrefix: "生效日期",
+    sectionDataCollection: "資料蒐集",
+    sectionSecurity: "資料安全",
+    sectionChanges: "本隱私權政策之變更",
+    sectionContact: "聯絡我們",
+    data1: `${CONFIG.appName} 不會收集、使用或儲存任何可識別個人身分的資訊。`,
+    data2: "為提升效能與穩定性，我們可能蒐集匿名、不可識別的使用資料，包括：",
+    dataBullets: ["功能使用情形", "工作階段長度與頻率"],
+    data3: "這些資料為彙總資料，無法用於識別您的身分，僅用於改善應用程式，且不與第三方共享。",
+    security: "我們採取適當的技術與組織措施以保護匿名資料的完整性。",
+    changes1: "我們可能不時更新本政策，並相應更新上方「生效日期」。",
+    changes2: "建議您定期查看此頁面以了解任何變更。",
+    contact: "如有疑問，請聯絡我們：",
+    contactBullets: { emailLabel: "電子郵件" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}。保留所有權利。`,
+    langLabel: "語言："
+  },
+
+  /* Czech */
+  "cs": {
+    title: "Zásady ochrany osobních údajů",
+    effectiveDatePrefix: "Datum účinnosti",
+    sectionDataCollection: "Shromažďování údajů",
+    sectionSecurity: "Zabezpečení údajů",
+    sectionChanges: "Změny těchto zásad",
+    sectionContact: "Kontaktujte nás",
+    data1: `${CONFIG.appName} neshromažďuje, nepoužívá ani neukládá žádné osobní údaje umožňující identifikaci.`,
+    data2: "Za účelem zlepšení výkonu a spolehlivosti můžeme shromažďovat anonymní, neidentifikovatelné údaje o používání, například:",
+    dataBullets: ["Využívání funkcí", "Délka a četnost relací"],
+    data3: "Tyto údaje jsou agregované, neidentifikují vás, slouží výhradně ke zlepšení aplikace a nejsou sdíleny s třetími stranami.",
+    security: "Přijímáme vhodná technická a organizační opatření k ochraně integrity anonymních údajů.",
+    changes1: "Tyto zásady můžeme pravidelně aktualizovat; datum účinnosti bude odpovídajícím způsobem upraveno.",
+    changes2: "Doporučujeme tuto stránku pravidelně kontrolovat.",
+    contact: "V případě dotazů nás kontaktujte:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Všechna práva vyhrazena.`,
+    langLabel: "Jazyk:"
+  },
+
+  /* Danish */
+  "da": {
+    title: "Privatlivspolitik",
+    effectiveDatePrefix: "Ikrafttrædelsesdato",
+    sectionDataCollection: "Indsamling af data",
+    sectionSecurity: "Datasikkerhed",
+    sectionChanges: "Ændringer i denne privatlivspolitik",
+    sectionContact: "Kontakt os",
+    data1: `${CONFIG.appName} indsamler, bruger eller gemmer ikke personhenførbare oplysninger.`,
+    data2: "For at forbedre ydeevne og stabilitet kan vi indsamle anonyme, ikke-identificerbare brugsdata, herunder:",
+    dataBullets: ["Brugsmønstre for funktioner", "Sessionsvarighed og hyppighed"],
+    data3: "Disse data er aggregerede, identificerer dig ikke, bruges kun til at forbedre appen og deles ikke med tredjeparter.",
+    security: "Vi træffer passende tekniske og organisatoriske foranstaltninger til at beskytte integriteten af anonyme data.",
+    changes1: "Vi kan opdatere denne politik; ikrafttrædelsesdatoen justeres derefter.",
+    changes2: "Gennemgå venligst siden regelmæssigt.",
+    contact: "Har du spørgsmål? Kontakt os:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alle rettigheder forbeholdes.`,
+    langLabel: "Sprog:"
+  },
+
+  /* Dutch */
+  "nl": {
+    title: "Privacybeleid",
+    effectiveDatePrefix: "Ingangsdatum",
+    sectionDataCollection: "Gegevensverzameling",
+    sectionSecurity: "Gegevensbeveiliging",
+    sectionChanges: "Wijzigingen in dit beleid",
+    sectionContact: "Contact",
+    data1: `${CONFIG.appName} verzamelt, gebruikt of bewaart geen persoonlijk identificeerbare informatie.`,
+    data2: "Om prestaties en betrouwbaarheid te verbeteren, kunnen we anonieme, niet-identificeerbare gebruiksgegevens verzamelen, waaronder:",
+    dataBullets: ["Gebruikspatronen van functies", "Duur en frequentie van sessies"],
+    data3: "Deze gegevens zijn geaggregeerd, identificeren u niet, worden uitsluitend gebruikt om de app te verbeteren en worden niet gedeeld met derden.",
+    security: "We nemen passende technische en organisatorische maatregelen om de integriteit van anonieme gegevens te beschermen.",
+    changes1: "We kunnen dit beleid periodiek bijwerken; de ingangsdatum wordt dan aangepast.",
+    changes2: "Controleer deze pagina regelmatig.",
+    contact: "Vragen? Neem contact met ons op:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alle rechten voorbehouden.`,
+    langLabel: "Taal:"
+  },
+
+  /* Finnish */
+  "fi": {
+    title: "Tietosuojakäytäntö",
+    effectiveDatePrefix: "Voimaantulopäivä",
+    sectionDataCollection: "Tietojen kerääminen",
+    sectionSecurity: "Tietoturva",
+    sectionChanges: "Tämän käytännön muutokset",
+    sectionContact: "Ota yhteyttä",
+    data1: `${CONFIG.appName} ei kerää, käytä tai tallenna henkilötietoja.`,
+    data2: "Suorituskyvyn ja luotettavuuden parantamiseksi voimme kerätä anonyymejä käyttötietoja, kuten:",
+    dataBullets: ["Ominaisuuksien käyttötavat", "Istunnon kesto ja tiheys"],
+    data3: "Tiedot ovat koottuja, eivät tunnista sinua, niitä käytetään vain sovelluksen parantamiseen eikä jaeta kolmansille osapuolille.",
+    security: "Suojaamme käsittelemämme anonyymit tiedot asianmukaisin toimin.",
+    changes1: "Saatamme päivittää tätä käytäntöä; päivitämme voimaantulopäivän vastaavasti.",
+    changes2: "Tarkista tämä sivu säännöllisesti muutosten varalta.",
+    contact: "Kysyttävää? Ota yhteyttä:",
+    contactBullets: { emailLabel: "Sähköposti" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Kaikki oikeudet pidätetään.`,
+    langLabel: "Kieli:"
+  },
+
+  /* French (+ CA fallback) */
+  "fr": {
+    title: "Politique de confidentialité",
+    effectiveDatePrefix: "Date d’entrée en vigueur",
+    sectionDataCollection: "Collecte des données",
+    sectionSecurity: "Sécurité des données",
+    sectionChanges: "Modifications de cette politique",
+    sectionContact: "Contactez-nous",
+    data1: `${CONFIG.appName} ne collecte, n’utilise ni ne conserve aucune information personnelle identifiable.`,
+    data2: "Pour améliorer les performances et la fiabilité, nous pouvons collecter des données d’utilisation anonymes et non identifiables, notamment :",
+    dataBullets: ["Schémas d’utilisation des fonctionnalités", "Durée et fréquence des sessions"],
+    data3: "Ces données sont agrégées, ne permettent pas de vous identifier, sont utilisées uniquement pour améliorer l’app et ne sont pas partagées avec des tiers.",
+    security: "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger l’intégrité des données anonymes.",
+    changes1: "Cette politique peut être mise à jour périodiquement ; la date d’entrée en vigueur sera ajustée.",
+    changes2: "Nous vous recommandons de consulter régulièrement cette page.",
+    contact: "Pour toute question, contactez-nous :",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tous droits réservés.`,
+    langLabel: "Langue :"
+  },
+
+  /* German */
+  "de": {
+    title: "Datenschutzerklärung",
+    effectiveDatePrefix: "Geltungsdatum",
+    sectionDataCollection: "Datenerhebung",
+    sectionSecurity: "Datensicherheit",
+    sectionChanges: "Änderungen dieser Erklärung",
+    sectionContact: "Kontakt",
+    data1: `${CONFIG.appName} erhebt, verwendet oder speichert keine personenbezogenen, identifizierbaren Informationen.`,
+    data2: "Zur Verbesserung von Leistung und Zuverlässigkeit können wir anonyme Nutzungsdaten erfassen, darunter:",
+    dataBullets: ["Nutzungsmuster von Funktionen", "Sitzungsdauer und -häufigkeit"],
+    data3: "Diese Daten sind aggregiert, identifizieren Sie nicht, werden ausschließlich zur Verbesserung der App verwendet und nicht an Dritte weitergegeben.",
+    security: "Wir ergreifen geeignete technische und organisatorische Maßnahmen zum Schutz der Integrität anonymer Daten.",
+    changes1: "Diese Erklärung kann gelegentlich aktualisiert werden; das Geltungsdatum wird angepasst.",
+    changes2: "Bitte prüfen Sie diese Seite regelmäßig.",
+    contact: "Bei Fragen kontaktieren Sie uns:",
+    contactBullets: { emailLabel: "E-Mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alle Rechte vorbehalten.`,
+    langLabel: "Sprache:"
+  },
+
+  /* Greek */
+  "el": {
+    title: "Πολιτική Απορρήτου",
+    effectiveDatePrefix: "Ημερομηνία ισχύος",
+    sectionDataCollection: "Συλλογή δεδομένων",
+    sectionSecurity: "Ασφάλεια δεδομένων",
+    sectionChanges: "Αλλαγές στην παρούσα πολιτική",
+    sectionContact: "Επικοινωνία",
+    data1: `Η εφαρμογή ${CONFIG.appName} δεν συλλέγει, δεν χρησιμοποιεί και δεν αποθηκεύει προσωπικά δεδομένα.`,
+    data2: "Για τη βελτίωση των επιδόσεων και της αξιοπιστίας, ενδέχεται να συλλέγουμε ανώνυμα, μη αναγνωρίσιμα δεδομένα χρήσης, όπως:",
+    dataBullets: ["Μοτίβα χρήσης λειτουργιών", "Διάρκεια και συχνότητα συνεδριών"],
+    data3: "Τα δεδομένα είναι συγκεντρωτικά, δεν σας ταυτοποιούν, χρησιμοποιούνται μόνο για βελτίωση της εφαρμογής και δεν κοινοποιούνται σε τρίτους.",
+    security: "Λαμβάνουμε κατάλληλα τεχνικά και οργανωτικά μέτρα για την προστασία των ανώνυμων δεδομένων.",
+    changes1: "Η πολιτική μπορεί να ενημερώνεται κατά διαστήματα· η ημερομηνία ισχύος θα προσαρμόζεται.",
+    changes2: "Συνιστούμε να ελέγχετε τακτικά αυτήν τη σελίδα.",
+    contact: "Για απορίες, επικοινωνήστε μαζί μας:",
+    contactBullets: { emailLabel: "Email" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Με επιφύλαξη παντός δικαιώματος.`,
+    langLabel: "Γλώσσα:"
+  },
+
+  /* Hebrew */
+  "he": {
+    title: "מדיניות פרטיות",
+    effectiveDatePrefix: "תאריך תחולה",
+    sectionDataCollection: "איסוף נתונים",
+    sectionSecurity: "אבטחת נתונים",
+    sectionChanges: "שינויים במדיניות זו",
+    sectionContact: "צור קשר",
+    data1: `${CONFIG.appName} אינו אוסף, משתמש או שומר מידע אישי מזהה.`,
+    data2: "לשיפור ביצועים ואמינות ייתכן שנאסוף נתוני שימוש אנונימיים שאינם מזהים:",
+    dataBullets: ["דפוסי שימוש בתכונות", "משך ותדירות סשנים"],
+    data3: "הנתונים מצטברים, אינם מזהים אותך, משמשים רק לשיפור האפליקציה, ואינם נמסרים לצדדים שלישיים.",
+    security: "אנו נוקטים אמצעים מתאימים להגנה על שלמות הנתונים האנונימיים.",
+    changes1: "ייתכנו עדכונים מעת לעת; תאריך התחולה יעודכן בהתאם.",
+    changes2: "מומלץ לעיין בדף זה מדי פעם.",
+    contact: "לשאלות, ניתן ליצור קשר:",
+    contactBullets: { emailLabel: "דוא\"ל" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. כל הזכויות שמורות.`,
+    langLabel: "שפה:"
+  },
+
+  /* Hindi */
+  "hi": {
+    title: "गोपनीयता नीति",
+    effectiveDatePrefix: "प्रभावी तिथि",
+    sectionDataCollection: "डेटा संग्रह",
+    sectionSecurity: "डेटा सुरक्षा",
+    sectionChanges: "इस गोपनीयता नीति में परिवर्तन",
+    sectionContact: "संपर्क करें",
+    data1: `${CONFIG.appName} कोई व्यक्तिगत पहचान योग्य जानकारी एकत्र, उपयोग या संग्रहीत नहीं करता है।`,
+    data2: "प्रदर्शन और विश्वसनीयता में सुधार हेतु हम गुमनाम उपयोग डेटा एकत्र कर सकते हैं, जैसे:",
+    dataBullets: ["फ़ीचर उपयोग पैटर्न", "सत्र अवधि और आवृत्ति"],
+    data3: "यह डेटा समेकित होता है, आपकी पहचान नहीं करता, केवल ऐप को बेहतर बनाने के लिए उपयोग होता है और तीसरे पक्ष के साथ साझा नहीं किया जाता।",
+    security: "हम उपयुक्त तकनीकी और संगठनात्मक उपाय अपनाते हैं।",
+    changes1: "हम समय-समय पर इस नीति को अपडेट कर सकते हैं और ऊपर दी गई प्रभावी तिथि बदल देंगे.",
+    changes2: "कृपया इस पृष्ठ की नियमित रूप से समीक्षा करें।",
+    contact: "प्रश्नों के लिए हमसे संपर्क करें:",
+    contactBullets: { emailLabel: "ईमेल" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. सर्वाधिकार सुरक्षित.`,
+    langLabel: "भाषा:"
+  },
+
+  /* Croatian */
+  "hr": {
+    title: "Pravila privatnosti",
+    effectiveDatePrefix: "Datum stupanja na snagu",
+    sectionDataCollection: "Prikupljanje podataka",
+    sectionSecurity: "Sigurnost podataka",
+    sectionChanges: "Izmjene ove politike",
+    sectionContact: "Kontaktirajte nas",
+    data1: `${CONFIG.appName} ne prikuplja, ne koristi i ne pohranjuje osobne podatke koji vas mogu identificirati.`,
+    data2: "Radi poboljšanja performansi i pouzdanosti, možemo prikupljati anonimne podatke o korištenju, uključujući:",
+    dataBullets: ["Obrasci korištenja značajki", "Trajanje i učestalost sesija"],
+    data3: "Ti se podaci agregiraju, ne mogu vas identificirati, koriste se isključivo za poboljšanje aplikacije i ne dijele se s trećima.",
+    security: "Primjenjujemo odgovarajuće mjere za zaštitu integriteta anonimnih podataka.",
+    changes1: "Politika se može povremeno ažurirati; datum će biti prilagođen.",
+    changes2: "Preporučujemo periodično provjeravanje ove stranice.",
+    contact: "Za pitanja obratite nam se:",
+    contactBullets: { emailLabel: "E-pošta" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Sva prava pridržana.`,
+    langLabel: "Jezik:"
+  },
+
+  /* Hungarian */
+  "hu": {
+    title: "Adatvédelmi irányelvek",
+    effectiveDatePrefix: "Hatálybalépés dátuma",
+    sectionDataCollection: "Adatgyűjtés",
+    sectionSecurity: "Adatbiztonság",
+    sectionChanges: "Az irányelvek változásai",
+    sectionContact: "Kapcsolat",
+    data1: `${CONFIG.appName} nem gyűjt, nem használ és nem tárol személyazonosításra alkalmas adatokat.`,
+    data2: "A teljesítmény és megbízhatóság javítása érdekében névtelen használati adatokat gyűjthetünk:",
+    dataBullets: ["Funkcióhasználati minták", "Munkamenetek hossza és gyakorisága"],
+    data3: "Az adatok összesítettek, nem azonosítják a felhasználót, kizárólag az alkalmazás fejlesztésére szolgálnak, és nem osztjuk meg őket.",
+    security: "Megfelelő intézkedéseket alkalmazunk az anonim adatok védelmére.",
+    changes1: "Ezeket az irányelveket időről időre frissíthetjük; a dátumot ennek megfelelően módosítjuk.",
+    changes2: "Javasoljuk, hogy rendszeresen tekintse meg ezt az oldalt.",
+    contact: "Kérdés esetén lépjen kapcsolatba velünk:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Minden jog fenntartva.`,
+    langLabel: "Nyelv:"
+  },
+
+  /* Indonesian */
+  "id": {
+    title: "Kebijakan Privasi",
+    effectiveDatePrefix: "Tanggal berlaku",
+    sectionDataCollection: "Pengumpulan data",
+    sectionSecurity: "Keamanan data",
+    sectionChanges: "Perubahan kebijakan ini",
+    sectionContact: "Hubungi kami",
+    data1: `${CONFIG.appName} tidak mengumpulkan, menggunakan, atau menyimpan informasi pribadi yang dapat diidentifikasi.`,
+    data2: "Untuk meningkatkan kinerja dan keandalan, kami dapat mengumpulkan data penggunaan anonim yang tidak dapat diidentifikasi, termasuk:",
+    dataBullets: ["Pola penggunaan fitur", "Durasi dan frekuensi sesi"],
+    data3: "Data ini bersifat agregat, tidak dapat mengidentifikasi Anda, hanya digunakan untuk meningkatkan aplikasi dan tidak dibagikan kepada pihak ketiga.",
+    security: "Kami menerapkan langkah-langkah yang sesuai untuk melindungi integritas data anonim.",
+    changes1: "Kebijakan ini dapat diperbarui; tanggal berlaku akan diperbarui.",
+    changes2: "Harap tinjau halaman ini secara berkala.",
+    contact: "Pertanyaan? Hubungi kami:",
+    contactBullets: { emailLabel: "Email" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Seluruh hak cipta dilindungi.`,
+    langLabel: "Bahasa:"
+  },
+
+  /* Italian */
+  "it": {
+    title: "Informativa sulla privacy",
+    effectiveDatePrefix: "Data di efficacia",
+    sectionDataCollection: "Raccolta dati",
+    sectionSecurity: "Sicurezza dei dati",
+    sectionChanges: "Modifiche alla presente informativa",
+    sectionContact: "Contattaci",
+    data1: `${CONFIG.appName} non raccoglie, utilizza o conserva informazioni personali identificabili.`,
+    data2: "Per migliorare prestazioni e affidabilità, possiamo raccogliere dati di utilizzo anonimi, tra cui:",
+    dataBullets: ["Modelli di utilizzo delle funzionalità", "Durata e frequenza delle sessioni"],
+    data3: "Questi dati sono aggregati, non ti identificano, sono usati solo per migliorare l’app e non vengono condivisi con terzi.",
+    security: "Adottiamo misure adeguate per proteggere l’integrità dei dati anonimi.",
+    changes1: "Questa informativa può essere aggiornata; aggiorneremo la data di efficacia.",
+    changes2: "Ti invitiamo a consultare periodicamente questa pagina.",
+    contact: "Per domande, contattaci:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tutti i diritti riservati.`,
+    langLabel: "Lingua:"
+  },
+
+  /* Japanese */
+  "ja": {
+    title: "プライバシーポリシー",
+    effectiveDatePrefix: "施行日",
+    sectionDataCollection: "データの収集",
+    sectionSecurity: "データの安全性",
+    sectionChanges: "本プライバシーポリシーの変更",
+    sectionContact: "お問い合わせ",
+    data1: `${CONFIG.appName} は、個人を特定できる情報を収集・利用・保存しません。`,
+    data2: "性能と信頼性を向上させるため、匿名の利用データを収集する場合があります。例：",
+    dataBullets: ["機能の利用傾向", "セッションの長さと頻度"],
+    data3: "これらのデータは集計され、個人を特定できず、アプリ改善のみに使用され、第三者と共有されません。",
+    security: "匿名データの保護のため、適切な技術的・組織的対策を講じています。",
+    changes1: "本ポリシーは随時更新される場合があります。更新時は施行日を変更します。",
+    changes2: "変更の有無を定期的にご確認ください。",
+    contact: "ご不明点がある場合はご連絡ください：",
+    contactBullets: { emailLabel: "メール" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. 無断転載を禁じます。`,
+    langLabel: "言語："
+  },
+
+  /* Korean */
+  "ko": {
+    title: "개인정보 처리방침",
+    effectiveDatePrefix: "시행일",
+    sectionDataCollection: "데이터 수집",
+    sectionSecurity: "데이터 보안",
+    sectionChanges: "본 방침의 변경",
+    sectionContact: "문의하기",
+    data1: `${CONFIG.appName}은(는) 개인을 식별할 수 있는 정보를 수집·이용·저장하지 않습니다.`,
+    data2: "성능과 안정성 향상을 위해 익명화된 사용 데이터를 수집할 수 있습니다. 예:",
+    dataBullets: ["기능 사용 패턴", "세션 길이 및 빈도"],
+    data3: "이 데이터는 집계되어 개인 식별이 불가하며, 앱 개선에만 사용되고 제3자와 공유되지 않습니다.",
+    security: "당사는 적절한 조치를 통해 익명 데이터의 무결성을 보호합니다.",
+    changes1: "본 방침은 수시로 업데이트될 수 있으며 시행일이 갱신됩니다.",
+    changes2: "변경 사항을 확인하기 위해 이 페이지를 주기적으로 확인해 주세요.",
+    contact: "문의 사항이 있으면 연락해 주세요:",
+    contactBullets: { emailLabel: "이메일" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. 판권 소유.`,
+    langLabel: "언어:"
+  },
+
+  /* Malay */
+  "ms": {
+    title: "Dasar Privasi",
+    effectiveDatePrefix: "Tarikh berkuat kuasa",
+    sectionDataCollection: "Pengumpulan data",
+    sectionSecurity: "Keselamatan data",
+    sectionChanges: "Perubahan pada dasar ini",
+    sectionContact: "Hubungi kami",
+    data1: `${CONFIG.appName} tidak mengumpul, menggunakan atau menyimpan maklumat peribadi yang boleh dikenal pasti.`,
+    data2: "Untuk meningkatkan prestasi dan kebolehpercayaan, kami mungkin mengumpul data penggunaan tanpa nama, termasuk:",
+    dataBullets: ["Corak penggunaan ciri", "Tempoh dan kekerapan sesi"],
+    data3: "Data ini adalah terkumpul, tidak mengenal pasti anda, hanya digunakan untuk menambah baik aplikasi dan tidak dikongsi dengan pihak ketiga.",
+    security: "Kami mengambil langkah yang sesuai untuk melindungi integriti data tanpa nama.",
+    changes1: "Dasar ini mungkin dikemas kini dari semasa ke semasa; tarikh berkuat kuasa akan dikemas kini.",
+    changes2: "Sila semak halaman ini secara berkala.",
+    contact: "Jika ada pertanyaan, hubungi kami:",
+    contactBullets: { emailLabel: "E-mel" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Hak cipta terpelihara.`,
+    langLabel: "Bahasa:"
+  },
+
+  /* Norwegian Bokmål */
+  "nb": {
+    title: "Personvernerklæring",
+    effectiveDatePrefix: "Ikrafttredelsesdato",
+    sectionDataCollection: "Innsamling av data",
+    sectionSecurity: "Datasikkerhet",
+    sectionChanges: "Endringer i denne erklæringen",
+    sectionContact: "Kontakt oss",
+    data1: `${CONFIG.appName} samler ikke inn, bruker eller lagrer personopplysninger som kan identifisere deg.`,
+    data2: "For å forbedre ytelse og pålitelighet kan vi samle inn anonyme bruksdata, inkludert:",
+    dataBullets: ["Bruksmønstre for funksjoner", "Varighet og hyppighet av økter"],
+    data3: "Dataene er aggregerte, identifiserer ikke deg, brukes kun til å forbedre appen og deles ikke med tredjeparter.",
+    security: "Vi iverksetter egnede tiltak for å beskytte integriteten til anonyme data.",
+    changes1: "Denne erklæringen kan oppdateres fra tid til annen; datoen justeres deretter.",
+    changes2: "Vi anbefaler å sjekke denne siden jevnlig.",
+    contact: "Spørsmål? Kontakt oss:",
+    contactBullets: { emailLabel: "E-post" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alle rettigheter forbeholdt.`,
+    langLabel: "Språk:"
+  },
+
+  /* Polish */
+  "pl": {
+    title: "Polityka prywatności",
+    effectiveDatePrefix: "Data wejścia w życie",
+    sectionDataCollection: "Zbieranie danych",
+    sectionSecurity: "Bezpieczeństwo danych",
+    sectionChanges: "Zmiany w niniejszej polityce",
+    sectionContact: "Skontaktuj się z nami",
+    data1: `${CONFIG.appName} nie gromadzi, nie używa ani nie przechowuje danych osobowych pozwalających na identyfikację.`,
+    data2: "Aby poprawić wydajność i niezawodność, możemy zbierać anonimowe dane o użyciu, w tym:",
+    dataBullets: ["Wzorce korzystania z funkcji", "Czas trwania i częstotliwość sesji"],
+    data3: "Dane są zagregowane, nie identyfikują użytkownika, służą wyłącznie do ulepszania aplikacji i nie są udostępniane podmiotom trzecim.",
+    security: "Stosujemy odpowiednie środki w celu ochrony integralności danych anonimowych.",
+    changes1: "Niniejsza polityka może być aktualizowana; zaktualizujemy datę wejścia w życie.",
+    changes2: "Zalecamy regularne sprawdzanie tej strony.",
+    contact: "W razie pytań prosimy o kontakt:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Wszelkie prawa zastrzeżone.`,
+    langLabel: "Język:"
+  },
+
+  /* Portuguese (PT + BR) */
+  "pt-PT": {
+    title: "Política de Privacidade",
+    effectiveDatePrefix: "Data de entrada em vigor",
+    sectionDataCollection: "Recolha de dados",
+    sectionSecurity: "Segurança dos dados",
+    sectionChanges: "Alterações a esta política",
+    sectionContact: "Contacte-nos",
+    data1: `${CONFIG.appName} não recolhe, utiliza nem armazena dados pessoais identificáveis.`,
+    data2: "Para melhorar o desempenho e a fiabilidade, podemos recolher dados de utilização anónimos, incluindo:",
+    dataBullets: ["Padrões de utilização de funcionalidades", "Duração e frequência das sessões"],
+    data3: "Estes dados são agregados, não permitem identificar o utilizador, são usados apenas para melhorar a app e não são partilhados com terceiros.",
+    security: "Aplicamos medidas adequadas para proteger a integridade dos dados anónimos.",
+    changes1: "Esta política pode ser atualizada; atualizaremos a data de entrada em vigor.",
+    changes2: "Recomendamos rever esta página regularmente.",
+    contact: "Questões? Contacte-nos:",
+    contactBullets: { emailLabel: "Email" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Todos os direitos reservados.`,
+    langLabel: "Idioma:"
+  },
+  "pt-BR": {},
+
+  /* Romanian */
+  "ro": {
+    title: "Politica de confidențialitate",
+    effectiveDatePrefix: "Data intrării în vigoare",
+    sectionDataCollection: "Colectarea datelor",
+    sectionSecurity: "Securitatea datelor",
+    sectionChanges: "Modificări ale acestei politici",
+    sectionContact: "Contactați-ne",
+    data1: `${CONFIG.appName} nu colectează, nu utilizează și nu stochează informații personale identificabile.`,
+    data2: "Pentru a îmbunătăți performanța și fiabilitatea, putem colecta date anonime de utilizare, inclusiv:",
+    dataBullets: ["Modele de utilizare a funcțiilor", "Durata și frecvența sesiunilor"],
+    data3: "Aceste date sunt agregate, nu vă identifică, se folosesc doar pentru îmbunătățirea aplicației și nu sunt partajate cu terți.",
+    security: "Aplicăm măsuri adecvate pentru protecția integrității datelor anonime.",
+    changes1: "Politica poate fi actualizată periodic; vom actualiza data.",
+    changes2: "Vă recomandăm să verificați periodic această pagină.",
+    contact: "Întrebări? Contactați-ne:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Toate drepturile rezervate.`,
+    langLabel: "Limbă:"
+  },
+
+  /* Russian */
+  "ru": {
+    title: "Политика конфиденциальности",
+    effectiveDatePrefix: "Дата вступления в силу",
+    sectionDataCollection: "Сбор данных",
+    sectionSecurity: "Безопасность данных",
+    sectionChanges: "Изменения политики",
+    sectionContact: "Связаться с нами",
+    data1: `${CONFIG.appName} не собирает, не использует и не хранит персональные данные, позволяющие идентифицировать личность.`,
+    data2: "Для повышения производительности и надежности мы можем собирать анонимные данные об использовании, включая:",
+    dataBullets: ["Сценарии использования функций", "Длительность и частота сеансов"],
+    data3: "Эти данные агрегируются, не позволяют идентифицировать пользователя, используются только для улучшения приложения и не передаются третьим лицам.",
+    security: "Мы применяем соответствующие меры для защиты целостности анонимных данных.",
+    changes1: "Политика может периодически обновляться; дата будет изменена.",
+    changes2: "Рекомендуем периодически проверять эту страницу.",
+    contact: "Вопросы? Свяжитесь с нами:",
+    contactBullets: { emailLabel: "Эл. почта" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Все права защищены.`,
+    langLabel: "Язык:"
+  },
+
+  /* Slovak */
+  "sk": {
+    title: "Zásady ochrany osobných údajov",
+    effectiveDatePrefix: "Dátum účinnosti",
+    sectionDataCollection: "Zber údajov",
+    sectionSecurity: "Bezpečnosť údajov",
+    sectionChanges: "Zmeny týchto zásad",
+    sectionContact: "Kontaktujte nás",
+    data1: `${CONFIG.appName} nezhromažďuje, nepoužíva ani neukladá osobné údaje umožňujúce identifikáciu.`,
+    data2: "Na zlepšenie výkonu a spoľahlivosti môžeme zhromažďovať anonymné údaje o používaní, vrátane:",
+    dataBullets: ["Spôsob používania funkcií", "Dĺžka a frekvencia relácií"],
+    data3: "Tieto údaje sú agregované, neumožňujú vašu identifikáciu, používajú sa len na zlepšenie aplikácie a nezdieľajú sa s tretími stranami.",
+    security: "Používame primerané opatrenia na ochranu integrity anonymných údajov.",
+    changes1: "Tieto zásady môžeme pravidelne aktualizovať; dátum upravíme.",
+    changes2: "Odporúčame pravidelne kontrolovať túto stránku.",
+    contact: "Otázky? Kontaktujte nás:",
+    contactBullets: { emailLabel: "E-mail" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Všetky práva vyhradené.`,
+    langLabel: "Jazyk:"
+  },
+
+  /* Spanish (+ MX fallback) */
+  "es": {
+    title: "Política de privacidad",
+    effectiveDatePrefix: "Fecha de entrada en vigor",
+    sectionDataCollection: "Recopilación de datos",
+    sectionSecurity: "Seguridad de los datos",
+    sectionChanges: "Cambios en esta política",
+    sectionContact: "Contáctenos",
+    data1: `${CONFIG.appName} no recopila, utiliza ni almacena información personal identificable.`,
+    data2: "Para mejorar el rendimiento y la fiabilidad, podemos recopilar datos de uso anónimos, como:",
+    dataBullets: ["Patrones de uso de funciones", "Duración y frecuencia de las sesiones"],
+    data3: "Estos datos son agregados, no le identifican, se usan solo para mejorar la app y no se comparten con terceros.",
+    security: "Adoptamos medidas adecuadas para proteger la integridad de los datos anónimos.",
+    changes1: "Esta política puede actualizarse periódicamente; actualizaremos la fecha.",
+    changes2: "Le recomendamos revisar esta página con regularidad.",
+    contact: "Si tiene preguntas, contáctenos:",
+    contactBullets: { emailLabel: "Correo electrónico" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Todos los derechos reservados.`,
+    langLabel: "Idioma:"
+  },
+  "es-MX": {},
+
+  /* Swedish */
+  "sv": {
+    title: "Integritetspolicy",
+    effectiveDatePrefix: "Ikraftträdandedatum",
+    sectionDataCollection: "Insamling av data",
+    sectionSecurity: "Datasäkerhet",
+    sectionChanges: "Ändringar av denna policy",
+    sectionContact: "Kontakta oss",
+    data1: `${CONFIG.appName} samlar inte in, använder eller lagrar personligt identifierbar information.`,
+    data2: "För att förbättra prestanda och tillförlitlighet kan vi samla in anonym användningsdata, t.ex.:",
+    dataBullets: ["Användningsmönster för funktioner", "Sessioners längd och frekvens"],
+    data3: "Dessa data är aggregerade, kan inte identifiera dig, används endast för att förbättra appen och delas inte med tredje part.",
+    security: "Vi vidtar lämpliga åtgärder för att skydda anonym data.",
+    changes1: "Denna policy kan uppdateras; ikraftträdandedatum uppdateras därefter.",
+    changes2: "Kontrollera denna sida regelbundet.",
+    contact: "Frågor? Kontakta oss:",
+    contactBullets: { emailLabel: "E-post" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alla rättigheter förbehållna.`,
+    langLabel: "Språk:"
+  },
+
+  /* Thai */
+  "th": {
+    title: "นโยบายความเป็นส่วนตัว",
+    effectiveDatePrefix: "มีผลบังคับใช้วันที่",
+    sectionDataCollection: "การเก็บรวบรวมข้อมูล",
+    sectionSecurity: "ความปลอดภัยของข้อมูล",
+    sectionChanges: "การเปลี่ยนแปลงนโยบายนี้",
+    sectionContact: "ติดต่อเรา",
+    data1: `${CONFIG.appName} ไม่ได้เก็บ ใช้ หรือจัดเก็บข้อมูลส่วนบุคคลที่สามารถระบุตัวตนได้`,
+    data2: "เพื่อปรับปรุงประสิทธิภาพและความเสถียร เราอาจเก็บข้อมูลการใช้งานแบบไม่ระบุตัวตน เช่น:",
+    dataBullets: ["รูปแบบการใช้งานฟีเจอร์", "ระยะเวลาและความถี่ของเซสชัน"],
+    data3: "ข้อมูลนี้เป็นแบบรวม ไม่สามารถระบุตัวตน ใช้เพื่อพัฒนาแอปเท่านั้น และจะไม่ถูกแชร์กับบุคคลที่สาม",
+    security: "เราดำเนินมาตรการที่เหมาะสมเพื่อปกป้องข้อมูลแบบไม่ระบุตัวตน",
+    changes1: "นโยบายนี้อาจได้รับการปรับปรุงเป็นระยะ และจะปรับปรุงวันที่มีผลบังคับใช้ด้านบน",
+    changes2: "โปรดตรวจสอบหน้านี้เป็นระยะ",
+    contact: "หากมีคำถาม โปรดติดต่อเรา:",
+    contactBullets: { emailLabel: "อีเมล" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. สงวนลิขสิทธิ์`,
+    langLabel: "ภาษา:"
+  },
+
+  /* Turkish */
+  "tr": {
+    title: "Gizlilik Politikası",
+    effectiveDatePrefix: "Yürürlük tarihi",
+    sectionDataCollection: "Veri toplama",
+    sectionSecurity: "Veri güvenliği",
+    sectionChanges: "Bu politikanın değişiklikleri",
+    sectionContact: "Bize ulaşın",
+    data1: `${CONFIG.appName}, kişisel olarak tanımlanabilir herhangi bir bilgiyi toplamaz, kullanmaz veya saklamaz.`,
+    data2: "Performans ve güvenilirliği artırmak için anonim kullanım verileri toplayabiliriz. Örnekler:",
+    dataBullets: ["Özellik kullanım alışkanlıkları", "Oturum süresi ve sıklığı"],
+    data3: "Bu veriler birleştirilmiş olup kimliğinizi belirlemez; yalnızca uygulamayı iyileştirmek için kullanılır ve üçüncü taraflarla paylaşılmaz.",
+    security: "Anonim verilerin bütünlüğünü korumak için uygun önlemler alırız.",
+    changes1: "Bu politika zaman zaman güncellenebilir; yürürlük tarihi buna göre güncellenecektir.",
+    changes2: "Lütfen bu sayfayı düzenli olarak kontrol edin.",
+    contact: "Sorular için bizimle iletişime geçin:",
+    contactBullets: { emailLabel: "E-posta" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tüm hakları saklıdır.`,
+    langLabel: "Dil:"
+  },
+
+  /* Ukrainian */
+  "uk": {
+    title: "Політика конфіденційності",
+    effectiveDatePrefix: "Дата набуття чинності",
+    sectionDataCollection: "Збирання даних",
+    sectionSecurity: "Безпека даних",
+    sectionChanges: "Зміни цієї політики",
+    sectionContact: "Зв’язатися з нами",
+    data1: `${CONFIG.appName} не збирає, не використовує та не зберігає персональні дані, що дозволяють ідентифікувати особу.`,
+    data2: "З метою покращення продуктивності та надійності ми можемо збирати анонімні дані про використання, зокрема:",
+    dataBullets: ["Шаблони використання функцій", "Тривалість і частота сеансів"],
+    data3: "Ці дані агреговані, не дають змоги ідентифікувати вас, використовуються лише для вдосконалення застосунку та не передаються третім сторонам.",
+    security: "Ми застосовуємо належні заходи для захисту цілісності анонімних даних.",
+    changes1: "Політика може періодично оновлюватися; дату буде змінено.",
+    changes2: "Рекомендуємо час від часу переглядати цю сторінку.",
+    contact: "Питання? Зверніться до нас:",
+    contactBullets: { emailLabel: "Е-пошта" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Усі права захищені.`,
+    langLabel: "Мова:"
+  },
+
+  /* Vietnamese */
+  "vi": {
+    title: "Chính sách quyền riêng tư",
+    effectiveDatePrefix: "Ngày có hiệu lực",
+    sectionDataCollection: "Thu thập dữ liệu",
+    sectionSecurity: "Bảo mật dữ liệu",
+    sectionChanges: "Thay đổi của chính sách này",
+    sectionContact: "Liên hệ",
+    data1: `${CONFIG.appName} không thu thập, sử dụng hoặc lưu trữ bất kỳ thông tin nhận dạng cá nhân nào.`,
+    data2: "Để cải thiện hiệu năng và độ tin cậy, chúng tôi có thể thu thập dữ liệu sử dụng ẩn danh, bao gồm:",
+    dataBullets: ["Mẫu sử dụng tính năng", "Thời lượng và tần suất phiên"],
+    data3: "Dữ liệu được tổng hợp, không thể nhận dạng bạn, chỉ dùng để cải thiện ứng dụng và không chia sẻ cho bên thứ ba.",
+    security: "Chúng tôi áp dụng các biện pháp phù hợp để bảo vệ dữ liệu ẩn danh.",
+    changes1: "Chính sách có thể được cập nhật; chúng tôi sẽ cập nhật ngày hiệu lực.",
+    changes2: "Vui lòng kiểm tra lại trang này định kỳ.",
+    contact: "Nếu có câu hỏi, vui lòng liên hệ:",
+    contactBullets: { emailLabel: "Email" },
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Bảo lưu mọi quyền.`,
+    langLabel: "Ngôn ngữ:"
+  },
+
+  /* Region variants (inherit via fallback) */
+  "en-GB": {}, "en-AU": {}, "en-CA": {}, "fr-CA": {}, "es-MX": {}, "pt-BR": {}, "ar-SA": {}
+};
+
+/* ===== Locale plumbing & rendering ===== */
+const RTL = new Set(["ar","ar-SA","he"]);
+const langSelect = document.getElementById("lang");
+
+function normalize(code){ return (code || "en").replace("_","-"); }
+function baseOf(code){ return normalize(code).split("-")[0]; }
+function pickStrings(locale){
+  const loc = normalize(locale);
+  if (T[loc] && Object.keys(T[loc]).length) return T[loc];
+  const base = baseOf(loc);
+  return T[base] || T["en"];
+}
+function bestLocale(){
+  const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
+  const norm = normalize(nav);
+  if (T[norm]) return norm;
+  const base = baseOf(norm);
+  return T[base] ? base : "en";
+}
+function populateLanguageOptions(current){
+  langSelect.innerHTML = "";
+  Object.keys(T).sort().forEach(k=>{
+    const opt=document.createElement("option");
+    opt.value=k; opt.textContent=k;
+    if(k===current) opt.selected=true;
+    langSelect.appendChild(opt);
+  });
+}
+function formatDate(iso, locale){
+  try { return new Date(iso).toLocaleDateString(locale,{year:'numeric',month:'long',day:'numeric'}) }
+  catch { return iso; }
+}
+
+function render(locale){
+  const t = pickStrings(locale);
+  document.documentElement.lang = locale;
+  document.documentElement.dir = RTL.has(locale) ? "rtl" : "ltr";
+
+  document.getElementById("title").textContent = t.title;
+  document.getElementById("effectiveDate").textContent = `${t.effectiveDatePrefix}: ${formatDate(CONFIG.effectiveDateISO, locale)}`;
+
+  document.getElementById("sectionDataCollection").textContent = t.sectionDataCollection || "Data Collection";
+  document.getElementById("sectionSecurity").textContent = t.sectionSecurity || "Data Security";
+  document.getElementById("sectionChanges").textContent = t.sectionChanges || "Changes to This Privacy Policy";
+  document.getElementById("sectionContact").textContent = t.sectionContact || "Contact Us";
+
+  document.getElementById("pData1").textContent = t.data1;
+  document.getElementById("pData2").textContent = t.data2;
+
+  const ul = document.getElementById("listData");
+  ul.innerHTML = "";
+  (t.dataBullets || []).forEach(x => {
+    const li = document.createElement("li");
+    li.textContent = x;
+    ul.appendChild(li);
+  });
+
+  document.getElementById("pData3").textContent = t.data3;
+  document.getElementById("pSecurity").textContent = t.security;
+  document.getElementById("pChanges1").textContent = t.changes1;
+  document.getElementById("pChanges2").textContent = t.changes2;
+
+  document.getElementById("pContact").textContent = t.contact;
+  const ulc = document.getElementById("listContact");
+  ulc.innerHTML = "";
+  const li = document.createElement("li");
+  li.innerHTML = `${t.contactBullets?.emailLabel || "Email"}: <a href="mailto:${CONFIG.contactEmail}">${CONFIG.contactEmail}</a>`;
+  ulc.appendChild(li);
+
+  document.getElementById("footerNote").textContent = t.footer;
+}
+
+/* Init */
+(function init(){
+  const locale = bestLocale();
+  populateLanguageOptions(locale);
+  render(locale);
+  langSelect.addEventListener("change", e => render(e.target.value));
+})();
+</script>
+</body>
+</html>
