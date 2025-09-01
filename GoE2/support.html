@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Support</title>
+  <meta name="color-scheme" content="light dark"/>
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --fg: #1f2937;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --accent: #2563eb;
+      --border: #e5e7eb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f14;
+        --fg: #e5e7eb;
+        --muted: #9ca3af;
+        --card: #121821;
+        --accent: #7aa2f7;
+        --border: #1f2937;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 800px at 75% -10%, #dbeafe33, transparent 60%),
+        radial-gradient(1000px 600px at 0% 110%, #f5d0fe22, transparent 60%),
+        var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 900px; margin: clamp(16px, 4vw, 64px) auto; padding: clamp(12px, 2vw, 24px); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(20px, 3vw, 40px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+    header { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    h1 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: .2px; }
+    h2 { margin: 1.2rem 0 .6rem; font-size: clamp(1.2rem, 2.2vw, 1.5rem); }
+    p, li { font-size: clamp(.98rem, 1.6vw, 1.05rem); }
+    ul { margin: .4rem 0 .8rem 1.2rem; }
+    .muted { color: var(--muted); }
+    .controls { display: flex; align-items: center; gap: 10px; }
+    select {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.95rem; cursor: pointer;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .footer { margin-top: 1.2rem; font-size: .95rem; color: var(--muted); }
+    /* RTL */
+    [dir="rtl"] .card { direction: rtl; }
+    [dir="rtl"] ul { margin-left: 0; margin-right: 1.2rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <h1 id="appName">My Mirror+</h1>
+        <div class="controls">
+          <label for="lang" class="muted" id="langLabel">Language:</label>
+          <select id="lang"></select>
+        </div>
+      </header>
+
+      <h2 id="supportHeading">Support</h2>
+      <p id="supportText1"></p>
+      <p id="supportText2"></p>
+      <ul id="contactList"></ul>
+
+      <div class="footer" id="footer"></div>
+    </div>
+  </div>
+
+<script>
+/* ========= CONFIG (edit for reuse) ========= */
+const CONFIG = {
+  appName: "Gods of Eternity 2",                        // e.g., "Hikari Draw"
+  contactEmail: "jcanhita.apps@gmail.com",
+  copyrightOwner: "Joao Canhita",                 // e.g., "Hikari Draw"
+  year: new Date().getFullYear()
+};
+
+/* ========= Locale + Translations ========= */
+/* We provide wide coverage; unknown locales fallback to their base ("pt-BR" -> "pt") or to "en". */
+const RTL = new Set(["ar","ar-SA","he"]);
+
+const T = {
+  // English (base)
+  "en": {
+    langLabel: "Language:",
+    heading: "Support",
+    p1: `If you have questions, need help with the app, or want to report an issue — we’re here for you.`,
+    p2: `Don’t hesitate to reach out — your feedback helps improve ${CONFIG.appName} for everyone.`,
+    emailLabel: "Email",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. All rights reserved.`
+  },
+
+  // Arabic
+  "ar": {
+    langLabel: "اللغة:",
+    heading: "الدعم",
+    p1: "إذا كانت لديك أسئلة، تحتاج إلى مساعدة في التطبيق، أو ترغب في الإبلاغ عن مشكلة — نحن هنا لمساعدتك.",
+    p2: `لا تتردد في التواصل — ملاحظاتك تساعدنا على تحسين ${CONFIG.appName} للجميع.`,
+    emailLabel: "البريد الإلكتروني",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. جميع الحقوق محفوظة.`
+  },
+
+  // Catalan
+  "ca": {
+    langLabel: "Idioma:",
+    heading: "Suport",
+    p1: "Si tens preguntes, necessites ajuda amb l’app o vols informar d’un problema, som aquí per ajudar.",
+    p2: `No dubtis a contactar — els teus comentaris ajuden a millorar ${CONFIG.appName} per a tothom.`,
+    emailLabel: "Correu electrònic",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Tots els drets reservats.`
+  },
+
+  // Chinese (Simplified / Traditional)
+  "zh-Hans": {
+    langLabel: "语言：",
+    heading: "支持",
+    p1: "如果您有任何问题、需要应用帮助或想报告问题，我们随时为您提供支持。",
+    p2: `欢迎随时联系——您的反馈有助于改进 ${CONFIG.appName}，惠及所有用户。`,
+    emailLabel: "电子邮箱",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}。保留所有权利。`
+  },
+  "zh-Hant": {
+    langLabel: "語言：",
+    heading: "支援",
+    p1: "若您有任何問題、需要應用程式協助或想回報問題，我們樂意提供支援。",
+    p2: `歡迎隨時聯絡——您的意見有助於改進 ${CONFIG.appName}，讓所有使用者受益。`,
+    emailLabel: "電子郵件",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}。保留所有權利。`
+  },
+
+  // Czech
+  "cs": {
+    langLabel: "Jazyk:",
+    heading: "Podpora",
+    p1: "Máte dotazy, potřebujete pomoc s aplikací nebo chcete nahlásit problém? Jsme tu pro vás.",
+    p2: `Neváhejte nás kontaktovat — vaše zpětná vazba pomáhá vylepšovat ${CONFIG.appName} pro všechny.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Všechna práva vyhrazena.`
+  },
+
+  // Danish
+  "da": {
+    langLabel: "Sprog:",
+    heading: "Support",
+    p1: "Har du spørgsmål, brug for hjælp til appen eller vil du rapportere et problem? Vi er her for at hjælpe.",
+    p2: `Tøv ikke med at kontakte os — din feedback hjælper med at forbedre ${CONFIG.appName} for alle.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Alle rettigheder forbeholdes.`
+  },
+
+  // Dutch
+  "nl": {
+    langLabel: "Taal:",
+    heading: "Ondersteuning",
+    p1: "Heeft u vragen, hulp nodig bij de app of wilt u een probleem melden? Wij staan voor u klaar.",
+    p2: `Neem gerust contact op — uw feedback helpt ${CONFIG.appName} voor iedereen te verbeteren.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Alle rechten voorbehouden.`
+  },
+
+  // English variants
+  "en-GB": {}, "en-AU": {}, "en-CA": {},
+
+  // Finnish
+  "fi": {
+    langLabel: "Kieli:",
+    heading: "Tuki",
+    p1: "Jos sinulla on kysyttävää, tarvitset apua sovelluksen kanssa tai haluat ilmoittaa ongelmasta, ota yhteyttä.",
+    p2: `Älä epäröi ottaa yhteyttä — palautteesi auttaa parantamaan ${CONFIG.appName}a kaikille.`,
+    emailLabel: "Sähköposti",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Kaikki oikeudet pidätetään.`
+  },
+
+  // French (FR/CA)
+  "fr": {
+    langLabel: "Langue :",
+    heading: "Assistance",
+    p1: "Si vous avez des questions, besoin d’aide avec l’app ou souhaitez signaler un problème, nous sommes là pour vous.",
+    p2: `N’hésitez pas à nous contacter — vos retours aident à améliorer ${CONFIG.appName} pour tous.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Tous droits réservés.`
+  },
+  "fr-CA": {},
+
+  // German
+  "de": {
+    langLabel: "Sprache:",
+    heading: "Support",
+    p1: "Wenn Sie Fragen haben, Hilfe bei der App benötigen oder ein Problem melden möchten, sind wir für Sie da.",
+    p2: `Zögern Sie nicht, uns zu kontaktieren — Ihr Feedback hilft, ${CONFIG.appName} für alle zu verbessern.`,
+    emailLabel: "E-Mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Alle Rechte vorbehalten.`
+  },
+
+  // Greek
+  "el": {
+    langLabel: "Γλώσσα:",
+    heading: "Υποστήριξη",
+    p1: "Αν έχετε απορίες, χρειάζεστε βοήθεια με την εφαρμογή ή θέλετε να αναφέρετε πρόβλημα, είμαστε εδώ.",
+    p2: `Μη διστάσετε να επικοινωνήσετε — τα σχόλιά σας βοηθούν να βελτιώσουμε το ${CONFIG.appName} για όλους.`,
+    emailLabel: "Email",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Με επιφύλαξη παντός δικαιώματος.`
+  },
+
+  // Hebrew
+  "he": {
+    langLabel: "שפה:",
+    heading: "תמיכה",
+    p1: "אם יש לך שאלות, אתה זקוק לעזרה באפליקציה או ברצונך לדווח על בעיה — אנחנו כאן בשבילך.",
+    p2: `נשמח לעזור — המשוב שלך מסייע לשפר את ${CONFIG.appName} לכולם.`,
+    emailLabel: "דוא\"ל",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. כל הזכויות שמורות.`
+  },
+
+  // Hindi
+  "hi": {
+    langLabel: "भाषा:",
+    heading: "सहायता",
+    p1: "यदि आपके कोई सवाल हैं, ऐप में मदद चाहिए या कोई समस्या बताना चाहते हैं — हम यहां हैं।",
+    p2: `बेझिझक संपर्क करें — आपका फीडबैक ${CONFIG.appName} को बेहतर बनाने में मदद करता है।`,
+    emailLabel: "ईमेल",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. सर्वाधिकार सुरक्षित।`
+  },
+
+  // Croatian
+  "hr": {
+    langLabel: "Jezik:",
+    heading: "Podrška",
+    p1: "Imate pitanja, trebate pomoć s aplikacijom ili želite prijaviti problem? Tu smo za vas.",
+    p2: `Slobodno nas kontaktirajte — vaš feedback pomaže poboljšati ${CONFIG.appName} za sve.`,
+    emailLabel: "E-pošta",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Sva prava pridržana.`
+  },
+
+  // Hungarian
+  "hu": {
+    langLabel: "Nyelv:",
+    heading: "Támogatás",
+    p1: "Kérdése van, segítségre van szüksége az alkalmazással, vagy hibát jelentene? Szívesen segítünk.",
+    p2: `Keressen bátran — visszajelzése segít a ${CONFIG.appName} fejlesztésében.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Minden jog fenntartva.`
+  },
+
+  // Indonesian
+  "id": {
+    langLabel: "Bahasa:",
+    heading: "Dukungan",
+    p1: "Jika Anda memiliki pertanyaan, butuh bantuan aplikasi, atau ingin melaporkan masalah, kami siap membantu.",
+    p2: `Jangan ragu untuk menghubungi — masukan Anda membantu meningkatkan ${CONFIG.appName} untuk semua.`,
+    emailLabel: "Email",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Seluruh hak cipta dilindungi.`
+  },
+
+  // Italian
+  "it": {
+    langLabel: "Lingua:",
+    heading: "Supporto",
+    p1: "Hai domande, ti serve aiuto con l’app o vuoi segnalare un problema? Siamo qui per te.",
+    p2: `Contattaci senza esitazioni — il tuo feedback aiuta a migliorare ${CONFIG.appName} per tutti.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Tutti i diritti riservati.`
+  },
+
+  // Japanese
+  "ja": {
+    langLabel: "言語：",
+    heading: "サポート",
+    p1: "ご質問、アプリのサポート、または問題の報告をご希望の場合はご連絡ください。",
+    p2: `皆さまからのフィードバックは ${CONFIG.appName} の改善に役立ちます。`,
+    emailLabel: "メール",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. 無断転載を禁じます。`
+  },
+
+  // Korean
+  "ko": {
+    langLabel: "언어:",
+    heading: "지원",
+    p1: "질문이 있거나 앱 사용에 도움이 필요하시거나 문제를 신고하려면 문의해 주세요.",
+    p2: `여러분의 피드백은 ${CONFIG.appName}를 모두에게 더 좋게 만듭니다.`,
+    emailLabel: "이메일",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. 판권 소유.`
+  },
+
+  // Malay
+  "ms": {
+    langLabel: "Bahasa:",
+    heading: "Sokongan",
+    p1: "Jika anda mempunyai sebarang soalan, perlukan bantuan aplikasi, atau ingin melaporkan isu, sila hubungi kami.",
+    p2: `Maklum balas anda membantu menambah baik ${CONFIG.appName} untuk semua.`,
+    emailLabel: "E-mel",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Hak cipta terpelihara.`
+  },
+
+  // Norwegian Bokmål
+  "nb": {
+    langLabel: "Språk:",
+    heading: "Support",
+    p1: "Har du spørsmål, trenger hjelp med appen eller vil melde et problem? Ta kontakt.",
+    p2: `Din tilbakemelding bidrar til å forbedre ${CONFIG.appName} for alle.`,
+    emailLabel: "E-post",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Alle rettigheter forbeholdt.`
+  },
+
+  // Polish
+  "pl": {
+    langLabel: "Język:",
+    heading: "Wsparcie",
+    p1: "Masz pytania, potrzebujesz pomocy z aplikacją lub chcesz zgłosić problem? Skontaktuj się z nami.",
+    p2: `Twoja opinia pomaga ulepszać ${CONFIG.appName} dla wszystkich.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Wszelkie prawa zastrzeżone.`
+  },
+
+  // Portuguese (PT/BR)
+  "pt-PT": {
+    langLabel: "Idioma:",
+    heading: "Suporte",
+    p1: "Se tiver dúvidas, precisar de ajuda com a app ou quiser reportar um problema, contacte-nos.",
+    p2: `O seu feedback ajuda a melhorar o ${CONFIG.appName} para todos.`,
+    emailLabel: "Email",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Todos os direitos reservados.`
+  },
+  "pt-BR": {
+    langLabel: "Idioma:",
+    heading: "Suporte",
+    p1: "Se você tiver dúvidas, precisar de ajuda com o app ou quiser relatar um problema, fale conosco.",
+    p2: `Seu feedback ajuda a melhorar o ${CONFIG.appName} para todos.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Todos os direitos reservados.`
+  },
+
+  // Romanian
+  "ro": {
+    langLabel: "Limbă:",
+    heading: "Suport",
+    p1: "Dacă aveți întrebări, aveți nevoie de ajutor în aplicație sau doriți să raportați o problemă, contactați-ne.",
+    p2: `Feedbackul dvs. ajută la îmbunătățirea ${CONFIG.appName} pentru toți.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Toate drepturile rezervate.`
+  },
+
+  // Russian
+  "ru": {
+    langLabel: "Язык:",
+    heading: "Поддержка",
+    p1: "Если у вас есть вопросы, нужна помощь с приложением или вы хотите сообщить о проблеме — свяжитесь с нами.",
+    p2: `Ваши отзывы помогают улучшать ${CONFIG.appName} для всех.`,
+    emailLabel: "Эл. почта",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Все права защищены.`
+  },
+
+  // Slovak
+  "sk": {
+    langLabel: "Jazyk:",
+    heading: "Podpora",
+    p1: "Máte otázky, potrebujete pomoc s aplikáciou alebo chcete nahlásiť problém? Kontaktujte nás.",
+    p2: `Vaša spätná väzba pomáha zlepšovať ${CONFIG.appName} pre všetkých.`,
+    emailLabel: "E-mail",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Všetky práva vyhradené.`
+  },
+
+  // Spanish (ES/MX)
+  "es": {
+    langLabel: "Idioma:",
+    heading: "Soporte",
+    p1: "Si tienes preguntas, necesitas ayuda con la app o quieres reportar un problema, estamos para ayudarte.",
+    p2: `Tu opinión ayuda a mejorar ${CONFIG.appName} para todos.`,
+    emailLabel: "Correo electrónico",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Todos los derechos reservados.`
+  },
+  "es-MX": {},
+
+  // Swedish
+  "sv": {
+    langLabel: "Språk:",
+    heading: "Support",
+    p1: "Kontakta oss om du har frågor, behöver hjälp med appen eller vill rapportera ett problem.",
+    p2: `Din feedback hjälper oss att förbättra ${CONFIG.appName} för alla.`,
+    emailLabel: "E-post",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Alla rättigheter förbehållna.`
+  },
+
+  // Thai
+  "th": {
+    langLabel: "ภาษา:",
+    heading: "ฝ่ายสนับสนุน",
+    p1: "หากคุณมีคำถาม ต้องการความช่วยเหลือเกี่ยวกับแอป หรืออยากรายงานปัญหา โปรดติดต่อเรา",
+    p2: `ข้อเสนอแนะของคุณช่วยให้ ${CONFIG.appName} ดีขึ้นสำหรับทุกคน`,
+    emailLabel: "อีเมล",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. สงวนลิขสิทธิ์`
+  },
+
+  // Turkish
+  "tr": {
+    langLabel: "Dil:",
+    heading: "Destek",
+    p1: "Sorularınız varsa, uygulama için yardıma ihtiyacınız olursa veya bir sorunu bildirmek isterseniz lütfen bize ulaşın.",
+    p2: `Geri bildiriminiz, ${CONFIG.appName} uygulamasını herkes için iyileştirmemize yardımcı olur.`,
+    emailLabel: "E-posta",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Tüm hakları saklıdır.`
+  },
+
+  // Ukrainian
+  "uk": {
+    langLabel: "Мова:",
+    heading: "Підтримка",
+    p1: "Якщо у вас є запитання, потрібна допомога з додатком або ви хочете повідомити про проблему — зв’яжіться з нами.",
+    p2: `Ваш відгук допомагає покращувати ${CONFIG.appName} для всіх.`,
+    emailLabel: "Е-пошта",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Усі права захищені.`
+  },
+
+  // Vietnamese
+  "vi": {
+    langLabel: "Ngôn ngữ:",
+    heading: "Hỗ trợ",
+    p1: "Nếu bạn có câu hỏi, cần trợ giúp với ứng dụng hoặc muốn báo cáo sự cố — hãy liên hệ với chúng tôi.",
+    p2: `Phản hồi của bạn giúp cải thiện ${CONFIG.appName} cho mọi người.`,
+    emailLabel: "Email",
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Bảo lưu mọi quyền.`
+  }
+};
+
+/* ======== Locale plumbing / fallbacks ======== */
+function normalize(code) { return (code || "en").replace("_","-"); }
+function baseOf(code) { return normalize(code).split("-")[0]; }
+
+function bestLocale() {
+  const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
+  const norm = normalize(nav);
+  if (T[norm]) return norm;
+  const base = baseOf(norm);
+  if (T[base]) return base;
+  return "en";
+}
+
+const langSelect = document.getElementById("lang");
+
+function populateLanguageOptions(current) {
+  const keys = Object.keys(T).sort();
+  langSelect.innerHTML = "";
+  keys.forEach(k => {
+    const opt = document.createElement("option");
+    opt.value = k; opt.textContent = k;
+    if (k === current) opt.selected = true;
+    langSelect.appendChild(opt);
+  });
+}
+
+function pickStrings(locale) {
+  // Merge base language into region variant if region is empty object
+  if (T[locale] && Object.keys(T[locale]).length) return T[locale];
+  const base = baseOf(locale);
+  return T[base] || T["en"];
+}
+
+function render(locale) {
+  const t = pickStrings(locale);
+
+  document.documentElement.lang = locale;
+  document.documentElement.dir = RTL.has(locale) ? "rtl" : "ltr";
+
+  document.getElementById("appName").textContent = CONFIG.appName;
+  document.getElementById("langLabel").textContent = t.langLabel || "Language:";
+  document.getElementById("supportHeading").textContent = t.heading;
+  document.getElementById("supportText1").textContent = t.p1;
+  document.getElementById("supportText2").textContent = t.p2;
+
+  const ul = document.getElementById("contactList");
+  ul.innerHTML = "";
+  const li = document.createElement("li");
+  li.innerHTML = `<strong>${t.emailLabel || "Email"}:</strong> <a href="mailto:${CONFIG.contactEmail}">${CONFIG.contactEmail}</a>`;
+  ul.appendChild(li);
+
+  document.getElementById("footer").textContent = t.footer;
+}
+
+/* ======== Init ======== */
+(function init() {
+  const locale = bestLocale();
+  populateLanguageOptions(locale);
+  render(locale);
+  langSelect.addEventListener("change", e => render(e.target.value));
+})();
+</script>
+</body>
+</html>
