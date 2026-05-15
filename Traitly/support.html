@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traitly Support</title>
+  <meta name="color-scheme" content="light dark"/>
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --fg: #1f2937;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --accent: #7c3aed;
+      --border: #e5e7eb;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f14;
+        --fg: #e5e7eb;
+        --muted: #9ca3af;
+        --card: #121821;
+        --accent: #a78bfa;
+        --border: #1f2937;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 800px at 75% -10%, #ede9fe55, transparent 60%),
+        radial-gradient(1000px 600px at 0% 110%, #dbeafe44, transparent 60%),
+        var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: clamp(16px, 4vw, 64px) auto;
+      padding: clamp(12px, 2vw, 24px);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(20px, 3vw, 40px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      letter-spacing: .2px;
+    }
+
+    h2 {
+      margin: 1.2rem 0 .6rem;
+      font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+    }
+
+    p,
+    li {
+      font-size: clamp(.98rem, 1.6vw, 1.05rem);
+    }
+
+    ul {
+      margin: .4rem 0 .8rem 1.2rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    select {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: 1.2rem;
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    [dir="rtl"] .card {
+      direction: rtl;
+    }
+
+    [dir="rtl"] ul {
+      margin-left: 0;
+      margin-right: 1.2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <h1 id="appName">Traitly</h1>
+
+        <div class="controls">
+          <label for="lang" class="muted" id="langLabel">Language:</label>
+          <select id="lang"></select>
+        </div>
+      </header>
+
+      <h2 id="supportHeading">Support</h2>
+      <p id="supportText1"></p>
+      <p id="supportText2"></p>
+
+      <h2 id="helpHeading">How We Can Help</h2>
+      <ul id="helpList"></ul>
+
+      <h2 id="beforeContactHeading">Before Contacting Us</h2>
+      <ul id="beforeContactList"></ul>
+
+      <h2 id="contactHeading">Contact</h2>
+      <p id="contactText"></p>
+      <ul id="contactList"></ul>
+
+      <div class="footer" id="footer"></div>
+    </div>
+  </div>
+
+<script>
+/* ========= CONFIG ========= */
+const CONFIG = {
+  appName: "Traitly",
+  contactEmail: "jcanhita.apps@gmail.com",
+  copyrightOwner: "Traitly",
+  year: new Date().getFullYear()
+};
+
+/* ========= Locale + Translations ========= */
+const RTL = new Set(["ar", "ar-SA", "he"]);
+
+const T = {
+  "en": {
+    langLabel: "Language:",
+    heading: "Support",
+    p1: `Need help with ${CONFIG.appName}? Contact us for app issues, quiz/results questions, purchase access, restore purchases, privacy questions, or bug reports.`,
+    p2: "When reporting a problem, include your device model, iOS version, app version, and a short description of what happened.",
+
+    helpHeading: "How We Can Help",
+    helpList: [
+      "Questions about quiz flow, results, archetypes, or career suggestions",
+      "Traitly Pro access, subscriptions, or restore purchases",
+      "Bug reports, crashes, or performance issues",
+      "Privacy questions or requests",
+      "Feedback about wording, clarity, or feature usefulness"
+    ],
+
+    beforeContactHeading: "Before Contacting Us",
+    beforeContactList: [
+      "Make sure you are using the latest version of the app.",
+      "If a purchase is not showing, try Restore Purchases inside the app.",
+      "If the app behaves unexpectedly, restart the app and try again.",
+      "Do not send quiz answers or screenshots containing private information unless necessary."
+    ],
+
+    contactHeading: "Contact",
+    contactText: "For support, contact us by email:",
+    emailLabel: "Email",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. All rights reserved.`
+  },
+
+  "pt-PT": {
+    langLabel: "Idioma:",
+    heading: "Suporte",
+    p1: `Precisa de ajuda com a ${CONFIG.appName}? Contacte-nos para problemas da app, dúvidas sobre questionários/resultados, acesso a compras, restaurar compras, questões de privacidade ou erros.`,
+    p2: "Ao reportar um problema, inclua o modelo do dispositivo, versão do iOS, versão da app e uma breve descrição do que aconteceu.",
+
+    helpHeading: "Como podemos ajudar",
+    helpList: [
+      "Dúvidas sobre o questionário, resultados, arquétipos ou sugestões de carreira",
+      "Acesso ao Traitly Pro, subscrições ou restaurar compras",
+      "Erros, falhas ou problemas de desempenho",
+      "Questões ou pedidos de privacidade",
+      "Feedback sobre texto, clareza ou utilidade das funcionalidades"
+    ],
+
+    beforeContactHeading: "Antes de nos contactar",
+    beforeContactList: [
+      "Confirme que está a usar a versão mais recente da app.",
+      "Se uma compra não aparecer, tente Restaurar Compras dentro da app.",
+      "Se a app se comportar de forma inesperada, reinicie a app e tente novamente.",
+      "Não envie respostas ao questionário ou capturas de ecrã com informação privada, salvo se for necessário."
+    ],
+
+    contactHeading: "Contacto",
+    contactText: "Para suporte, contacte-nos por email:",
+    emailLabel: "Email",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Todos os direitos reservados.`
+  },
+
+  "pt-BR": {
+    langLabel: "Idioma:",
+    heading: "Suporte",
+    p1: `Precisa de ajuda com o ${CONFIG.appName}? Fale conosco sobre problemas no app, dúvidas sobre questionário/resultados, acesso a compras, restaurar compras, privacidade ou bugs.`,
+    p2: "Ao relatar um problema, inclua o modelo do dispositivo, versão do iOS, versão do app e uma breve descrição do que aconteceu.",
+
+    helpHeading: "Como podemos ajudar",
+    helpList: [
+      "Dúvidas sobre o questionário, resultados, arquétipos ou sugestões de carreira",
+      "Acesso ao Traitly Pro, assinaturas ou restaurar compras",
+      "Bugs, falhas ou problemas de desempenho",
+      "Questões ou solicitações de privacidade",
+      "Feedback sobre texto, clareza ou utilidade dos recursos"
+    ],
+
+    beforeContactHeading: "Antes de entrar em contato",
+    beforeContactList: [
+      "Verifique se você está usando a versão mais recente do app.",
+      "Se uma compra não aparecer, tente Restaurar Compras dentro do app.",
+      "Se o app se comportar de forma inesperada, reinicie o app e tente novamente.",
+      "Não envie respostas do questionário ou capturas de tela com informações privadas, a menos que seja necessário."
+    ],
+
+    contactHeading: "Contato",
+    contactText: "Para suporte, entre em contato por e-mail:",
+    emailLabel: "E-mail",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Todos os direitos reservados.`
+  },
+
+  "es": {
+    langLabel: "Idioma:",
+    heading: "Soporte",
+    p1: `¿Necesitas ayuda con ${CONFIG.appName}? Contáctanos por problemas de la app, preguntas sobre cuestionario/resultados, acceso a compras, restaurar compras, privacidad o errores.`,
+    p2: "Al reportar un problema, incluye el modelo del dispositivo, versión de iOS, versión de la app y una breve descripción de lo ocurrido.",
+
+    helpHeading: "Cómo podemos ayudar",
+    helpList: [
+      "Preguntas sobre el cuestionario, resultados, arquetipos o sugerencias profesionales",
+      "Acceso a Traitly Pro, suscripciones o restaurar compras",
+      "Errores, fallos o problemas de rendimiento",
+      "Preguntas o solicitudes de privacidad",
+      "Comentarios sobre redacción, claridad o utilidad de funciones"
+    ],
+
+    beforeContactHeading: "Antes de contactarnos",
+    beforeContactList: [
+      "Asegúrate de usar la versión más reciente de la app.",
+      "Si una compra no aparece, intenta Restaurar compras dentro de la app.",
+      "Si la app se comporta de forma inesperada, reiníciala e inténtalo de nuevo.",
+      "No envíes respuestas del cuestionario ni capturas con información privada salvo que sea necesario."
+    ],
+
+    contactHeading: "Contacto",
+    contactText: "Para soporte, contáctanos por correo electrónico:",
+    emailLabel: "Correo electrónico",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Todos los derechos reservados.`
+  },
+
+  "fr": {
+    langLabel: "Langue :",
+    heading: "Assistance",
+    p1: `Besoin d’aide avec ${CONFIG.appName} ? Contactez-nous pour les problèmes d’app, questions sur le questionnaire/résultats, accès aux achats, restauration des achats, confidentialité ou bugs.`,
+    p2: "Lorsque vous signalez un problème, indiquez le modèle de l’appareil, la version d’iOS, la version de l’app et une brève description de ce qui s’est passé.",
+
+    helpHeading: "Comment nous pouvons aider",
+    helpList: [
+      "Questions sur le questionnaire, les résultats, les archétypes ou les suggestions de carrière",
+      "Accès à Traitly Pro, abonnements ou restauration des achats",
+      "Bugs, crashs ou problèmes de performance",
+      "Questions ou demandes relatives à la confidentialité",
+      "Commentaires sur le texte, la clarté ou l’utilité des fonctionnalités"
+    ],
+
+    beforeContactHeading: "Avant de nous contacter",
+    beforeContactList: [
+      "Assurez-vous d’utiliser la dernière version de l’app.",
+      "Si un achat n’apparaît pas, essayez Restaurer les achats dans l’app.",
+      "Si l’app se comporte de manière inattendue, redémarrez-la et réessayez.",
+      "N’envoyez pas de réponses au questionnaire ni de captures contenant des informations privées sauf si nécessaire."
+    ],
+
+    contactHeading: "Contact",
+    contactText: "Pour obtenir de l’aide, contactez-nous par e-mail :",
+    emailLabel: "E-mail",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Tous droits réservés.`
+  },
+
+  "de": {
+    langLabel: "Sprache:",
+    heading: "Support",
+    p1: `Benötigen Sie Hilfe mit ${CONFIG.appName}? Kontaktieren Sie uns bei App-Problemen, Fragen zu Quiz/Ergebnissen, Kaufzugriff, Wiederherstellung von Käufen, Datenschutz oder Fehlern.`,
+    p2: "Wenn Sie ein Problem melden, geben Sie bitte Gerätemodell, iOS-Version, App-Version und eine kurze Beschreibung an.",
+
+    helpHeading: "Wie wir helfen können",
+    helpList: [
+      "Fragen zum Quiz, zu Ergebnissen, Archetypen oder Karrierevorschlägen",
+      "Traitly Pro-Zugriff, Abonnements oder Wiederherstellung von Käufen",
+      "Fehler, Abstürze oder Leistungsprobleme",
+      "Datenschutzfragen oder -anfragen",
+      "Feedback zu Text, Klarheit oder Nützlichkeit von Funktionen"
+    ],
+
+    beforeContactHeading: "Vor der Kontaktaufnahme",
+    beforeContactList: [
+      "Stellen Sie sicher, dass Sie die neueste Version der App verwenden.",
+      "Wenn ein Kauf nicht angezeigt wird, versuchen Sie Käufe wiederherstellen in der App.",
+      "Wenn sich die App unerwartet verhält, starten Sie die App neu und versuchen Sie es erneut.",
+      "Senden Sie keine Quizantworten oder Screenshots mit privaten Informationen, sofern dies nicht notwendig ist."
+    ],
+
+    contactHeading: "Kontakt",
+    contactText: "Für Support kontaktieren Sie uns per E-Mail:",
+    emailLabel: "E-Mail",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Alle Rechte vorbehalten.`
+  },
+
+  "it": {
+    langLabel: "Lingua:",
+    heading: "Supporto",
+    p1: `Hai bisogno di aiuto con ${CONFIG.appName}? Contattaci per problemi dell’app, domande su quiz/risultati, accesso agli acquisti, ripristino acquisti, privacy o bug.`,
+    p2: "Quando segnali un problema, includi modello del dispositivo, versione iOS, versione dell’app e una breve descrizione di cosa è successo.",
+
+    helpHeading: "Come possiamo aiutare",
+    helpList: [
+      "Domande su quiz, risultati, archetipi o suggerimenti di carriera",
+      "Accesso a Traitly Pro, abbonamenti o ripristino acquisti",
+      "Bug, crash o problemi di prestazioni",
+      "Domande o richieste sulla privacy",
+      "Feedback su testi, chiarezza o utilità delle funzionalità"
+    ],
+
+    beforeContactHeading: "Prima di contattarci",
+    beforeContactList: [
+      "Assicurati di usare la versione più recente dell’app.",
+      "Se un acquisto non appare, prova Ripristina acquisti nell’app.",
+      "Se l’app si comporta in modo inatteso, riavviala e riprova.",
+      "Non inviare risposte al quiz o screenshot con informazioni private salvo se necessario."
+    ],
+
+    contactHeading: "Contatto",
+    contactText: "Per supporto, contattaci via e-mail:",
+    emailLabel: "E-mail",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Tutti i diritti riservati.`
+  },
+
+  "ja": {
+    langLabel: "言語：",
+    heading: "サポート",
+    p1: `${CONFIG.appName} についてサポートが必要な場合は、アプリの問題、クイズ/結果、購入アクセス、購入の復元、プライバシー、バグ報告についてお問い合わせください。`,
+    p2: "問題を報告する際は、端末モデル、iOS バージョン、アプリバージョン、発生内容の簡単な説明を含めてください。",
+
+    helpHeading: "サポート内容",
+    helpList: [
+      "クイズ、結果、アーキタイプ、キャリア提案に関する質問",
+      "Traitly Pro へのアクセス、サブスクリプション、購入の復元",
+      "バグ、クラッシュ、パフォーマンスの問題",
+      "プライバシーに関する質問や依頼",
+      "文章、分かりやすさ、機能の有用性に関するフィードバック"
+    ],
+
+    beforeContactHeading: "お問い合わせ前に",
+    beforeContactList: [
+      "アプリの最新バージョンを使用していることを確認してください。",
+      "購入が表示されない場合は、アプリ内で購入の復元をお試しください。",
+      "アプリの動作が不安定な場合は、アプリを再起動して再度お試しください。",
+      "必要がない限り、個人情報を含むクイズ回答やスクリーンショットを送信しないでください。"
+    ],
+
+    contactHeading: "お問い合わせ",
+    contactText: "サポートが必要な場合はメールでお問い合わせください：",
+    emailLabel: "メール",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. 無断転載を禁じます。`
+  },
+
+  "ko": {
+    langLabel: "언어:",
+    heading: "지원",
+    p1: `${CONFIG.appName} 사용에 도움이 필요하신가요? 앱 문제, 퀴즈/결과 질문, 구매 접근, 구매 복원, 개인정보 또는 버그 신고에 대해 문의해 주세요.`,
+    p2: "문제를 신고할 때는 기기 모델, iOS 버전, 앱 버전 및 발생한 일에 대한 간단한 설명을 포함해 주세요.",
+
+    helpHeading: "도움이 가능한 내용",
+    helpList: [
+      "퀴즈 흐름, 결과, 아키타입 또는 진로 제안 관련 질문",
+      "Traitly Pro 접근, 구독 또는 구매 복원",
+      "버그, 충돌 또는 성능 문제",
+      "개인정보 관련 질문 또는 요청",
+      "문구, 명확성 또는 기능 유용성에 대한 피드백"
+    ],
+
+    beforeContactHeading: "문의 전 확인 사항",
+    beforeContactList: [
+      "최신 버전의 앱을 사용 중인지 확인해 주세요.",
+      "구매가 표시되지 않으면 앱 내에서 구매 복원을 시도해 주세요.",
+      "앱이 예상과 다르게 작동하면 앱을 다시 시작하고 다시 시도해 주세요.",
+      "필요하지 않은 경우 개인 정보가 포함된 퀴즈 답변이나 스크린샷을 보내지 마세요."
+    ],
+
+    contactHeading: "문의",
+    contactText: "지원이 필요하면 이메일로 문의해 주세요:",
+    emailLabel: "이메일",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. 판권 소유.`
+  },
+
+  "zh-Hans": {
+    langLabel: "语言：",
+    heading: "支持",
+    p1: `需要 ${CONFIG.appName} 的帮助？您可以就应用问题、问卷/结果、购买访问、恢复购买、隐私问题或错误报告联系我们。`,
+    p2: "报告问题时，请提供设备型号、iOS 版本、应用版本以及发生情况的简短说明。",
+
+    helpHeading: "我们可以帮助什么",
+    helpList: [
+      "关于问卷流程、结果、原型或职业建议的问题",
+      "Traitly Pro 访问、订阅或恢复购买",
+      "错误、崩溃或性能问题",
+      "隐私问题或请求",
+      "关于文字、清晰度或功能实用性的反馈"
+    ],
+
+    beforeContactHeading: "联系我们之前",
+    beforeContactList: [
+      "请确认您正在使用最新版本的应用。",
+      "如果购买未显示，请在应用内尝试恢复购买。",
+      "如果应用行为异常，请重启应用后重试。",
+      "除非必要，请不要发送包含私人信息的问卷答案或截图。"
+    ],
+
+    contactHeading: "联系",
+    contactText: "如需支持，请通过电子邮件联系我们：",
+    emailLabel: "电子邮箱",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}。保留所有权利。`
+  },
+
+  "zh-Hant": {
+    langLabel: "語言：",
+    heading: "支援",
+    p1: `需要 ${CONFIG.appName} 的協助嗎？您可以就應用程式問題、問卷/結果、購買存取、恢復購買、隱私問題或錯誤回報與我們聯絡。`,
+    p2: "回報問題時，請提供裝置型號、iOS 版本、應用程式版本，以及發生情況的簡短說明。",
+
+    helpHeading: "我們可以協助的事項",
+    helpList: [
+      "關於問卷流程、結果、原型或職涯建議的問題",
+      "Traitly Pro 存取、訂閱或恢復購買",
+      "錯誤、當機或效能問題",
+      "隱私問題或請求",
+      "關於文字、清晰度或功能實用性的回饋"
+    ],
+
+    beforeContactHeading: "聯絡我們之前",
+    beforeContactList: [
+      "請確認您正在使用最新版本的應用程式。",
+      "如果購買未顯示，請在應用程式內嘗試恢復購買。",
+      "如果應用程式行為異常，請重新啟動後再試一次。",
+      "除非必要，請不要傳送包含私人資訊的問卷答案或截圖。"
+    ],
+
+    contactHeading: "聯絡",
+    contactText: "如需支援，請透過電子郵件與我們聯絡：",
+    emailLabel: "電子郵件",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}。保留所有權利。`
+  },
+
+  "ar": {
+    langLabel: "اللغة:",
+    heading: "الدعم",
+    p1: `هل تحتاج إلى مساعدة في ${CONFIG.appName}؟ تواصل معنا بخصوص مشكلات التطبيق أو أسئلة الاختبار/النتائج أو الوصول إلى المشتريات أو استعادة المشتريات أو الخصوصية أو الإبلاغ عن الأخطاء.`,
+    p2: "عند الإبلاغ عن مشكلة، يرجى تضمين طراز الجهاز وإصدار iOS وإصدار التطبيق ووصفًا قصيرًا لما حدث.",
+
+    helpHeading: "كيف يمكننا المساعدة",
+    helpList: [
+      "أسئلة حول الاختبار أو النتائج أو الأنماط أو اقتراحات المهنة",
+      "الوصول إلى Traitly Pro أو الاشتراكات أو استعادة المشتريات",
+      "الأخطاء أو الأعطال أو مشكلات الأداء",
+      "أسئلة أو طلبات الخصوصية",
+      "ملاحظات حول النص أو الوضوح أو فائدة الميزات"
+    ],
+
+    beforeContactHeading: "قبل التواصل معنا",
+    beforeContactList: [
+      "تأكد من أنك تستخدم أحدث إصدار من التطبيق.",
+      "إذا لم تظهر عملية شراء، جرّب استعادة المشتريات داخل التطبيق.",
+      "إذا تصرف التطبيق بشكل غير متوقع، أعد تشغيله وحاول مرة أخرى.",
+      "لا ترسل إجابات الاختبار أو لقطات شاشة تحتوي على معلومات خاصة إلا إذا كان ذلك ضروريًا."
+    ],
+
+    contactHeading: "اتصل بنا",
+    contactText: "للحصول على الدعم، تواصل معنا عبر البريد الإلكتروني:",
+    emailLabel: "البريد الإلكتروني",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. جميع الحقوق محفوظة.`
+  },
+
+  "he": {
+    langLabel: "שפה:",
+    heading: "תמיכה",
+    p1: `זקוק לעזרה עם ${CONFIG.appName}? ניתן לפנות אלינו לגבי בעיות באפליקציה, שאלות על שאלון/תוצאות, גישה לרכישות, שחזור רכישות, פרטיות או דיווח על באגים.`,
+    p2: "בעת דיווח על בעיה, יש לציין דגם מכשיר, גרסת iOS, גרסת אפליקציה ותיאור קצר של מה שקרה.",
+
+    helpHeading: "כיצד נוכל לעזור",
+    helpList: [
+      "שאלות לגבי השאלון, תוצאות, ארכיטיפים או הצעות קריירה",
+      "גישה ל-Traitly Pro, מנויים או שחזור רכישות",
+      "באגים, קריסות או בעיות ביצועים",
+      "שאלות או בקשות בנושא פרטיות",
+      "משוב לגבי ניסוח, בהירות או שימושיות של תכונות"
+    ],
+
+    beforeContactHeading: "לפני יצירת קשר",
+    beforeContactList: [
+      "ודא שאתה משתמש בגרסה האחרונה של האפליקציה.",
+      "אם רכישה אינה מופיעה, נסה לשחזר רכישות בתוך האפליקציה.",
+      "אם האפליקציה מתנהגת באופן בלתי צפוי, הפעל אותה מחדש ונסה שוב.",
+      "אל תשלח תשובות לשאלון או צילומי מסך עם מידע פרטי אלא אם הדבר נחוץ."
+    ],
+
+    contactHeading: "צור קשר",
+    contactText: "לתמיכה, ניתן לפנות אלינו בדוא״ל:",
+    emailLabel: "דוא״ל",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. כל הזכויות שמורות.`
+  },
+
+  "ru": {
+    langLabel: "Язык:",
+    heading: "Поддержка",
+    p1: `Нужна помощь с ${CONFIG.appName}? Свяжитесь с нами по вопросам работы приложения, анкеты/результатов, доступа к покупкам, восстановления покупок, конфиденциальности или ошибок.`,
+    p2: "При сообщении о проблеме укажите модель устройства, версию iOS, версию приложения и краткое описание произошедшего.",
+
+    helpHeading: "Чем мы можем помочь",
+    helpList: [
+      "Вопросы о прохождении анкеты, результатах, архетипах или карьерных рекомендациях",
+      "Доступ к Traitly Pro, подписки или восстановление покупок",
+      "Ошибки, сбои или проблемы производительности",
+      "Вопросы или запросы по конфиденциальности",
+      "Отзывы о формулировках, понятности или полезности функций"
+    ],
+
+    beforeContactHeading: "Перед обращением",
+    beforeContactList: [
+      "Убедитесь, что используете последнюю версию приложения.",
+      "Если покупка не отображается, попробуйте восстановить покупки в приложении.",
+      "Если приложение работает неожиданно, перезапустите его и попробуйте снова.",
+      "Не отправляйте ответы анкеты или скриншоты с личной информацией, если это не требуется."
+    ],
+
+    contactHeading: "Контакт",
+    contactText: "Для поддержки свяжитесь с нами по электронной почте:",
+    emailLabel: "Эл. почта",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Все права защищены.`
+  },
+
+  "tr": {
+    langLabel: "Dil:",
+    heading: "Destek",
+    p1: `${CONFIG.appName} için yardıma mı ihtiyacınız var? Uygulama sorunları, quiz/sonuç soruları, satın alma erişimi, satın almaları geri yükleme, gizlilik veya hata bildirimleri için bize ulaşın.`,
+    p2: "Bir sorun bildirirken cihaz modelinizi, iOS sürümünüzü, uygulama sürümünüzü ve ne olduğuna dair kısa bir açıklama ekleyin.",
+
+    helpHeading: "Nasıl Yardımcı Olabiliriz",
+    helpList: [
+      "Quiz akışı, sonuçlar, arketipler veya kariyer önerileri hakkında sorular",
+      "Traitly Pro erişimi, abonelikler veya satın almaları geri yükleme",
+      "Hatalar, çökmeler veya performans sorunları",
+      "Gizlilik soruları veya talepleri",
+      "Metin, açıklık veya özellik kullanışlılığı hakkında geri bildirim"
+    ],
+
+    beforeContactHeading: "Bize Ulaşmadan Önce",
+    beforeContactList: [
+      "Uygulamanın en son sürümünü kullandığınızdan emin olun.",
+      "Bir satın alma görünmüyorsa uygulama içinde Satın Almaları Geri Yükle seçeneğini deneyin.",
+      "Uygulama beklenmedik davranıyorsa uygulamayı yeniden başlatıp tekrar deneyin.",
+      "Gerekli olmadıkça özel bilgi içeren quiz yanıtları veya ekran görüntüleri göndermeyin."
+    ],
+
+    contactHeading: "İletişim",
+    contactText: "Destek için bize e-posta ile ulaşın:",
+    emailLabel: "E-posta",
+
+    footer: `© ${CONFIG.year} ${CONFIG.copyrightOwner}. Tüm hakları saklıdır.`
+  },
+
+  "en-GB": {},
+  "en-AU": {},
+  "en-CA": {},
+  "es-MX": {},
+  "fr-CA": {},
+  "ar-SA": {}
+};
+
+/* ===== Locale plumbing ===== */
+function normalize(code) {
+  return (code || "en").replace("_", "-");
+}
+
+function baseOf(code) {
+  return normalize(code).split("-")[0];
+}
+
+function bestLocale() {
+  const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
+  const norm = normalize(nav);
+
+  if (T[norm]) {
+    return norm;
+  }
+
+  const base = baseOf(norm);
+
+  if (T[base]) {
+    return base;
+  }
+
+  return "en";
+}
+
+const langSelect = document.getElementById("lang");
+
+function populateLanguageOptions(current) {
+  const keys = Object.keys(T).sort();
+  langSelect.innerHTML = "";
+
+  keys.forEach(k => {
+    const opt = document.createElement("option");
+    opt.value = k;
+    opt.textContent = k;
+
+    if (k === current) {
+      opt.selected = true;
+    }
+
+    langSelect.appendChild(opt);
+  });
+}
+
+function pickStrings(locale) {
+  if (T[locale] && Object.keys(T[locale]).length) {
+    return T[locale];
+  }
+
+  const base = baseOf(locale);
+  return T[base] || T["en"];
+}
+
+function fillList(elementId, items) {
+  const ul = document.getElementById(elementId);
+  ul.innerHTML = "";
+
+  (items || []).forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    ul.appendChild(li);
+  });
+}
+
+function render(locale) {
+  const t = pickStrings(locale);
+
+  document.documentElement.lang = locale;
+  document.documentElement.dir = RTL.has(locale) ? "rtl" : "ltr";
+
+  document.getElementById("appName").textContent = CONFIG.appName;
+  document.getElementById("langLabel").textContent = t.langLabel || "Language:";
+
+  document.getElementById("supportHeading").textContent = t.heading;
+  document.getElementById("supportText1").textContent = t.p1;
+  document.getElementById("supportText2").textContent = t.p2;
+
+  document.getElementById("helpHeading").textContent = t.helpHeading;
+  fillList("helpList", t.helpList);
+
+  document.getElementById("beforeContactHeading").textContent = t.beforeContactHeading;
+  fillList("beforeContactList", t.beforeContactList);
+
+  document.getElementById("contactHeading").textContent = t.contactHeading;
+  document.getElementById("contactText").textContent = t.contactText;
+
+  const ul = document.getElementById("contactList");
+  ul.innerHTML = "";
+
+  const li = document.createElement("li");
+  li.innerHTML = `<strong>${t.emailLabel || "Email"}:</strong> <a href="mailto:${CONFIG.contactEmail}">${CONFIG.contactEmail}</a>`;
+  ul.appendChild(li);
+
+  document.getElementById("footer").textContent = t.footer;
+}
+
+/* Init */
+(function init() {
+  const locale = bestLocale();
+  populateLanguageOptions(locale);
+  render(locale);
+  langSelect.addEventListener("change", e => render(e.target.value));
+})();
+</script>
+</body>
+</html>

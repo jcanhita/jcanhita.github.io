@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traitly Privacy Policy</title>
+  <meta name="color-scheme" content="light dark"/>
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --fg: #1f2937;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --accent: #7c3aed;
+      --border: #e5e7eb;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f14;
+        --fg: #e5e7eb;
+        --muted: #9ca3af;
+        --card: #121821;
+        --accent: #a78bfa;
+        --border: #1f2937;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 800px at 75% -10%, #ede9fe55, transparent 60%),
+        radial-gradient(1000px 600px at 0% 110%, #dbeafe44, transparent 60%),
+        var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: clamp(16px, 4vw, 64px) auto;
+      padding: clamp(12px, 2vw, 24px);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(20px, 3vw, 40px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      letter-spacing: .2px;
+    }
+
+    h2 {
+      margin: 1.2rem 0 .6rem;
+      font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    }
+
+    p,
+    li {
+      font-size: clamp(.98rem, 1.6vw, 1.05rem);
+    }
+
+    ul {
+      margin: .4rem 0 .8rem 1.2rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .meta {
+      font-size: 0.95rem;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 16px 0 20px;
+    }
+
+    .footer {
+      margin-top: 1.2rem;
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    select {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    [dir="rtl"] .card {
+      direction: rtl;
+    }
+
+    [dir="rtl"] ul {
+      margin-left: 0;
+      margin-right: 1.2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card" id="policyCard">
+      <header>
+        <div>
+          <h1 id="title">Privacy Policy</h1>
+          <div class="meta muted" id="effectiveDate">Effective date: —</div>
+        </div>
+
+        <div class="controls">
+          <label for="lang" class="muted" id="langLabel">Language:</label>
+          <select id="lang"></select>
+        </div>
+      </header>
+
+      <hr/>
+
+      <section>
+        <h2 id="sectionSummary">Summary</h2>
+        <p id="pSummary1"></p>
+        <p id="pSummary2"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionPersonalData">Personal Data</h2>
+        <p id="pPersonalData1"></p>
+        <ul id="listPersonalData"></ul>
+        <p id="pPersonalData2"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionUsageStats">Anonymous Usage Statistics</h2>
+        <p id="pUsageStats1"></p>
+        <ul id="listUsageStats"></ul>
+        <p id="pUsageStats2"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionPurchases">Purchases and Subscriptions</h2>
+        <p id="pPurchases"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionNotifications">Notifications</h2>
+        <p id="pNotifications"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionDisclaimer">Personality and Self-Reflection Disclaimer</h2>
+        <p id="pDisclaimer"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionChanges">Changes to This Policy</h2>
+        <p id="pChanges1"></p>
+        <p id="pChanges2"></p>
+      </section>
+
+      <section>
+        <h2 id="sectionContact">Contact Us</h2>
+        <p id="pContact"></p>
+        <ul id="listContact"></ul>
+      </section>
+
+      <div class="footer" id="footerNote"></div>
+    </div>
+  </div>
+
+<script>
+/* ===== CONFIG ===== */
+const CONFIG = {
+  appName: "Traitly",
+  effectiveDateISO: "2026-05-15",
+  contactEmail: "jcanhita.apps@gmail.com",
+  copyrightOwner: "Traitly"
+};
+
+/* ===== Translations ===== */
+/*
+  Keep the legal meaning consistent across locales:
+  - No personal data collected.
+  - Quiz answers/results/history stay on-device.
+  - Anonymous, non-identifiable usage statistics may leave the device.
+  - Purchases handled by Apple.
+*/
+
+const T = {
+  "en": {
+    title: "Privacy Policy",
+    effectiveDatePrefix: "Effective date",
+    langLabel: "Language:",
+
+    sectionSummary: "Summary",
+    sectionPersonalData: "Personal Data",
+    sectionUsageStats: "Anonymous Usage Statistics",
+    sectionPurchases: "Purchases and Subscriptions",
+    sectionNotifications: "Notifications",
+    sectionDisclaimer: "Personality and Self-Reflection Disclaimer",
+    sectionChanges: "Changes to This Policy",
+    sectionContact: "Contact Us",
+
+    summary1: `${CONFIG.appName} is designed as a local-first personality insight app. Your quiz answers, Big Five trait scores, archetype matches, career suggestions, saved results, and comparison history are stored on your device.`,
+    summary2: `${CONFIG.appName} does not collect, store, share, or sell personal data. The only data that may leave your device is anonymous, non-identifiable usage and diagnostic information used to improve the app.`,
+
+    personalData1: `${CONFIG.appName} does not collect personal data. The following information remains on your device:`,
+    personalDataList: [
+      "Quiz answers",
+      "Big Five / OCEAN trait scores",
+      "Archetype matches",
+      "Career and work-style suggestions",
+      "Saved assessment history",
+      "Result comparisons over time"
+    ],
+    personalData2: "This information is not sent to our servers and is not sold, shared, or used to identify you.",
+
+    usageStats1: "Anonymous usage statistics may be collected to help improve app quality, performance, and feature design.",
+    usageStatsList: [
+      "App launches and general feature usage",
+      "Screen or feature interaction counts",
+      "Crash and performance diagnostics",
+      "App version, device type, operating system version, and language/locale"
+    ],
+    usageStats2: "These statistics are not linked to your name, email address, quiz answers, personality results, archetype matches, saved history, or any other personal profile.",
+
+    purchases: "If you purchase Traitly Pro or another paid feature, payment processing is handled by Apple through the App Store. We do not receive your payment card details. The app may use purchase entitlement status to unlock paid features on your device.",
+
+    notifications: "If you enable reminders, notifications are used only to remind you to retake an assessment or return to the app. You can disable notifications at any time in your device settings.",
+
+    disclaimer: `${CONFIG.appName} is intended for personal insight, self-reflection, and general educational use. It is not a medical, psychological, clinical, hiring, legal, or professional assessment tool. Results should not be used as a diagnosis or as the sole basis for important decisions.`,
+
+    changes1: "We may update this policy from time to time. When we do, we will update the Effective Date shown above.",
+    changes2: "You are encouraged to review this page periodically for any changes.",
+
+    contact: "If you have questions about this Privacy Policy, please contact us:",
+    emailLabel: "Email",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. All rights reserved.`
+  },
+
+  "pt-PT": {
+    title: "Política de Privacidade",
+    effectiveDatePrefix: "Data de entrada em vigor",
+    langLabel: "Idioma:",
+
+    sectionSummary: "Resumo",
+    sectionPersonalData: "Dados pessoais",
+    sectionUsageStats: "Estatísticas de utilização anónimas",
+    sectionPurchases: "Compras e subscrições",
+    sectionNotifications: "Notificações",
+    sectionDisclaimer: "Aviso sobre personalidade e autorreflexão",
+    sectionChanges: "Alterações a esta política",
+    sectionContact: "Contacte-nos",
+
+    summary1: `A ${CONFIG.appName} foi concebida como uma app de autoconhecimento com funcionamento local. As suas respostas ao questionário, pontuações dos traços Big Five, arquétipos, sugestões de carreira, resultados guardados e histórico de comparação ficam armazenados no seu dispositivo.`,
+    summary2: `A ${CONFIG.appName} não recolhe, armazena, partilha nem vende dados pessoais. Os únicos dados que podem sair do dispositivo são estatísticas de utilização e diagnóstico anónimas e não identificáveis, usadas para melhorar a app.`,
+
+    personalData1: `A ${CONFIG.appName} não recolhe dados pessoais. A seguinte informação permanece no seu dispositivo:`,
+    personalDataList: [
+      "Respostas ao questionário",
+      "Pontuações dos traços Big Five / OCEAN",
+      "Arquétipos atribuídos",
+      "Sugestões de carreira e estilo de trabalho",
+      "Histórico de avaliações guardadas",
+      "Comparações de resultados ao longo do tempo"
+    ],
+    personalData2: "Esta informação não é enviada para os nossos servidores e não é vendida, partilhada ou usada para o identificar.",
+
+    usageStats1: "Podem ser recolhidas estatísticas de utilização anónimas para ajudar a melhorar a qualidade, desempenho e desenho das funcionalidades da app.",
+    usageStatsList: [
+      "Aberturas da app e utilização geral de funcionalidades",
+      "Contagens de interação com ecrãs ou funcionalidades",
+      "Diagnóstico de falhas e desempenho",
+      "Versão da app, tipo de dispositivo, versão do sistema operativo e idioma/região"
+    ],
+    usageStats2: "Estas estatísticas não estão associadas ao seu nome, email, respostas ao questionário, resultados de personalidade, arquétipos, histórico guardado ou qualquer outro perfil pessoal.",
+
+    purchases: "Se comprar o Traitly Pro ou outra funcionalidade paga, o processamento do pagamento é feito pela Apple através da App Store. Não recebemos os dados do seu cartão. A app pode usar o estado da compra para desbloquear funcionalidades pagas no seu dispositivo.",
+
+    notifications: "Se ativar lembretes, as notificações são usadas apenas para o lembrar de repetir uma avaliação ou regressar à app. Pode desativar as notificações a qualquer momento nas definições do dispositivo.",
+
+    disclaimer: `A ${CONFIG.appName} destina-se a autoconhecimento, autorreflexão e uso educativo geral. Não é uma ferramenta médica, psicológica, clínica, de recrutamento, jurídica ou profissional. Os resultados não devem ser usados como diagnóstico nem como única base para decisões importantes.`,
+
+    changes1: "Podemos atualizar esta política periodicamente. Quando o fizermos, atualizaremos a data de entrada em vigor indicada acima.",
+    changes2: "Recomendamos que reveja esta página periodicamente.",
+
+    contact: "Se tiver dúvidas sobre esta Política de Privacidade, contacte-nos:",
+    emailLabel: "Email",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Todos os direitos reservados.`
+  },
+
+  "pt-BR": {
+    title: "Política de Privacidade",
+    effectiveDatePrefix: "Data de vigência",
+    langLabel: "Idioma:",
+
+    sectionSummary: "Resumo",
+    sectionPersonalData: "Dados pessoais",
+    sectionUsageStats: "Estatísticas de uso anônimas",
+    sectionPurchases: "Compras e assinaturas",
+    sectionNotifications: "Notificações",
+    sectionDisclaimer: "Aviso sobre personalidade e autorreflexão",
+    sectionChanges: "Alterações nesta política",
+    sectionContact: "Fale conosco",
+
+    summary1: `O ${CONFIG.appName} foi criado como um app de autoconhecimento com funcionamento local. Suas respostas ao questionário, pontuações dos traços Big Five, arquétipos, sugestões de carreira, resultados salvos e histórico de comparação ficam armazenados no seu dispositivo.`,
+    summary2: `O ${CONFIG.appName} não coleta, armazena, compartilha nem vende dados pessoais. Os únicos dados que podem sair do dispositivo são estatísticas de uso e diagnóstico anônimas e não identificáveis, usadas para melhorar o app.`,
+
+    personalData1: `O ${CONFIG.appName} não coleta dados pessoais. As seguintes informações permanecem no seu dispositivo:`,
+    personalDataList: [
+      "Respostas ao questionário",
+      "Pontuações dos traços Big Five / OCEAN",
+      "Arquétipos atribuídos",
+      "Sugestões de carreira e estilo de trabalho",
+      "Histórico de avaliações salvas",
+      "Comparações de resultados ao longo do tempo"
+    ],
+    personalData2: "Essas informações não são enviadas aos nossos servidores e não são vendidas, compartilhadas ou usadas para identificar você.",
+
+    usageStats1: "Estatísticas de uso anônimas podem ser coletadas para ajudar a melhorar a qualidade, o desempenho e o design das funcionalidades do app.",
+    usageStatsList: [
+      "Aberturas do app e uso geral de funcionalidades",
+      "Contagens de interação com telas ou funcionalidades",
+      "Diagnósticos de falhas e desempenho",
+      "Versão do app, tipo de dispositivo, versão do sistema operacional e idioma/região"
+    ],
+    usageStats2: "Essas estatísticas não são vinculadas ao seu nome, e-mail, respostas ao questionário, resultados de personalidade, arquétipos, histórico salvo ou qualquer outro perfil pessoal.",
+
+    purchases: "Se você comprar o Traitly Pro ou outro recurso pago, o processamento do pagamento é feito pela Apple por meio da App Store. Não recebemos os dados do seu cartão. O app pode usar o status da compra para desbloquear recursos pagos no seu dispositivo.",
+
+    notifications: "Se você ativar lembretes, as notificações serão usadas apenas para lembrar você de refazer uma avaliação ou retornar ao app. Você pode desativar as notificações a qualquer momento nos ajustes do dispositivo.",
+
+    disclaimer: `O ${CONFIG.appName} destina-se a autoconhecimento, autorreflexão e uso educativo geral. Não é uma ferramenta médica, psicológica, clínica, de contratação, jurídica ou profissional. Os resultados não devem ser usados como diagnóstico nem como única base para decisões importantes.`,
+
+    changes1: "Podemos atualizar esta política periodicamente. Quando isso ocorrer, atualizaremos a data de vigência indicada acima.",
+    changes2: "Recomendamos que você revise esta página periodicamente.",
+
+    contact: "Se tiver dúvidas sobre esta Política de Privacidade, entre em contato:",
+    emailLabel: "E-mail",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Todos os direitos reservados.`
+  },
+
+  "es": {
+    title: "Política de privacidad",
+    effectiveDatePrefix: "Fecha de entrada en vigor",
+    langLabel: "Idioma:",
+
+    sectionSummary: "Resumen",
+    sectionPersonalData: "Datos personales",
+    sectionUsageStats: "Estadísticas de uso anónimas",
+    sectionPurchases: "Compras y suscripciones",
+    sectionNotifications: "Notificaciones",
+    sectionDisclaimer: "Aviso sobre personalidad y autorreflexión",
+    sectionChanges: "Cambios en esta política",
+    sectionContact: "Contacto",
+
+    summary1: `${CONFIG.appName} está diseñada como una app de autoconocimiento con funcionamiento local. Tus respuestas, puntuaciones Big Five, arquetipos, sugerencias profesionales, resultados guardados e historial de comparación se almacenan en tu dispositivo.`,
+    summary2: `${CONFIG.appName} no recopila, almacena, comparte ni vende datos personales. Los únicos datos que pueden salir del dispositivo son estadísticas de uso y diagnóstico anónimas y no identificables, utilizadas para mejorar la app.`,
+
+    personalData1: `${CONFIG.appName} no recopila datos personales. La siguiente información permanece en tu dispositivo:`,
+    personalDataList: [
+      "Respuestas del cuestionario",
+      "Puntuaciones Big Five / OCEAN",
+      "Arquetipos asignados",
+      "Sugerencias de carrera y estilo de trabajo",
+      "Historial de evaluaciones guardadas",
+      "Comparaciones de resultados a lo largo del tiempo"
+    ],
+    personalData2: "Esta información no se envía a nuestros servidores y no se vende, comparte ni utiliza para identificarte.",
+
+    usageStats1: "Se pueden recopilar estadísticas de uso anónimas para mejorar la calidad, el rendimiento y el diseño de funciones de la app.",
+    usageStatsList: [
+      "Aperturas de la app y uso general de funciones",
+      "Conteos de interacción con pantallas o funciones",
+      "Diagnósticos de fallos y rendimiento",
+      "Versión de la app, tipo de dispositivo, versión del sistema operativo e idioma/región"
+    ],
+    usageStats2: "Estas estadísticas no están vinculadas a tu nombre, correo electrónico, respuestas, resultados de personalidad, arquetipos, historial guardado ni ningún otro perfil personal.",
+
+    purchases: "Si compras Traitly Pro u otra función de pago, el procesamiento del pago lo realiza Apple a través de la App Store. No recibimos los datos de tu tarjeta. La app puede usar el estado de compra para desbloquear funciones de pago en tu dispositivo.",
+
+    notifications: "Si activas recordatorios, las notificaciones se usan únicamente para recordarte repetir una evaluación o volver a la app. Puedes desactivarlas en cualquier momento desde los ajustes del dispositivo.",
+
+    disclaimer: `${CONFIG.appName} está destinada al autoconocimiento, la autorreflexión y el uso educativo general. No es una herramienta médica, psicológica, clínica, laboral, legal ni profesional. Los resultados no deben usarse como diagnóstico ni como única base para decisiones importantes.`,
+
+    changes1: "Podemos actualizar esta política ocasionalmente. Cuando lo hagamos, actualizaremos la fecha de entrada en vigor indicada arriba.",
+    changes2: "Te recomendamos revisar esta página periódicamente.",
+
+    contact: "Si tienes preguntas sobre esta Política de privacidad, contáctanos:",
+    emailLabel: "Correo electrónico",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Todos los derechos reservados.`
+  },
+
+  "fr": {
+    title: "Politique de confidentialité",
+    effectiveDatePrefix: "Date d’entrée en vigueur",
+    langLabel: "Langue :",
+
+    sectionSummary: "Résumé",
+    sectionPersonalData: "Données personnelles",
+    sectionUsageStats: "Statistiques d’utilisation anonymes",
+    sectionPurchases: "Achats et abonnements",
+    sectionNotifications: "Notifications",
+    sectionDisclaimer: "Avertissement sur la personnalité et l’introspection",
+    sectionChanges: "Modifications de cette politique",
+    sectionContact: "Contact",
+
+    summary1: `${CONFIG.appName} est conçue comme une app d’introspection fonctionnant d’abord localement. Vos réponses, scores Big Five, archétypes, suggestions de carrière, résultats enregistrés et historique de comparaison restent stockés sur votre appareil.`,
+    summary2: `${CONFIG.appName} ne collecte, ne stocke, ne partage ni ne vend de données personnelles. Les seules données pouvant quitter votre appareil sont des statistiques anonymes et non identifiables d’utilisation et de diagnostic, utilisées pour améliorer l’app.`,
+
+    personalData1: `${CONFIG.appName} ne collecte pas de données personnelles. Les informations suivantes restent sur votre appareil :`,
+    personalDataList: [
+      "Réponses au questionnaire",
+      "Scores Big Five / OCEAN",
+      "Archétypes attribués",
+      "Suggestions de carrière et de style de travail",
+      "Historique des évaluations enregistrées",
+      "Comparaisons de résultats dans le temps"
+    ],
+    personalData2: "Ces informations ne sont pas envoyées à nos serveurs et ne sont ni vendues, ni partagées, ni utilisées pour vous identifier.",
+
+    usageStats1: "Des statistiques d’utilisation anonymes peuvent être collectées afin d’améliorer la qualité, les performances et la conception des fonctionnalités.",
+    usageStatsList: [
+      "Ouvertures de l’app et utilisation générale des fonctionnalités",
+      "Comptages d’interactions avec les écrans ou fonctionnalités",
+      "Diagnostics de crash et de performance",
+      "Version de l’app, type d’appareil, version du système d’exploitation et langue/région"
+    ],
+    usageStats2: "Ces statistiques ne sont pas liées à votre nom, adresse e-mail, réponses, résultats de personnalité, archétypes, historique enregistré ou tout autre profil personnel.",
+
+    purchases: "Si vous achetez Traitly Pro ou une autre fonctionnalité payante, le paiement est traité par Apple via l’App Store. Nous ne recevons pas vos informations de carte bancaire. L’app peut utiliser l’état de votre achat pour débloquer des fonctionnalités payantes sur votre appareil.",
+
+    notifications: "Si vous activez les rappels, les notifications servent uniquement à vous rappeler de refaire une évaluation ou de revenir dans l’app. Vous pouvez les désactiver à tout moment dans les réglages de votre appareil.",
+
+    disclaimer: `${CONFIG.appName} est destinée à l’introspection, à la réflexion personnelle et à un usage éducatif général. Ce n’est pas un outil médical, psychologique, clinique, de recrutement, juridique ou professionnel. Les résultats ne doivent pas être utilisés comme diagnostic ni comme seule base de décisions importantes.`,
+
+    changes1: "Nous pouvons mettre à jour cette politique de temps à autre. Dans ce cas, nous mettrons à jour la date d’entrée en vigueur ci-dessus.",
+    changes2: "Nous vous recommandons de consulter cette page périodiquement.",
+
+    contact: "Pour toute question concernant cette Politique de confidentialité, contactez-nous :",
+    emailLabel: "E-mail",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tous droits réservés.`
+  },
+
+  "de": {
+    title: "Datenschutzerklärung",
+    effectiveDatePrefix: "Geltungsdatum",
+    langLabel: "Sprache:",
+
+    sectionSummary: "Zusammenfassung",
+    sectionPersonalData: "Personenbezogene Daten",
+    sectionUsageStats: "Anonyme Nutzungsstatistiken",
+    sectionPurchases: "Käufe und Abonnements",
+    sectionNotifications: "Benachrichtigungen",
+    sectionDisclaimer: "Hinweis zu Persönlichkeit und Selbstreflexion",
+    sectionChanges: "Änderungen dieser Richtlinie",
+    sectionContact: "Kontakt",
+
+    summary1: `${CONFIG.appName} ist als lokal ausgerichtete App für Persönlichkeitseinblicke konzipiert. Ihre Quizantworten, Big-Five-Werte, Archetypen, Karrierevorschläge, gespeicherten Ergebnisse und Vergleichsverläufe werden auf Ihrem Gerät gespeichert.`,
+    summary2: `${CONFIG.appName} erhebt, speichert, teilt oder verkauft keine personenbezogenen Daten. Die einzigen Daten, die Ihr Gerät verlassen können, sind anonyme, nicht identifizierbare Nutzungs- und Diagnosedaten zur Verbesserung der App.`,
+
+    personalData1: `${CONFIG.appName} erhebt keine personenbezogenen Daten. Die folgenden Informationen verbleiben auf Ihrem Gerät:`,
+    personalDataList: [
+      "Quizantworten",
+      "Big Five / OCEAN-Werte",
+      "Zugeordnete Archetypen",
+      "Karriere- und Arbeitsstilvorschläge",
+      "Gespeicherter Bewertungsverlauf",
+      "Ergebnisvergleiche im Zeitverlauf"
+    ],
+    personalData2: "Diese Informationen werden nicht an unsere Server gesendet und nicht verkauft, geteilt oder zur Identifizierung verwendet.",
+
+    usageStats1: "Anonyme Nutzungsstatistiken können erhoben werden, um Qualität, Leistung und Funktionsdesign der App zu verbessern.",
+    usageStatsList: [
+      "App-Starts und allgemeine Funktionsnutzung",
+      "Interaktionszählungen für Bildschirme oder Funktionen",
+      "Absturz- und Leistungsdiagnosen",
+      "App-Version, Gerätetyp, Betriebssystemversion und Sprache/Region"
+    ],
+    usageStats2: "Diese Statistiken sind nicht mit Ihrem Namen, Ihrer E-Mail-Adresse, Ihren Quizantworten, Persönlichkeitsergebnissen, Archetypen, gespeicherten Verläufen oder einem anderen persönlichen Profil verknüpft.",
+
+    purchases: "Wenn Sie Traitly Pro oder eine andere kostenpflichtige Funktion kaufen, wird die Zahlung von Apple über den App Store verarbeitet. Wir erhalten keine Zahlungs- oder Kartendaten. Die App kann den Kaufstatus verwenden, um kostenpflichtige Funktionen auf Ihrem Gerät freizuschalten.",
+
+    notifications: "Wenn Sie Erinnerungen aktivieren, werden Benachrichtigungen nur verwendet, um Sie an eine erneute Bewertung oder die Rückkehr zur App zu erinnern. Sie können Benachrichtigungen jederzeit in den Geräteeinstellungen deaktivieren.",
+
+    disclaimer: `${CONFIG.appName} dient der persönlichen Einsicht, Selbstreflexion und allgemeinen Bildung. Es ist kein medizinisches, psychologisches, klinisches, arbeitsbezogenes, rechtliches oder professionelles Bewertungsinstrument. Ergebnisse sollten nicht als Diagnose oder alleinige Grundlage für wichtige Entscheidungen verwendet werden.`,
+
+    changes1: "Wir können diese Richtlinie von Zeit zu Zeit aktualisieren. Dabei wird das oben angegebene Geltungsdatum angepasst.",
+    changes2: "Bitte prüfen Sie diese Seite regelmäßig.",
+
+    contact: "Bei Fragen zu dieser Datenschutzerklärung kontaktieren Sie uns bitte:",
+    emailLabel: "E-Mail",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Alle Rechte vorbehalten.`
+  },
+
+  "it": {
+    title: "Informativa sulla privacy",
+    effectiveDatePrefix: "Data di efficacia",
+    langLabel: "Lingua:",
+
+    sectionSummary: "Riepilogo",
+    sectionPersonalData: "Dati personali",
+    sectionUsageStats: "Statistiche d’uso anonime",
+    sectionPurchases: "Acquisti e abbonamenti",
+    sectionNotifications: "Notifiche",
+    sectionDisclaimer: "Avviso su personalità e autoriflessione",
+    sectionChanges: "Modifiche alla presente informativa",
+    sectionContact: "Contattaci",
+
+    summary1: `${CONFIG.appName} è progettata come app di introspezione con funzionamento locale. Le risposte al quiz, i punteggi Big Five, gli archetipi, i suggerimenti di carriera, i risultati salvati e la cronologia dei confronti restano sul dispositivo.`,
+    summary2: `${CONFIG.appName} non raccoglie, archivia, condivide o vende dati personali. Gli unici dati che possono lasciare il dispositivo sono statistiche d’uso e diagnostica anonime e non identificabili, usate per migliorare l’app.`,
+
+    personalData1: `${CONFIG.appName} non raccoglie dati personali. Le seguenti informazioni restano sul dispositivo:`,
+    personalDataList: [
+      "Risposte al quiz",
+      "Punteggi Big Five / OCEAN",
+      "Archetipi assegnati",
+      "Suggerimenti di carriera e stile di lavoro",
+      "Cronologia delle valutazioni salvate",
+      "Confronti dei risultati nel tempo"
+    ],
+    personalData2: "Queste informazioni non vengono inviate ai nostri server e non sono vendute, condivise o usate per identificarti.",
+
+    usageStats1: "Possono essere raccolte statistiche d’uso anonime per migliorare qualità, prestazioni e progettazione delle funzionalità dell’app.",
+    usageStatsList: [
+      "Aperture dell’app e uso generale delle funzionalità",
+      "Conteggi di interazione con schermate o funzionalità",
+      "Diagnostica di crash e prestazioni",
+      "Versione dell’app, tipo di dispositivo, versione del sistema operativo e lingua/area geografica"
+    ],
+    usageStats2: "Queste statistiche non sono collegate al tuo nome, email, risposte al quiz, risultati di personalità, archetipi, cronologia salvata o altro profilo personale.",
+
+    purchases: "Se acquisti Traitly Pro o un’altra funzionalità a pagamento, il pagamento è gestito da Apple tramite App Store. Non riceviamo i dati della tua carta. L’app può usare lo stato dell’acquisto per sbloccare funzionalità a pagamento sul dispositivo.",
+
+    notifications: "Se abiliti i promemoria, le notifiche sono usate solo per ricordarti di ripetere una valutazione o tornare nell’app. Puoi disattivarle in qualsiasi momento dalle impostazioni del dispositivo.",
+
+    disclaimer: `${CONFIG.appName} è destinata a introspezione, autoriflessione e uso educativo generale. Non è uno strumento medico, psicologico, clinico, di selezione del personale, legale o professionale. I risultati non devono essere usati come diagnosi né come unica base per decisioni importanti.`,
+
+    changes1: "Potremmo aggiornare questa informativa di tanto in tanto. In tal caso aggiorneremo la data di efficacia indicata sopra.",
+    changes2: "Ti invitiamo a consultare periodicamente questa pagina.",
+
+    contact: "Per domande su questa Informativa sulla privacy, contattaci:",
+    emailLabel: "E-mail",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tutti i diritti riservati.`
+  },
+
+  "ja": {
+    title: "プライバシーポリシー",
+    effectiveDatePrefix: "施行日",
+    langLabel: "言語：",
+
+    sectionSummary: "概要",
+    sectionPersonalData: "個人データ",
+    sectionUsageStats: "匿名の利用統計",
+    sectionPurchases: "購入とサブスクリプション",
+    sectionNotifications: "通知",
+    sectionDisclaimer: "性格分析と自己理解に関する注意事項",
+    sectionChanges: "本ポリシーの変更",
+    sectionContact: "お問い合わせ",
+
+    summary1: `${CONFIG.appName} は、端末内での利用を基本とした自己理解アプリです。クイズの回答、Big Five スコア、アーキタイプ、キャリア提案、保存された結果、比較履歴は端末内に保存されます。`,
+    summary2: `${CONFIG.appName} は個人データを収集、保存、共有、販売しません。端末外に送信される可能性があるのは、アプリ改善のための匿名かつ個人を特定できない利用統計および診断情報のみです。`,
+
+    personalData1: `${CONFIG.appName} は個人データを収集しません。以下の情報は端末内に残ります：`,
+    personalDataList: [
+      "クイズの回答",
+      "Big Five / OCEAN スコア",
+      "割り当てられたアーキタイプ",
+      "キャリアおよび働き方の提案",
+      "保存された診断履歴",
+      "時間経過による結果比較"
+    ],
+    personalData2: "これらの情報は当社サーバーに送信されず、販売、共有、または個人識別のために使用されません。",
+
+    usageStats1: "アプリの品質、性能、機能設計を改善するため、匿名の利用統計が収集される場合があります。",
+    usageStatsList: [
+      "アプリの起動および一般的な機能利用",
+      "画面または機能の操作回数",
+      "クラッシュおよびパフォーマンス診断",
+      "アプリバージョン、端末種別、OS バージョン、言語/地域"
+    ],
+    usageStats2: "これらの統計は、氏名、メールアドレス、クイズ回答、性格結果、アーキタイプ、保存履歴、その他の個人プロフィールとは関連付けられません。",
+
+    purchases: "Traitly Pro またはその他の有料機能を購入する場合、支払い処理は App Store を通じて Apple が行います。当社はカード情報を受け取りません。アプリは購入状態を使用して端末上で有料機能を解除する場合があります。",
+
+    notifications: "リマインダーを有効にした場合、通知は再診断やアプリへの再訪を促す目的でのみ使用されます。通知は端末設定からいつでも無効にできます。",
+
+    disclaimer: `${CONFIG.appName} は、自己理解、自己反省、一般的な教育目的のためのアプリです。医療、心理、臨床、採用、法律、または専門的な評価ツールではありません。結果を診断として、または重要な判断の唯一の根拠として使用しないでください。`,
+
+    changes1: "本ポリシーは随時更新される場合があります。その際は上記の施行日を更新します。",
+    changes2: "変更の有無を定期的にご確認ください。",
+
+    contact: "本プライバシーポリシーに関するお問い合わせは、以下までご連絡ください：",
+    emailLabel: "メール",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. 無断転載を禁じます。`
+  },
+
+  "ko": {
+    title: "개인정보 처리방침",
+    effectiveDatePrefix: "시행일",
+    langLabel: "언어:",
+
+    sectionSummary: "요약",
+    sectionPersonalData: "개인정보",
+    sectionUsageStats: "익명 사용 통계",
+    sectionPurchases: "구매 및 구독",
+    sectionNotifications: "알림",
+    sectionDisclaimer: "성격 및 자기 성찰 관련 고지",
+    sectionChanges: "본 방침의 변경",
+    sectionContact: "문의하기",
+
+    summary1: `${CONFIG.appName}은(는) 기기 중심으로 작동하는 자기 이해 앱입니다. 퀴즈 답변, Big Five 점수, 아키타입, 진로 제안, 저장된 결과 및 비교 기록은 기기에 저장됩니다.`,
+    summary2: `${CONFIG.appName}은(는) 개인정보를 수집, 저장, 공유 또는 판매하지 않습니다. 기기 밖으로 전송될 수 있는 유일한 데이터는 앱 개선을 위한 익명 및 비식별 사용/진단 정보입니다.`,
+
+    personalData1: `${CONFIG.appName}은(는) 개인정보를 수집하지 않습니다. 다음 정보는 기기에 남아 있습니다:`,
+    personalDataList: [
+      "퀴즈 답변",
+      "Big Five / OCEAN 점수",
+      "지정된 아키타입",
+      "진로 및 업무 스타일 제안",
+      "저장된 평가 기록",
+      "시간에 따른 결과 비교"
+    ],
+    personalData2: "이 정보는 당사 서버로 전송되지 않으며 판매, 공유 또는 식별 목적으로 사용되지 않습니다.",
+
+    usageStats1: "앱 품질, 성능 및 기능 설계를 개선하기 위해 익명 사용 통계가 수집될 수 있습니다.",
+    usageStatsList: [
+      "앱 실행 및 일반 기능 사용",
+      "화면 또는 기능 상호작용 횟수",
+      "충돌 및 성능 진단",
+      "앱 버전, 기기 유형, 운영체제 버전 및 언어/지역"
+    ],
+    usageStats2: "이 통계는 이름, 이메일 주소, 퀴즈 답변, 성격 결과, 아키타입, 저장 기록 또는 기타 개인 프로필과 연결되지 않습니다.",
+
+    purchases: "Traitly Pro 또는 기타 유료 기능을 구매하는 경우 결제 처리는 App Store를 통해 Apple이 수행합니다. 당사는 결제 카드 정보를 받지 않습니다. 앱은 구매 상태를 사용하여 기기에서 유료 기능을 잠금 해제할 수 있습니다.",
+
+    notifications: "알림을 활성화하면 평가 재실시 또는 앱 재방문을 상기시키는 용도로만 사용됩니다. 기기 설정에서 언제든지 알림을 비활성화할 수 있습니다.",
+
+    disclaimer: `${CONFIG.appName}은(는) 자기 이해, 자기 성찰 및 일반 교육 목적을 위한 앱입니다. 의료, 심리, 임상, 채용, 법률 또는 전문 평가 도구가 아닙니다. 결과를 진단이나 중요한 결정의 유일한 근거로 사용해서는 안 됩니다.`,
+
+    changes1: "본 방침은 수시로 업데이트될 수 있으며, 이 경우 위 시행일이 변경됩니다.",
+    changes2: "변경 사항 확인을 위해 이 페이지를 주기적으로 확인해 주세요.",
+
+    contact: "본 개인정보 처리방침에 대한 문의는 아래로 연락해 주세요:",
+    emailLabel: "이메일",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. 판권 소유.`
+  },
+
+  "zh-Hans": {
+    title: "隐私政策",
+    effectiveDatePrefix: "生效日期",
+    langLabel: "语言：",
+
+    sectionSummary: "摘要",
+    sectionPersonalData: "个人数据",
+    sectionUsageStats: "匿名使用统计",
+    sectionPurchases: "购买和订阅",
+    sectionNotifications: "通知",
+    sectionDisclaimer: "人格与自我反思免责声明",
+    sectionChanges: "本政策的变更",
+    sectionContact: "联系我们",
+
+    summary1: `${CONFIG.appName} 是一款以本地使用为主的人格洞察应用。您的问卷答案、Big Five 分数、原型匹配、职业建议、保存结果和比较历史会存储在您的设备上。`,
+    summary2: `${CONFIG.appName} 不收集、存储、共享或出售个人数据。唯一可能离开您设备的数据是用于改进应用的匿名、不可识别的使用和诊断信息。`,
+
+    personalData1: `${CONFIG.appName} 不收集个人数据。以下信息会保留在您的设备上：`,
+    personalDataList: [
+      "问卷答案",
+      "Big Five / OCEAN 特质分数",
+      "原型匹配",
+      "职业和工作风格建议",
+      "保存的评估历史",
+      "随时间变化的结果比较"
+    ],
+    personalData2: "这些信息不会发送到我们的服务器，也不会被出售、共享或用于识别您。",
+
+    usageStats1: "我们可能会收集匿名使用统计信息，以帮助改进应用质量、性能和功能设计。",
+    usageStatsList: [
+      "应用启动和一般功能使用",
+      "屏幕或功能交互次数",
+      "崩溃和性能诊断",
+      "应用版本、设备类型、操作系统版本和语言/地区"
+    ],
+    usageStats2: "这些统计信息不会与您的姓名、电子邮件、问卷答案、人格结果、原型匹配、保存历史或任何其他个人资料关联。",
+
+    purchases: "如果您购买 Traitly Pro 或其他付费功能，付款由 Apple 通过 App Store 处理。我们不会收到您的银行卡信息。应用可能会使用购买权益状态在您的设备上解锁付费功能。",
+
+    notifications: "如果您启用提醒，通知仅用于提醒您重新评估或返回应用。您可以随时在设备设置中关闭通知。",
+
+    disclaimer: `${CONFIG.appName} 仅用于个人洞察、自我反思和一般教育用途。它不是医疗、心理、临床、招聘、法律或专业评估工具。结果不应作为诊断，也不应作为重要决策的唯一依据。`,
+
+    changes1: "我们可能会不时更新本政策。更新时，我们会修改上方的生效日期。",
+    changes2: "建议您定期查看此页面以了解任何变更。",
+
+    contact: "如对本隐私政策有疑问，请联系我们：",
+    emailLabel: "电子邮箱",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}。保留所有权利。`
+  },
+
+  "zh-Hant": {
+    title: "隱私權政策",
+    effectiveDatePrefix: "生效日期",
+    langLabel: "語言：",
+
+    sectionSummary: "摘要",
+    sectionPersonalData: "個人資料",
+    sectionUsageStats: "匿名使用統計",
+    sectionPurchases: "購買與訂閱",
+    sectionNotifications: "通知",
+    sectionDisclaimer: "人格與自我反思免責聲明",
+    sectionChanges: "本政策之變更",
+    sectionContact: "聯絡我們",
+
+    summary1: `${CONFIG.appName} 是一款以本機使用為主的人格洞察應用程式。您的問卷答案、Big Five 分數、原型配對、職涯建議、儲存結果與比較紀錄會儲存在您的裝置上。`,
+    summary2: `${CONFIG.appName} 不會蒐集、儲存、分享或販售個人資料。唯一可能離開裝置的資料，是用於改善應用程式的匿名且不可識別的使用與診斷資訊。`,
+
+    personalData1: `${CONFIG.appName} 不會蒐集個人資料。以下資訊會保留在您的裝置上：`,
+    personalDataList: [
+      "問卷答案",
+      "Big Five / OCEAN 特質分數",
+      "原型配對",
+      "職涯與工作風格建議",
+      "已儲存的評估紀錄",
+      "隨時間變化的結果比較"
+    ],
+    personalData2: "這些資訊不會傳送到我們的伺服器，也不會被販售、分享或用於識別您。",
+
+    usageStats1: "我們可能會蒐集匿名使用統計，以協助改善應用程式品質、效能與功能設計。",
+    usageStatsList: [
+      "應用程式啟動與一般功能使用",
+      "畫面或功能互動次數",
+      "當機與效能診斷",
+      "應用程式版本、裝置類型、作業系統版本與語言/地區"
+    ],
+    usageStats2: "這些統計不會與您的姓名、電子郵件、問卷答案、人格結果、原型配對、儲存紀錄或任何其他個人檔案連結。",
+
+    purchases: "若您購買 Traitly Pro 或其他付費功能，付款由 Apple 透過 App Store 處理。我們不會收到您的付款卡資料。應用程式可能會使用購買權益狀態，在您的裝置上解鎖付費功能。",
+
+    notifications: "若您啟用提醒，通知僅用於提醒您重新評估或返回應用程式。您可隨時在裝置設定中關閉通知。",
+
+    disclaimer: `${CONFIG.appName} 僅供個人洞察、自我反思與一般教育用途。它不是醫療、心理、臨床、招聘、法律或專業評估工具。結果不應作為診斷，也不應作為重要決策的唯一依據。`,
+
+    changes1: "我們可能會不時更新本政策。更新時，我們會修改上方的生效日期。",
+    changes2: "建議您定期查看此頁面以了解任何變更。",
+
+    contact: "如對本隱私權政策有疑問，請與我們聯絡：",
+    emailLabel: "電子郵件",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}。保留所有權利。`
+  },
+
+  "ar": {
+    title: "سياسة الخصوصية",
+    effectiveDatePrefix: "تاريخ السريان",
+    langLabel: "اللغة:",
+
+    sectionSummary: "ملخص",
+    sectionPersonalData: "البيانات الشخصية",
+    sectionUsageStats: "إحصاءات استخدام مجهولة",
+    sectionPurchases: "المشتريات والاشتراكات",
+    sectionNotifications: "الإشعارات",
+    sectionDisclaimer: "تنبيه بشأن الشخصية والتأمل الذاتي",
+    sectionChanges: "التغييرات على هذه السياسة",
+    sectionContact: "اتصل بنا",
+
+    summary1: `تم تصميم ${CONFIG.appName} كتطبيق لفهم الذات يعمل محليًا أولًا. تبقى إجابات الاختبار ودرجات Big Five والأنماط المقترحة واقتراحات المهنة والنتائج المحفوظة وسجل المقارنات مخزنة على جهازك.`,
+    summary2: `${CONFIG.appName} لا يجمع أو يخزن أو يشارك أو يبيع البيانات الشخصية. البيانات الوحيدة التي قد تغادر جهازك هي معلومات استخدام وتشخيص مجهولة وغير قابلة للتعريف تُستخدم لتحسين التطبيق.`,
+
+    personalData1: `${CONFIG.appName} لا يجمع بيانات شخصية. تبقى المعلومات التالية على جهازك:`,
+    personalDataList: [
+      "إجابات الاختبار",
+      "درجات Big Five / OCEAN",
+      "الأنماط المقترحة",
+      "اقتراحات المهنة وأسلوب العمل",
+      "سجل التقييمات المحفوظة",
+      "مقارنات النتائج عبر الوقت"
+    ],
+    personalData2: "لا يتم إرسال هذه المعلومات إلى خوادمنا، ولا يتم بيعها أو مشاركتها أو استخدامها للتعرف عليك.",
+
+    usageStats1: "قد يتم جمع إحصاءات استخدام مجهولة لتحسين جودة التطبيق وأدائه وتصميم ميزاته.",
+    usageStatsList: [
+      "تشغيل التطبيق والاستخدام العام للميزات",
+      "عدد التفاعلات مع الشاشات أو الميزات",
+      "تشخيص الأعطال والأداء",
+      "إصدار التطبيق ونوع الجهاز وإصدار نظام التشغيل واللغة/المنطقة"
+    ],
+    usageStats2: "لا ترتبط هذه الإحصاءات باسمك أو بريدك الإلكتروني أو إجابات الاختبار أو نتائج الشخصية أو الأنماط أو السجل المحفوظ أو أي ملف شخصي آخر.",
+
+    purchases: "إذا اشتريت Traitly Pro أو أي ميزة مدفوعة أخرى، تتم معالجة الدفع بواسطة Apple عبر App Store. لا نتلقى بيانات بطاقة الدفع الخاصة بك. قد يستخدم التطبيق حالة الشراء لفتح الميزات المدفوعة على جهازك.",
+
+    notifications: "إذا قمت بتمكين التذكيرات، تُستخدم الإشعارات فقط لتذكيرك بإعادة التقييم أو العودة إلى التطبيق. يمكنك تعطيل الإشعارات في أي وقت من إعدادات الجهاز.",
+
+    disclaimer: `${CONFIG.appName} مخصص لفهم الذات والتأمل الشخصي والاستخدام التعليمي العام. ليس أداة طبية أو نفسية أو سريرية أو توظيفية أو قانونية أو مهنية. لا ينبغي استخدام النتائج كتشخيص أو كأساس وحيد لاتخاذ قرارات مهمة.`,
+
+    changes1: "قد نقوم بتحديث هذه السياسة من وقت لآخر. عند القيام بذلك، سنحدث تاريخ السريان أعلاه.",
+    changes2: "ننصحك بمراجعة هذه الصفحة دوريًا.",
+
+    contact: "إذا كانت لديك أسئلة حول سياسة الخصوصية هذه، يرجى التواصل معنا:",
+    emailLabel: "البريد الإلكتروني",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. جميع الحقوق محفوظة.`
+  },
+
+  "he": {
+    title: "מדיניות פרטיות",
+    effectiveDatePrefix: "תאריך תחולה",
+    langLabel: "שפה:",
+
+    sectionSummary: "סיכום",
+    sectionPersonalData: "מידע אישי",
+    sectionUsageStats: "סטטיסטיקות שימוש אנונימיות",
+    sectionPurchases: "רכישות ומנויים",
+    sectionNotifications: "התראות",
+    sectionDisclaimer: "הבהרה לגבי אישיות ורפלקציה עצמית",
+    sectionChanges: "שינויים במדיניות",
+    sectionContact: "צור קשר",
+
+    summary1: `${CONFIG.appName} נועדה כאפליקציית תובנות אישיות הפועלת בעיקר במכשיר. תשובות השאלון, ציוני Big Five, התאמות ארכיטיפ, הצעות קריירה, תוצאות שמורות והיסטוריית השוואות נשמרים במכשיר שלך.`,
+    summary2: `${CONFIG.appName} אינה אוספת, מאחסנת, משתפת או מוכרת מידע אישי. המידע היחיד שעשוי לצאת מהמכשיר הוא מידע שימוש ואבחון אנונימי שאינו מזהה אותך, המשמש לשיפור האפליקציה.`,
+
+    personalData1: `${CONFIG.appName} אינה אוספת מידע אישי. המידע הבא נשאר במכשיר שלך:`,
+    personalDataList: [
+      "תשובות לשאלון",
+      "ציוני Big Five / OCEAN",
+      "התאמות ארכיטיפ",
+      "הצעות קריירה וסגנון עבודה",
+      "היסטוריית הערכות שמורות",
+      "השוואות תוצאות לאורך זמן"
+    ],
+    personalData2: "מידע זה אינו נשלח לשרתים שלנו, אינו נמכר, אינו משותף ואינו משמש לזיהוי שלך.",
+
+    usageStats1: "ייתכן שייאספו סטטיסטיקות שימוש אנונימיות כדי לשפר את איכות האפליקציה, הביצועים ועיצוב התכונות.",
+    usageStatsList: [
+      "פתיחת האפליקציה ושימוש כללי בתכונות",
+      "ספירת אינטראקציות עם מסכים או תכונות",
+      "אבחון קריסות וביצועים",
+      "גרסת האפליקציה, סוג המכשיר, גרסת מערכת ההפעלה ושפה/אזור"
+    ],
+    usageStats2: "סטטיסטיקות אלו אינן מקושרות לשמך, כתובת הדוא״ל שלך, תשובות השאלון, תוצאות האישיות, הארכיטיפים, ההיסטוריה השמורה או כל פרופיל אישי אחר.",
+
+    purchases: "אם תרכוש את Traitly Pro או תכונה בתשלום אחרת, התשלום מעובד על ידי Apple דרך App Store. איננו מקבלים את פרטי כרטיס התשלום שלך. האפליקציה עשויה להשתמש בסטטוס הרכישה כדי לפתוח תכונות בתשלום במכשיר שלך.",
+
+    notifications: "אם תפעיל תזכורות, ההתראות ישמשו רק כדי להזכיר לך לבצע הערכה מחדש או לחזור לאפליקציה. ניתן לכבות התראות בכל עת בהגדרות המכשיר.",
+
+    disclaimer: `${CONFIG.appName} מיועדת לתובנה אישית, רפלקציה עצמית ושימוש חינוכי כללי. היא אינה כלי רפואי, פסיכולוגי, קליני, תעסוקתי, משפטי או מקצועי. אין להשתמש בתוצאות כאבחון או כבסיס יחיד להחלטות חשובות.`,
+
+    changes1: "אנו עשויים לעדכן מדיניות זו מעת לעת. כאשר נעשה זאת, נעדכן את תאריך התחולה המופיע למעלה.",
+    changes2: "מומלץ לעיין בדף זה מדי פעם.",
+
+    contact: "לשאלות לגבי מדיניות פרטיות זו, ניתן ליצור קשר:",
+    emailLabel: "דוא״ל",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. כל הזכויות שמורות.`
+  },
+
+  "ru": {
+    title: "Политика конфиденциальности",
+    effectiveDatePrefix: "Дата вступления в силу",
+    langLabel: "Язык:",
+
+    sectionSummary: "Краткое описание",
+    sectionPersonalData: "Персональные данные",
+    sectionUsageStats: "Анонимная статистика использования",
+    sectionPurchases: "Покупки и подписки",
+    sectionNotifications: "Уведомления",
+    sectionDisclaimer: "Предупреждение о личности и саморефлексии",
+    sectionChanges: "Изменения настоящей политики",
+    sectionContact: "Связаться с нами",
+
+    summary1: `${CONFIG.appName} создано как приложение для самопознания с локальным хранением. Ваши ответы, оценки Big Five, архетипы, карьерные рекомендации, сохраненные результаты и история сравнений хранятся на вашем устройстве.`,
+    summary2: `${CONFIG.appName} не собирает, не хранит, не передает и не продает персональные данные. Единственные данные, которые могут покидать устройство, — это анонимная, неидентифицируемая статистика использования и диагностики для улучшения приложения.`,
+
+    personalData1: `${CONFIG.appName} не собирает персональные данные. Следующая информация остается на вашем устройстве:`,
+    personalDataList: [
+      "Ответы на вопросы",
+      "Оценки Big Five / OCEAN",
+      "Назначенные архетипы",
+      "Рекомендации по карьере и стилю работы",
+      "История сохраненных оценок",
+      "Сравнение результатов во времени"
+    ],
+    personalData2: "Эта информация не отправляется на наши серверы, не продается, не передается и не используется для вашей идентификации.",
+
+    usageStats1: "Анонимная статистика использования может собираться для улучшения качества, производительности и дизайна функций приложения.",
+    usageStatsList: [
+      "Запуски приложения и общее использование функций",
+      "Количество взаимодействий с экранами или функциями",
+      "Диагностика сбоев и производительности",
+      "Версия приложения, тип устройства, версия ОС и язык/регион"
+    ],
+    usageStats2: "Эта статистика не связана с вашим именем, адресом электронной почты, ответами, результатами личности, архетипами, сохраненной историей или любым другим личным профилем.",
+
+    purchases: "Если вы покупаете Traitly Pro или другую платную функцию, платеж обрабатывается Apple через App Store. Мы не получаем данные вашей платежной карты. Приложение может использовать статус покупки для разблокировки платных функций на вашем устройстве.",
+
+    notifications: "Если вы включаете напоминания, уведомления используются только для напоминания о повторной оценке или возвращении в приложение. Вы можете отключить уведомления в настройках устройства.",
+
+    disclaimer: `${CONFIG.appName} предназначено для самопознания, саморефлексии и общего образовательного использования. Это не медицинский, психологический, клинический, кадровый, юридический или профессиональный инструмент оценки. Результаты не следует использовать как диагноз или единственное основание для важных решений.`,
+
+    changes1: "Мы можем время от времени обновлять эту политику. При обновлении будет изменена дата вступления в силу выше.",
+    changes2: "Рекомендуем периодически проверять эту страницу.",
+
+    contact: "Если у вас есть вопросы об этой Политике конфиденциальности, свяжитесь с нами:",
+    emailLabel: "Эл. почта",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Все права защищены.`
+  },
+
+  "tr": {
+    title: "Gizlilik Politikası",
+    effectiveDatePrefix: "Yürürlük tarihi",
+    langLabel: "Dil:",
+
+    sectionSummary: "Özet",
+    sectionPersonalData: "Kişisel Veriler",
+    sectionUsageStats: "Anonim Kullanım İstatistikleri",
+    sectionPurchases: "Satın Almalar ve Abonelikler",
+    sectionNotifications: "Bildirimler",
+    sectionDisclaimer: "Kişilik ve Öz Değerlendirme Uyarısı",
+    sectionChanges: "Bu Politikadaki Değişiklikler",
+    sectionContact: "Bize Ulaşın",
+
+    summary1: `${CONFIG.appName}, yerel öncelikli bir kişilik içgörü uygulaması olarak tasarlanmıştır. Quiz yanıtlarınız, Big Five puanlarınız, arketip eşleşmeleriniz, kariyer önerileriniz, kayıtlı sonuçlarınız ve karşılaştırma geçmişiniz cihazınızda saklanır.`,
+    summary2: `${CONFIG.appName} kişisel verileri toplamaz, saklamaz, paylaşmaz veya satmaz. Cihazınızdan ayrılabilecek tek veri, uygulamayı geliştirmek için kullanılan anonim ve kimliği belirlenemeyen kullanım ve tanılama bilgileridir.`,
+
+    personalData1: `${CONFIG.appName} kişisel veri toplamaz. Aşağıdaki bilgiler cihazınızda kalır:`,
+    personalDataList: [
+      "Quiz yanıtları",
+      "Big Five / OCEAN puanları",
+      "Atanan arketipler",
+      "Kariyer ve çalışma tarzı önerileri",
+      "Kayıtlı değerlendirme geçmişi",
+      "Zaman içindeki sonuç karşılaştırmaları"
+    ],
+    personalData2: "Bu bilgiler sunucularımıza gönderilmez, satılmaz, paylaşılmaz veya sizi tanımlamak için kullanılmaz.",
+
+    usageStats1: "Uygulama kalitesini, performansını ve özellik tasarımını iyileştirmek için anonim kullanım istatistikleri toplanabilir.",
+    usageStatsList: [
+      "Uygulama açılışları ve genel özellik kullanımı",
+      "Ekran veya özellik etkileşim sayıları",
+      "Çökme ve performans tanılamaları",
+      "Uygulama sürümü, cihaz türü, işletim sistemi sürümü ve dil/bölge"
+    ],
+    usageStats2: "Bu istatistikler adınız, e-posta adresiniz, quiz yanıtlarınız, kişilik sonuçlarınız, arketipleriniz, kayıtlı geçmişiniz veya başka bir kişisel profilinizle ilişkilendirilmez.",
+
+    purchases: "Traitly Pro veya başka bir ücretli özellik satın alırsanız ödeme işlemi App Store üzerinden Apple tarafından gerçekleştirilir. Kart bilgilerinizi almayız. Uygulama, ücretli özellikleri cihazınızda açmak için satın alma durumunu kullanabilir.",
+
+    notifications: "Hatırlatıcıları etkinleştirirseniz bildirimler yalnızca yeniden değerlendirme yapmanızı veya uygulamaya dönmenizi hatırlatmak için kullanılır. Bildirimleri cihaz ayarlarından istediğiniz zaman kapatabilirsiniz.",
+
+    disclaimer: `${CONFIG.appName} kişisel içgörü, öz değerlendirme ve genel eğitim amaçlıdır. Tıbbi, psikolojik, klinik, işe alım, hukuki veya profesyonel bir değerlendirme aracı değildir. Sonuçlar teşhis olarak veya önemli kararların tek dayanağı olarak kullanılmamalıdır.`,
+
+    changes1: "Bu politikayı zaman zaman güncelleyebiliriz. Güncellediğimizde yukarıdaki yürürlük tarihini değiştiririz.",
+    changes2: "Bu sayfayı düzenli olarak kontrol etmenizi öneririz.",
+
+    contact: "Bu Gizlilik Politikası hakkında sorularınız varsa bizimle iletişime geçin:",
+    emailLabel: "E-posta",
+
+    footer: `© ${new Date().getFullYear()} ${CONFIG.copyrightOwner}. Tüm hakları saklıdır.`
+  },
+
+  "en-GB": {},
+  "en-AU": {},
+  "en-CA": {},
+  "es-MX": {},
+  "fr-CA": {},
+  "ar-SA": {}
+};
+
+/* ===== Locale plumbing ===== */
+const RTL = new Set(["ar", "ar-SA", "he"]);
+const langSelect = document.getElementById("lang");
+
+function normalize(code) {
+  return (code || "en").replace("_", "-");
+}
+
+function baseOf(code) {
+  return normalize(code).split("-")[0];
+}
+
+function pickStrings(locale) {
+  const loc = normalize(locale);
+  if (T[loc] && Object.keys(T[loc]).length) {
+    return T[loc];
+  }
+
+  const base = baseOf(loc);
+  if (T[base] && Object.keys(T[base]).length) {
+    return T[base];
+  }
+
+  return T["en"];
+}
+
+function bestLocale() {
+  const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
+  const norm = normalize(nav);
+
+  if (T[norm]) {
+    return norm;
+  }
+
+  const base = baseOf(norm);
+  return T[base] ? base : "en";
+}
+
+function populateLanguageOptions(current) {
+  langSelect.innerHTML = "";
+
+  Object.keys(T).sort().forEach(k => {
+    const opt = document.createElement("option");
+    opt.value = k;
+    opt.textContent = k;
+
+    if (k === current) {
+      opt.selected = true;
+    }
+
+    langSelect.appendChild(opt);
+  });
+}
+
+function formatDate(iso, locale) {
+  try {
+    return new Date(iso).toLocaleDateString(locale, {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  } catch {
+    return iso;
+  }
+}
+
+function fillList(elementId, items) {
+  const ul = document.getElementById(elementId);
+  ul.innerHTML = "";
+
+  (items || []).forEach(x => {
+    const li = document.createElement("li");
+    li.textContent = x;
+    ul.appendChild(li);
+  });
+}
+
+function render(locale) {
+  const t = pickStrings(locale);
+
+  document.documentElement.lang = locale;
+  document.documentElement.dir = RTL.has(locale) ? "rtl" : "ltr";
+
+  document.getElementById("title").textContent = t.title;
+  document.getElementById("langLabel").textContent = t.langLabel || "Language:";
+  document.getElementById("effectiveDate").textContent = `${t.effectiveDatePrefix}: ${formatDate(CONFIG.effectiveDateISO, locale)}`;
+
+  document.getElementById("sectionSummary").textContent = t.sectionSummary;
+  document.getElementById("sectionPersonalData").textContent = t.sectionPersonalData;
+  document.getElementById("sectionUsageStats").textContent = t.sectionUsageStats;
+  document.getElementById("sectionPurchases").textContent = t.sectionPurchases;
+  document.getElementById("sectionNotifications").textContent = t.sectionNotifications;
+  document.getElementById("sectionDisclaimer").textContent = t.sectionDisclaimer;
+  document.getElementById("sectionChanges").textContent = t.sectionChanges;
+  document.getElementById("sectionContact").textContent = t.sectionContact;
+
+  document.getElementById("pSummary1").textContent = t.summary1;
+  document.getElementById("pSummary2").textContent = t.summary2;
+
+  document.getElementById("pPersonalData1").textContent = t.personalData1;
+  fillList("listPersonalData", t.personalDataList);
+  document.getElementById("pPersonalData2").textContent = t.personalData2;
+
+  document.getElementById("pUsageStats1").textContent = t.usageStats1;
+  fillList("listUsageStats", t.usageStatsList);
+  document.getElementById("pUsageStats2").textContent = t.usageStats2;
+
+  document.getElementById("pPurchases").textContent = t.purchases;
+  document.getElementById("pNotifications").textContent = t.notifications;
+  document.getElementById("pDisclaimer").textContent = t.disclaimer;
+
+  document.getElementById("pChanges1").textContent = t.changes1;
+  document.getElementById("pChanges2").textContent = t.changes2;
+
+  document.getElementById("pContact").textContent = t.contact;
+
+  const ulc = document.getElementById("listContact");
+  ulc.innerHTML = "";
+
+  const li = document.createElement("li");
+  li.innerHTML = `${t.emailLabel || "Email"}: <a href="mailto:${CONFIG.contactEmail}">${CONFIG.contactEmail}</a>`;
+  ulc.appendChild(li);
+
+  document.getElementById("footerNote").textContent = t.footer;
+}
+
+/* Init */
+(function init() {
+  const locale = bestLocale();
+  populateLanguageOptions(locale);
+  render(locale);
+  langSelect.addEventListener("change", e => render(e.target.value));
+})();
+</script>
+</body>
+</html>
